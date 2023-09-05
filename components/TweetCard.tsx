@@ -32,12 +32,14 @@ const TweetCard = ({ tweet, groups }: {
       <Text>{tweet.text}</Text>
       {tweet.extended_entities?.media && (
         <Grid>
-          {tweet.extended_entities.media.map((m) => {
+          {tweet.extended_entities.media.map((m, i) => {
             if (m.type === "photo") {
               const url = new URL(m.media_url_https);
               url.searchParams.set("name", "small");
               return (
                 <Image
+                  alt={`tweet image #${i + 1}`}
+                  key={url.href}
                   src={url.href}
                   fit={m.sizes.small.resize === "crop" ? "cover" : "contain"}
                   w={m.sizes.small.w}
@@ -81,17 +83,18 @@ const TweetCard = ({ tweet, groups }: {
         Promise.all(updates).then(() => setBelongGroup(targetGroup));
       }}
     />
-  ), [belongGroup, groups]);
+  ), [belongGroup, groups, tweet]);
 
   const embeddedTweet = useMemo(
     () => show ? <TweetEmbedded tweetId={tweet.id} /> : <></>,
-    [show],
+    [show, tweet],
   );
 
   useEffect(() => {
     if (!belongGroup) return;
     if (groups.map((v) => v.name).includes(belongGroup.name)) return;
     setBelongGroup(undefined);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [groups]);
 
   return (

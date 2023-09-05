@@ -32,7 +32,7 @@ const ImportTweetsCard = (props: MantineStyleProps) => {
   return (
     <Paper shadow="xs" p="sm" {...props}>
       <Title>Import tweets file</Title>
-      <Text>file "tweets.js" from data folder</Text>
+      <Text>file &quot;tweets.js&quot; from data folder</Text>
 
       {loading
         ? <ProgressPercent value={(doneCnt / allCnt) * 100} />

@@ -86,7 +86,8 @@ const Tweets = (
         </Group>
       </form>
     ),
-    [queryForm],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [groups, queryForm],
   );
 
   const tweetsComponent = useMemo(() =>
@@ -131,6 +132,7 @@ const Tweets = (
 
   useEffect(() => {
     if (tweets === undefined) reloadTweets(defaultTweetQuery);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

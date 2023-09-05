@@ -23,7 +23,7 @@ const TweetEmbedded = ({ tweetId, onShow, onFailed }: {
       title="Twitter Tweet"
       src={`https://platform.twitter.com/embed/Tweet.html?embedId=${widgetId}&frame=false&hideCard=false&hideThread=false&id=${tweetId}&lang=en&origin=https%3A%2F%2Fpublish.twitter.com%2F%23&theme=light`}
     />
-  ), [tweetHeight]);
+  ), [widgetId, tweetId, tweetHeight]);
   useEffect(() => {
     setNoTweet(false);
     setTweetHeight(0);
