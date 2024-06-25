@@ -72,7 +72,9 @@ const importTweetHistoryJson = async (
     (async () => {
       const sliced = sliceArray(groups, 100);
       for (const bat of sliced) {
-        await Promise.all(bat.map(db.groups.put))
+        await Promise.all(bat.map(async (group) => {
+          await db.groups.put(group)
+        }))
       }
     })(),
   ])
@@ -105,13 +107,14 @@ const ImportTweetsCard = (props: MantineStyleProps) => {
               let fileType: FileType
               if (file.name === "tweets.js") {
                 fileType = FileType.TWEET_JS
-              } else if (/^tweet-history-\d+\.json$/.test(file.name)) {
+              } else if (/^.+\.json$/.test(file.name)) {
                 fileType = FileType.TWEET_HISTORY_JSON
               } else {
                 setInputError(`File name is not supported: ${file.name}`)
                 return
               }
 
+              setDoneCnt(0)
               setLoading(true);
               const reader = new FileReader();
               reader.onload = async (e) => {
