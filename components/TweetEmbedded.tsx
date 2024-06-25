@@ -56,7 +56,7 @@ const TweetEmbedded = ({ tweetId, onShow, onFailed }: {
       {embedded}
       {!tweetHeight && (
         <>
-          {noTweet ? "Tweet has been deleted" : (
+          {noTweet ? "Failed to get or Tweet has been deleted" : (
             <Center>
               <Loader />
             </Center>
