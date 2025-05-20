@@ -44,7 +44,7 @@ jobs:
         working-directory: tweethistory
 
       - name: Build Flutter Web
-        run: flutter build web --web-renderer html --base-href /${{ steps.version.outputs.repository }}/
+        run: flutter build web --base-href /${{ steps.version.outputs.repository }}/
         working-directory: tweethistory
 
       - name: Setup Pages
