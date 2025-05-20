@@ -21,27 +21,39 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Repository
         id: version
         run: |
           REPOSITORY=$(echo ${{ github.repository }} | sed -e "s#.*/##")
           echo "repository=$REPOSITORY" >> $GITHUB_OUTPUT
+
       - name: Flutter
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.29.3'
           channel: 'stable'
           cache: true
-      - run: cd tweethistory
-      - run: flutter --version
-      - run: flutter pub get
-      - run: flutter build web --web-renderer html --base-href /${{ steps.version.outputs.repository }}/
+
+      - name: Flutter Version
+        run: flutter --version
+        working-directory: tweethistory
+
+      - name: Get Dependencies
+        run: flutter pub get
+        working-directory: tweethistory
+
+      - name: Build Flutter Web
+        run: flutter build web --web-renderer html --base-href /${{ steps.version.outputs.repository }}/
+        working-directory: tweethistory
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './build/web'
+          path: './tweethistory/build/web'
 
   deploy:
     environment:
