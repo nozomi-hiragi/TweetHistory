@@ -24,6 +24,8 @@ class TweetsScreen extends ConsumerWidget {
                 Tweet(
                   id: DateTime.now().toString(),
                   text: 'New Tweet ${DateTime.now()}',
+                  createdAt: DateTime.now(),
+                  media: [],
                 ),
               );
             },
@@ -36,6 +38,11 @@ class TweetsScreen extends ConsumerWidget {
           final tweet = tweets[index];
           return ListTile(
             title: Text(tweet.text),
+            subtitle: Text(tweet.createdAt.toString()),
+            leading:
+                tweet.media.isNotEmpty
+                    ? Image.network(tweet.media.first.url)
+                    : null,
             trailing: IconButton(
               icon: const Icon(Icons.delete),
               onPressed: () {
