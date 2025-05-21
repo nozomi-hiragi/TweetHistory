@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'features/tweets/tweets_screen.dart';
 import 'features/bin/bin_screen.dart';
 import 'features/settings/settings_screen.dart';
+import 'features/tweets/ui/tweets_upload_button.dart';
 
 void main() {
   runApp(ProviderScope(child: const MyApp()));
@@ -79,10 +80,17 @@ class _MyHomePageState extends State<MyHomePage> {
         currentIndex: _index,
         onTap: _onItemTapped,
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => {},
-        tooltip: 'Upload',
-        child: const Icon(Icons.add),
+      floatingActionButton: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 200),
+        switchInCurve: Curves.easeOutBack,
+        switchOutCurve: Curves.easeInBack,
+        transitionBuilder: (child, animation) {
+          return ScaleTransition(
+            scale: animation,
+            child: FadeTransition(opacity: animation, child: child),
+          );
+        },
+        child: _index == 0 ? const TweetsUploadButton() : null,
       ),
     );
   }

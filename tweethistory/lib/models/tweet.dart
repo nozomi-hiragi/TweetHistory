@@ -1,3 +1,5 @@
+import '../utils/timezone_utils.dart';
+
 class Tweet {
   final String id;
   final String text;
@@ -11,13 +13,33 @@ class Tweet {
     required this.media,
   });
 
+  factory Tweet.fromWrappedJson(Map<String, dynamic> json) {
+    final inner = json['tweet'];
+    if (inner is Map<String, dynamic>) {
+      return Tweet.fromJson(inner);
+    } else {
+      throw Exception('tweetフィールドが不正です');
+    }
+  }
+
   factory Tweet.fromJson(Map<String, dynamic> json) {
-    return Tweet(
-      id: json['id_str'] ?? json['id'].toString(),
-      text: json['full_text'] ?? '',
-      createdAt: DateTime.parse(json['created_at']),
-      media: Media.fromList(json['extended_entities']?['media']) ?? [],
-    );
+    final id = json['id']?.toString();
+    final text = json['full_text'] ?? '';
+    final createdAtStr = json['created_at'] as String;
+    final createdAt = parseTwitterDate(createdAtStr);
+
+    final mediaJson = json['entities']?['media'] as List?;
+    final media =
+        mediaJson != null
+            ? mediaJson.map((m) => Media.fromJson(m)).toList()
+            : <Media>[];
+
+    if (id == null) {
+      print('id: $id');
+      throw Exception('ツイートの必須データが欠落しています');
+    }
+
+    return Tweet(id: id, text: text, createdAt: createdAt, media: media);
   }
 
   Map<String, dynamic> toJson() => {
