@@ -1,57 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../models/tweet.dart';
-import '../../providers/tweet_provider.dart';
+import '../../providers/tweet_controller_provider.dart';
 
 class TweetsScreen extends ConsumerWidget {
   const TweetsScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tweets = ref.watch(tweetProvider);
-    final notifier = ref.read(tweetProvider.notifier);
+    final tweetState = ref.watch(tweetControllerProvider);
+    final controller = ref.read(tweetControllerProvider.notifier);
 
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('Tweets'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.add),
-            onPressed: () {
-              notifier.addTweet(
-                Tweet(
-                  id: DateTime.now().toString(),
-                  text: 'New Tweet ${DateTime.now()}',
-                  createdAt: DateTime.now(),
-                  media: [],
+    return tweetState.when(
+      loading: () => const Center(child: CircularProgressIndicator()),
+      error: (e, _) => Center(child: Text('エラー: $e')),
+      data: (state) {
+        return Scaffold(
+          appBar: AppBar(
+            backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+            title: const Text('Tweets'),
+          ),
+          body: ListView.builder(
+            itemCount: state.tweets.length,
+            itemBuilder: (context, index) {
+              final tweet = state.tweets[index];
+              return ListTile(
+                title: Text(tweet.text),
+                subtitle: Text(tweet.createdAt.toString()),
+                leading:
+                    tweet.media.isNotEmpty
+                        ? Image.network(tweet.media.first.url)
+                        : null,
+                trailing: IconButton(
+                  icon: const Icon(Icons.delete),
+                  onPressed: () {
+                    controller.removeTweet(tweet.id);
+                  },
                 ),
               );
             },
           ),
-        ],
-      ),
-      body: ListView.builder(
-        itemCount: tweets.length,
-        itemBuilder: (context, index) {
-          final tweet = tweets[index];
-          return ListTile(
-            title: Text(tweet.text),
-            subtitle: Text(tweet.createdAt.toString()),
-            leading:
-                tweet.media.isNotEmpty
-                    ? Image.network(tweet.media.first.url)
-                    : null,
-            trailing: IconButton(
-              icon: const Icon(Icons.delete),
-              onPressed: () {
-                notifier.removeTweet(tweet.id);
-              },
-            ),
-          );
-        },
-      ),
+        );
+      },
     );
   }
 }

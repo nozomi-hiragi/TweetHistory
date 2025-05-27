@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../providers/tweet_provider.dart';
+import '../../../providers/tweet_controller_provider.dart';
 import 'upload_dialog.dart';
 
 class TweetsUploadButton extends ConsumerWidget {
@@ -9,12 +9,12 @@ class TweetsUploadButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final notifier = ref.read(tweetProvider.notifier);
+    final notifier = ref.read(tweetControllerProvider.notifier);
     return FloatingActionButton(
       key: const ValueKey('fab'),
       onPressed: () {
         showUploadDialog(context, (tweets) {
-          notifier.addAll(tweets);
+          notifier.addTweets(tweets);
         });
       },
       tooltip: 'Upload',

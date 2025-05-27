@@ -1,74 +1,48 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+
 import '../utils/timezone_utils.dart';
 
-class Tweet {
-  final String id;
-  final String text;
-  final DateTime createdAt;
-  final List<Media> media;
+part 'tweet.freezed.dart';
+part 'tweet.g.dart';
 
-  const Tweet({
-    required this.id,
-    required this.text,
-    required this.createdAt,
-    required this.media,
-  });
+@freezed
+abstract class Tweet with _$Tweet {
+  const factory Tweet({
+    required String id,
+    required String text,
+    required DateTime createdAt,
+    @Default([]) List<Media> media,
+  }) = _Tweet;
 
-  factory Tweet.fromWrappedJson(Map<String, dynamic> json) {
-    final inner = json['tweet'];
-    if (inner is Map<String, dynamic>) {
-      return Tweet.fromJson(inner);
-    } else {
-      throw Exception('tweetフィールドが不正です');
-    }
-  }
+  factory Tweet.fromJson(Map<String, dynamic> json) => _$TweetFromJson(json);
 
-  factory Tweet.fromJson(Map<String, dynamic> json) {
-    final id = json['id']?.toString();
-    final text = json['full_text'] ?? '';
-    final createdAtStr = json['created_at'] as String;
-    final createdAt = parseTwitterDate(createdAtStr);
+  factory Tweet.fromRawJson(Map<String, dynamic> json) {
+    final tweet = json['tweet'] as Map<String, dynamic>;
 
-    final mediaJson = json['entities']?['media'] as List?;
+    final id = tweet['id'] as String;
+    final text = tweet['full_text'] as String;
+    final createdAt = parseTwitterDate(tweet['created_at'] as String);
+
+    final mediaJson = tweet['entities']?['media'] as List?;
     final media =
         mediaJson != null
-            ? mediaJson.map((m) => Media.fromJson(m)).toList()
+            ? mediaJson.map((m) => Media.fromRawJson(m)).toList()
             : <Media>[];
-
-    if (id == null) {
-      print('id: $id');
-      throw Exception('ツイートの必須データが欠落しています');
-    }
 
     return Tweet(id: id, text: text, createdAt: createdAt, media: media);
   }
-
-  Map<String, dynamic> toJson() => {
-    'id': id,
-    'text': text,
-    'createdAt': createdAt.toIso8601String(),
-    'media': media.map((m) => m.toJson()).toList(),
-  };
 }
 
-class Media {
-  final String url;
-  final String type;
+@freezed
+abstract class Media with _$Media {
+  const factory Media({required String url, required String type}) = _Media;
 
-  const Media({required this.url, required this.type});
+  factory Media.fromJson(Map<String, dynamic> json) => _$MediaFromJson(json);
 
-  factory Media.fromJson(Map<String, dynamic> json) {
+  factory Media.fromRawJson(Map<String, dynamic> json) {
     return Media(
       url: json['media_url_https'] ?? json['media_url'] ?? '',
       type: json['type'] ?? 'photo',
     );
-  }
-
-  Map<String, dynamic> toJson() => {'url': url, 'type': type};
-
-  static List<Media>? fromList(dynamic list) {
-    if (list is List) {
-      return list.map((e) => Media.fromJson(e)).toList();
-    }
-    return null;
   }
 }

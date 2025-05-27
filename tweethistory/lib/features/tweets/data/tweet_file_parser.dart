@@ -17,5 +17,5 @@ String extractJsonArray(String rawJsContent) {
 List<Tweet> parseTweetsFromJs(String rawJsContent) {
   final jsonStr = extractJsonArray(rawJsContent);
   final List<dynamic> rawList = jsonDecode(jsonStr);
-  return rawList.map((json) => Tweet.fromWrappedJson(json)).toList();
+  return rawList.map((json) => Tweet.fromRawJson(json)).toList();
 }
