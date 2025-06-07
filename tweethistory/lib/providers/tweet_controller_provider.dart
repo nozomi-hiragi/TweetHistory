@@ -5,12 +5,12 @@ import '../state/tweet_state.dart';
 import '../repository/tweet_repository.dart';
 
 class TweetControllerNotifier extends AsyncNotifier<TweetState> {
-  final TweetRepository repository = TweetRepository();
+  final TweetRepository _repository = TweetRepository();
 
   @override
   Future<TweetState> build() async {
-    await repository.init();
-    final loadedTweets = await repository.loadAllTweets();
+    await _repository.init();
+    final loadedTweets = await _repository.loadAllTweets();
     return loadedTweets.isNotEmpty
         ? TweetState(tweets: loadedTweets)
         : TweetState.empty();
@@ -18,7 +18,7 @@ class TweetControllerNotifier extends AsyncNotifier<TweetState> {
 
   void addTweets(List<Tweet> tweets) => state.when(
     data: (data) async {
-      await repository.saveTweets(tweets);
+      await _repository.saveTweets(tweets);
       state = AsyncData(data.copyWith(tweets: [...data.tweets, ...tweets]));
     },
     error: (error, stack) {},
@@ -27,7 +27,7 @@ class TweetControllerNotifier extends AsyncNotifier<TweetState> {
 
   void removeTweet(String id) => state.when(
     data: (data) async {
-      await repository.deleteTweet(id);
+      await _repository.deleteTweet(id);
       state = AsyncData(
         data.copyWith(tweets: data.tweets.where((t) => t.id != id).toList()),
       );
