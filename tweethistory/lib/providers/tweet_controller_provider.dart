@@ -2,42 +2,34 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../models/tweet.dart';
 import '../state/tweet_state.dart';
-import '../repository/tweet_repository.dart';
+import 'repository_provider.dart';
 
-class TweetControllerNotifier extends AsyncNotifier<TweetState> {
-  final TweetRepository _repository = TweetRepository();
-
+class TweetControllerNotifier extends Notifier<TweetState> {
   @override
-  Future<TweetState> build() async {
-    await _repository.init();
-    final loadedTweets = await _repository.loadAllTweets();
-    return loadedTweets.isNotEmpty
-        ? TweetState(tweets: loadedTweets)
-        : TweetState.empty();
+  TweetState build() {
+    final repository = ref.read(repositoryProvider).value!;
+    repository.loadAllTweets().then((tweets) {
+      state = (TweetState(tweets: tweets));
+    });
+    return TweetState(tweets: []);
   }
 
-  void addTweets(List<Tweet> tweets) => state.when(
-    data: (data) async {
-      await _repository.saveTweets(tweets);
-      state = AsyncData(data.copyWith(tweets: [...data.tweets, ...tweets]));
-    },
-    error: (error, stack) {},
-    loading: () {},
-  );
+  Future<void> addTweets(List<Tweet> tweets) async {
+    final repository = ref.read(repositoryProvider).value!;
+    await repository.saveTweets(tweets);
+    state = (state.copyWith(tweets: [...state.tweets, ...tweets]));
+  }
 
-  void removeTweet(String id) => state.when(
-    data: (data) async {
-      await _repository.deleteTweet(id);
-      state = AsyncData(
-        data.copyWith(tweets: data.tweets.where((t) => t.id != id).toList()),
-      );
-    },
-    error: (error, stack) {},
-    loading: () {},
-  );
+  Future<void> removeTweet(String id) async {
+    final repository = ref.read(repositoryProvider).value!;
+    await repository.deleteTweet(id);
+    state = state.copyWith(
+      tweets: state.tweets.where((t) => t.id != id).toList(),
+    );
+  }
 }
 
 final tweetControllerProvider =
-    AsyncNotifierProvider<TweetControllerNotifier, TweetState>(
+    NotifierProvider<TweetControllerNotifier, TweetState>(
       () => TweetControllerNotifier(),
     );

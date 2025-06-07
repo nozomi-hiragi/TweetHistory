@@ -5,22 +5,34 @@ import 'features/tweets/tweets_screen.dart';
 import 'features/bin/bin_screen.dart';
 import 'features/settings/settings_screen.dart';
 import 'features/tweets/ui/tweets_upload_button.dart';
+import 'providers/initialization_provider.dart';
 
 void main() {
   runApp(ProviderScope(child: const MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final initialization = ref.watch(initializationProvider);
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const MyHomePage(),
+      home: initialization.when(
+        data: (data) => const MyHomePage(),
+        error:
+            (error, _) => Scaffold(
+              body: Center(child: Text('Initialization failed: $error')),
+            ),
+        loading:
+            () => const Scaffold(
+              body: Center(child: CircularProgressIndicator()),
+            ),
+      ),
       debugShowCheckedModeBanner: false,
     );
   }

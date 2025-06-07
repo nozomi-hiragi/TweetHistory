@@ -1,30 +1,27 @@
 import '../models/tweet.dart';
-import '../storage/tweet_storage.dart';
+import '../storage/tweet/tweet_storage.dart';
 
 class TweetRepository {
-  final TweetStorage storage;
+  late final TweetStorage storage;
 
-  TweetRepository() : storage = TweetStorage();
+  TweetRepository();
 
   Future<void> init() async {
-    await storage.init();
+    storage = await TweetStorage.create();
   }
 
-  Future<void> saveTweets(List<Tweet> tweets) async {
-    await storage.saveTweets(tweets);
-  }
+  Future<void> saveTweets(List<Tweet> tweets) => storage.callTweetStore(
+    (db, store) => store.putList(db, tweets, (tweet) => tweet.toJson()),
+  );
 
-  Future<List<Tweet>> loadAllTweets() async {
-    return await storage.loadTweets();
-  }
+  Future<List<Tweet>> loadAllTweets() =>
+      storage.callTweetStore((db, store) => store.getAll(db, Tweet.fromJson));
 
-  Future<void> deleteTweet(String id) async {
-    await storage.deleteTweet(id);
-  }
+  Future<void> deleteTweet(String id) =>
+      storage.callTweetStore((db, store) => store.delete(db, id));
 
-  Future<void> clearTweets() async {
-    await storage.clearAllTweets();
-  }
+  Future<void> clearTweets() =>
+      storage.callTweetStore((db, store) => store.clear(db));
 
   // 🔧 今後拡張するなら...
   // - タグフィルタ取得
