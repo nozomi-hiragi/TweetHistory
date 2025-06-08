@@ -24,6 +24,13 @@ class TweetRepository {
   Future<void> clearTweets() =>
       storage.callTweetStore((db, store) => store.clear(db));
 
+  Future addTag(String name) {
+    final tag = Tag(name: name);
+    return storage.callTags((db, store) {
+      return store.add(db, tag.toJson());
+    });
+  }
+
   Future<Tag?> getTag(String name) {
     return storage.callTags((db, store) {
       return store.get(db, name).then((obj) {
@@ -31,6 +38,14 @@ class TweetRepository {
         final tag = Tag.fromJson(obj as Map<String, dynamic>);
         return tag;
       });
+    });
+  }
+
+  Future<List<Tag>> getTags() {
+    return storage.callTags((db, store) {
+      return store
+          .getAll(db, Tag.fromJson)
+          .then((tags) => tags.where((tag) => tag.name != "bin").toList());
     });
   }
 

@@ -1,10 +1,21 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../state/tag_selection.dart';
+import 'repository_provider.dart';
 
 class TagSelectionNotifier extends Notifier<TagSelectionState> {
   @override
   TagSelectionState build() {
+    final repository = ref.watch(repositoryProvider).value!;
+    repository.getTags().then((tags) {
+      state = state.copyWith(
+        unselected:
+            tags.map((tag) {
+              return tag.name;
+            }).toList(),
+      );
+    });
+
     return TagSelectionState(selected: [], unselected: []);
   }
 
@@ -27,6 +38,19 @@ class TagSelectionNotifier extends Notifier<TagSelectionState> {
       unselected: [...state.unselected, tag],
     );
     return true;
+  }
+
+  Future<bool> addTag(String name) async {
+    final repository = ref.watch(repositoryProvider).value!;
+    try {
+      await repository.addTag(name);
+      var tags = [...state.unselected, name];
+      tags.sort();
+      state = state.copyWith(unselected: tags);
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 }
 

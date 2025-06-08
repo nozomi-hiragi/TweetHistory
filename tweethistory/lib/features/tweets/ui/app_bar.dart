@@ -17,6 +17,12 @@ class TweetsAppBar extends ConsumerWidget implements PreferredSizeWidget {
       actions: [
         if (isSelectionMode)
           IconButton(
+            icon: const Icon(Icons.bookmarks),
+            onPressed: () {},
+            tooltip: "振り分け",
+          ),
+        if (isSelectionMode)
+          IconButton(
             icon: const Icon(Icons.delete),
             onPressed: () async {
               final res = await selectModeController.applyTag("bin");

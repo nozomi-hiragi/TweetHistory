@@ -16,21 +16,57 @@ class TagFilterBar extends ConsumerWidget {
       child: Wrap(
         spacing: 8.0,
         runSpacing: 8.0,
-        children:
-            tagState.allTags.map((tag) {
-              final isSelected = tagState.selected.contains(tag);
-              return FilterChip(
-                label: Text(tag),
-                selected: isSelected,
-                onSelected: (_) {
-                  if (isSelected) {
-                    tagController.unselectTag(tag);
-                  } else {
-                    tagController.selectTag(tag);
-                  }
-                },
+        children: [
+          ...tagState.allTags.map((tag) {
+            final isSelected = tagState.selected.contains(tag);
+            return FilterChip(
+              label: Text(tag),
+              selected: isSelected,
+              onSelected: (_) {
+                if (isSelected) {
+                  tagController.unselectTag(tag);
+                } else {
+                  tagController.selectTag(tag);
+                }
+              },
+            );
+          }),
+          ActionChip(
+            label: const Icon(Icons.add),
+            tooltip: "Add tag",
+            onPressed: () async {
+              final controller = TextEditingController();
+              final newTag = await showDialog<String>(
+                context: context,
+                builder:
+                    (context) => AlertDialog(
+                      title: const Text('新しいタグを追加'),
+                      content: TextField(
+                        controller: controller,
+                        autofocus: true,
+                        decoration: const InputDecoration(hintText: 'タグ名'),
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.of(context).pop(),
+                          child: const Text('キャンセル'),
+                        ),
+                        TextButton(
+                          onPressed:
+                              () => Navigator.of(
+                                context,
+                              ).pop(controller.text.trim()),
+                          child: const Text('追加'),
+                        ),
+                      ],
+                    ),
               );
-            }).toList(),
+              if (newTag != null && newTag.isNotEmpty) {
+                tagController.addTag(newTag);
+              }
+            },
+          ),
+        ],
       ),
     );
   }
