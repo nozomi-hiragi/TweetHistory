@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/tweet.dart';
 import '../state/tweet_state.dart';
 import 'repository_provider.dart';
+import 'tag_selection_provider.dart';
 
 class TweetControllerNotifier extends Notifier<TweetState> {
   @override
@@ -13,17 +14,34 @@ class TweetControllerNotifier extends Notifier<TweetState> {
 
   Future refresh() async {
     final repository = ref.read(repositoryProvider).value!;
+    final tagSelectionState = ref.read(tagSelectionProvider.notifier).state;
+    final tags = await repository.getTags();
+
+    var filteredIds = <String>{};
+    var noFilteredIds = <String>{};
+    var binnedIds = <String>{};
+    for (var tag in tags) {
+      if (tag.name == "bin") {
+        binnedIds.addAll(tag.tweetIds);
+      } else if (tagSelectionState.selected.contains(tag.name)) {
+        filteredIds.addAll(tag.tweetIds);
+      } else {
+        noFilteredIds.addAll(tag.tweetIds);
+      }
+    }
+
     final allTweets = await repository.loadAllTweets();
-    final binTag = await repository.getTag("bin");
-    final binnedIds = binTag?.tweetIds ?? <String>{};
+    final isSelected = tagSelectionState.selected.isNotEmpty;
 
     var filteredTweets = <Tweet>[];
     var binnedTweets = <Tweet>[];
-
     for (var tweet in allTweets) {
+      final isFilteredId = filteredIds.contains(tweet.id);
+      final isNoFilteredId = noFilteredIds.contains(tweet.id);
+      final isUnTaggedId = !(isFilteredId || isNoFilteredId);
       if (binnedIds.contains(tweet.id)) {
         binnedTweets.add(tweet);
-      } else {
+      } else if (isSelected ? isFilteredId : isUnTaggedId) {
         filteredTweets.add(tweet);
       }
     }

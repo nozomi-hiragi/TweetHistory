@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../providers/tag_selection_provider.dart';
+import '../../../providers/tweet_controller_provider.dart';
 import '../../../state/tag_selection.dart';
 
 class TagFilterBar extends ConsumerWidget {
@@ -11,6 +12,7 @@ class TagFilterBar extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final tagState = ref.watch(tagSelectionProvider);
     final tagController = ref.read(tagSelectionProvider.notifier);
+    final tweetController = ref.read(tweetControllerProvider.notifier);
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Wrap(
@@ -28,6 +30,7 @@ class TagFilterBar extends ConsumerWidget {
                 } else {
                   tagController.selectTag(tag);
                 }
+                tweetController.refresh();
               },
             );
           }),
