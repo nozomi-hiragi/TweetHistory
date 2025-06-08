@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$TweetSelectState {
 
- dynamic get isSelectionMode; Set<String> get selectedIds;
+ bool get isSelectionMode; Set<String> get selectedIds;
 /// Create a copy of TweetSelectState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -26,12 +26,12 @@ $TweetSelectStateCopyWith<TweetSelectState> get copyWith => _$TweetSelectStateCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TweetSelectState&&const DeepCollectionEquality().equals(other.isSelectionMode, isSelectionMode)&&const DeepCollectionEquality().equals(other.selectedIds, selectedIds));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TweetSelectState&&(identical(other.isSelectionMode, isSelectionMode) || other.isSelectionMode == isSelectionMode)&&const DeepCollectionEquality().equals(other.selectedIds, selectedIds));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(isSelectionMode),const DeepCollectionEquality().hash(selectedIds));
+int get hashCode => Object.hash(runtimeType,isSelectionMode,const DeepCollectionEquality().hash(selectedIds));
 
 @override
 String toString() {
@@ -46,7 +46,7 @@ abstract mixin class $TweetSelectStateCopyWith<$Res>  {
   factory $TweetSelectStateCopyWith(TweetSelectState value, $Res Function(TweetSelectState) _then) = _$TweetSelectStateCopyWithImpl;
 @useResult
 $Res call({
- dynamic isSelectionMode, Set<String> selectedIds
+ bool isSelectionMode, Set<String> selectedIds
 });
 
 
@@ -63,10 +63,10 @@ class _$TweetSelectStateCopyWithImpl<$Res>
 
 /// Create a copy of TweetSelectState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? isSelectionMode = freezed,Object? selectedIds = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? isSelectionMode = null,Object? selectedIds = null,}) {
   return _then(_self.copyWith(
-isSelectionMode: freezed == isSelectionMode ? _self.isSelectionMode : isSelectionMode // ignore: cast_nullable_to_non_nullable
-as dynamic,selectedIds: null == selectedIds ? _self.selectedIds : selectedIds // ignore: cast_nullable_to_non_nullable
+isSelectionMode: null == isSelectionMode ? _self.isSelectionMode : isSelectionMode // ignore: cast_nullable_to_non_nullable
+as bool,selectedIds: null == selectedIds ? _self.selectedIds : selectedIds // ignore: cast_nullable_to_non_nullable
 as Set<String>,
   ));
 }
@@ -81,7 +81,7 @@ class _TweetSelectState implements TweetSelectState {
   const _TweetSelectState({this.isSelectionMode = false, final  Set<String> selectedIds = const <String>{}}): _selectedIds = selectedIds;
   
 
-@override@JsonKey() final  dynamic isSelectionMode;
+@override@JsonKey() final  bool isSelectionMode;
  final  Set<String> _selectedIds;
 @override@JsonKey() Set<String> get selectedIds {
   if (_selectedIds is EqualUnmodifiableSetView) return _selectedIds;
@@ -100,12 +100,12 @@ _$TweetSelectStateCopyWith<_TweetSelectState> get copyWith => __$TweetSelectStat
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TweetSelectState&&const DeepCollectionEquality().equals(other.isSelectionMode, isSelectionMode)&&const DeepCollectionEquality().equals(other._selectedIds, _selectedIds));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TweetSelectState&&(identical(other.isSelectionMode, isSelectionMode) || other.isSelectionMode == isSelectionMode)&&const DeepCollectionEquality().equals(other._selectedIds, _selectedIds));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(isSelectionMode),const DeepCollectionEquality().hash(_selectedIds));
+int get hashCode => Object.hash(runtimeType,isSelectionMode,const DeepCollectionEquality().hash(_selectedIds));
 
 @override
 String toString() {
@@ -120,7 +120,7 @@ abstract mixin class _$TweetSelectStateCopyWith<$Res> implements $TweetSelectSta
   factory _$TweetSelectStateCopyWith(_TweetSelectState value, $Res Function(_TweetSelectState) _then) = __$TweetSelectStateCopyWithImpl;
 @override @useResult
 $Res call({
- dynamic isSelectionMode, Set<String> selectedIds
+ bool isSelectionMode, Set<String> selectedIds
 });
 
 
@@ -137,10 +137,10 @@ class __$TweetSelectStateCopyWithImpl<$Res>
 
 /// Create a copy of TweetSelectState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? isSelectionMode = freezed,Object? selectedIds = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? isSelectionMode = null,Object? selectedIds = null,}) {
   return _then(_TweetSelectState(
-isSelectionMode: freezed == isSelectionMode ? _self.isSelectionMode : isSelectionMode // ignore: cast_nullable_to_non_nullable
-as dynamic,selectedIds: null == selectedIds ? _self._selectedIds : selectedIds // ignore: cast_nullable_to_non_nullable
+isSelectionMode: null == isSelectionMode ? _self.isSelectionMode : isSelectionMode // ignore: cast_nullable_to_non_nullable
+as bool,selectedIds: null == selectedIds ? _self._selectedIds : selectedIds // ignore: cast_nullable_to_non_nullable
 as Set<String>,
   ));
 }

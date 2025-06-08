@@ -20,7 +20,7 @@ abstract class StoreBase {
     await txn.completed;
   }
 
-  Future<void> updateTag(Database db, Object obj) async {
+  Future<void> put(Database db, Object obj) async {
     final txn = db.transaction(storeName, idbModeReadWrite);
     final store = txn.objectStore(storeName);
     await store.put(obj);

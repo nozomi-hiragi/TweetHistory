@@ -1,3 +1,4 @@
+import '../models/tag.dart';
 import '../models/tweet.dart';
 import '../storage/tweet/tweet_storage.dart';
 
@@ -22,6 +23,34 @@ class TweetRepository {
 
   Future<void> clearTweets() =>
       storage.callTweetStore((db, store) => store.clear(db));
+
+  Future<Tag?> getTag(String name) {
+    return storage.callTags((db, store) {
+      return store.get(db, name).then((obj) {
+        if (obj == null) return null;
+        final tag = Tag.fromJson(obj as Map<String, dynamic>);
+        return tag;
+      });
+    });
+  }
+
+  Future<Set<String>?> setTag(String tagName, Set<String> ids) async {
+    final tag = await getTag(tagName).then((tag) {
+      if (tag != null) {
+        return tag.copyWith(tweetIds: {...tag.tweetIds, ...ids});
+      }
+      if (tagName == "bin") {
+        return Tag(name: tagName, tweetIds: ids);
+      }
+    });
+    if (tag == null) {
+      return null;
+    }
+    await storage.callTags((db, store) {
+      return store.put(db, tag.toJson());
+    });
+    return tag.tweetIds;
+  }
 
   // 🔧 今後拡張するなら...
   // - タグフィルタ取得
