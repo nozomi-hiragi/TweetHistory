@@ -7,32 +7,33 @@ import 'repository_provider.dart';
 class TweetControllerNotifier extends Notifier<TweetState> {
   @override
   TweetState build() {
-    final repository = ref.read(repositoryProvider).value!;
-    repository.filteredTweets().then((tweets) {
-      state = (TweetState(tweets: tweets));
-    });
+    refresh();
     return TweetState(tweets: []);
   }
 
   Future refresh() async {
     final repository = ref.read(repositoryProvider).value!;
-    await repository.filteredTweets().then((tweets) {
-      state = (state.copyWith(tweets: tweets));
-    });
+    final allTweets = await repository.loadAllTweets();
+    final binTag = await repository.getTag("bin");
+    final binnedIds = binTag?.tweetIds ?? <String>{};
+
+    var filteredTweets = <Tweet>[];
+    var binnedTweets = <Tweet>[];
+
+    for (var tweet in allTweets) {
+      if (binnedIds.contains(tweet.id)) {
+        binnedTweets.add(tweet);
+      } else {
+        filteredTweets.add(tweet);
+      }
+    }
+    state = (TweetState(tweets: filteredTweets, binned: binnedTweets));
   }
 
   Future<void> addTweets(List<Tweet> tweets) async {
     final repository = ref.read(repositoryProvider).value!;
     await repository.saveTweets(tweets);
     state = (state.copyWith(tweets: [...state.tweets, ...tweets]));
-  }
-
-  Future<void> removeTweet(String id) async {
-    final repository = ref.read(repositoryProvider).value!;
-    await repository.deleteTweet(id);
-    state = state.copyWith(
-      tweets: state.tweets.where((t) => t.id != id).toList(),
-    );
   }
 }
 

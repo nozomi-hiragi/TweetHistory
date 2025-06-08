@@ -15,23 +15,8 @@ class TweetRepository {
     (db, store) => store.putList(db, tweets, (tweet) => tweet.toJson()),
   );
 
-  Future<List<Tweet>> _loadAllTweets() =>
+  Future<List<Tweet>> loadAllTweets() =>
       storage.callTweetStore((db, store) => store.getAll(db, Tweet.fromJson));
-
-  Future<List<Tweet>> filteredTweets() async {
-    final allTweets = await _loadAllTweets();
-    final deletedIds = await storage.callTags((db, store) {
-      return store.get(db, "bin").then((obj) {
-        if (obj == null) return <String>{};
-        final tag = Tag.fromJson(obj as Map<String, dynamic>);
-        return tag.tweetIds;
-      });
-    });
-    final filtered =
-        allTweets.where((tweet) => !deletedIds.contains(tweet.id)).toList();
-
-    return filtered;
-  }
 
   Future<void> deleteTweet(String id) =>
       storage.callTweetStore((db, store) => store.delete(db, id));

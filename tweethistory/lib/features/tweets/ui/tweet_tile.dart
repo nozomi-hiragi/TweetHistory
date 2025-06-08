@@ -5,10 +5,9 @@ import '../../../models/tweet.dart';
 import '../../../providers/tweet_select_provider.dart';
 
 class TweetTile extends ConsumerWidget {
-  const TweetTile({super.key, required this.tweet, required this.onRemove});
+  const TweetTile({super.key, required this.tweet});
 
   final Tweet tweet;
-  final VoidCallback onRemove;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

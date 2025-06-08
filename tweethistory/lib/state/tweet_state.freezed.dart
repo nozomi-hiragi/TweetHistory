@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$TweetState {
 
- List<Tweet> get tweets;
+ List<Tweet> get tweets; List<Tweet> get binned;
 /// Create a copy of TweetState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -26,16 +26,16 @@ $TweetStateCopyWith<TweetState> get copyWith => _$TweetStateCopyWithImpl<TweetSt
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TweetState&&const DeepCollectionEquality().equals(other.tweets, tweets));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TweetState&&const DeepCollectionEquality().equals(other.tweets, tweets)&&const DeepCollectionEquality().equals(other.binned, binned));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(tweets));
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(tweets),const DeepCollectionEquality().hash(binned));
 
 @override
 String toString() {
-  return 'TweetState(tweets: $tweets)';
+  return 'TweetState(tweets: $tweets, binned: $binned)';
 }
 
 
@@ -46,7 +46,7 @@ abstract mixin class $TweetStateCopyWith<$Res>  {
   factory $TweetStateCopyWith(TweetState value, $Res Function(TweetState) _then) = _$TweetStateCopyWithImpl;
 @useResult
 $Res call({
- List<Tweet> tweets
+ List<Tweet> tweets, List<Tweet> binned
 });
 
 
@@ -63,9 +63,10 @@ class _$TweetStateCopyWithImpl<$Res>
 
 /// Create a copy of TweetState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? tweets = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? tweets = null,Object? binned = null,}) {
   return _then(_self.copyWith(
 tweets: null == tweets ? _self.tweets : tweets // ignore: cast_nullable_to_non_nullable
+as List<Tweet>,binned: null == binned ? _self.binned : binned // ignore: cast_nullable_to_non_nullable
 as List<Tweet>,
   ));
 }
@@ -77,7 +78,7 @@ as List<Tweet>,
 
 
 class _TweetState implements TweetState {
-  const _TweetState({required final  List<Tweet> tweets}): _tweets = tweets;
+  const _TweetState({required final  List<Tweet> tweets, final  List<Tweet> binned = const []}): _tweets = tweets,_binned = binned;
   
 
  final  List<Tweet> _tweets;
@@ -85,6 +86,13 @@ class _TweetState implements TweetState {
   if (_tweets is EqualUnmodifiableListView) return _tweets;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_tweets);
+}
+
+ final  List<Tweet> _binned;
+@override@JsonKey() List<Tweet> get binned {
+  if (_binned is EqualUnmodifiableListView) return _binned;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_binned);
 }
 
 
@@ -98,16 +106,16 @@ _$TweetStateCopyWith<_TweetState> get copyWith => __$TweetStateCopyWithImpl<_Twe
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TweetState&&const DeepCollectionEquality().equals(other._tweets, _tweets));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TweetState&&const DeepCollectionEquality().equals(other._tweets, _tweets)&&const DeepCollectionEquality().equals(other._binned, _binned));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_tweets));
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_tweets),const DeepCollectionEquality().hash(_binned));
 
 @override
 String toString() {
-  return 'TweetState(tweets: $tweets)';
+  return 'TweetState(tweets: $tweets, binned: $binned)';
 }
 
 
@@ -118,7 +126,7 @@ abstract mixin class _$TweetStateCopyWith<$Res> implements $TweetStateCopyWith<$
   factory _$TweetStateCopyWith(_TweetState value, $Res Function(_TweetState) _then) = __$TweetStateCopyWithImpl;
 @override @useResult
 $Res call({
- List<Tweet> tweets
+ List<Tweet> tweets, List<Tweet> binned
 });
 
 
@@ -135,9 +143,10 @@ class __$TweetStateCopyWithImpl<$Res>
 
 /// Create a copy of TweetState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? tweets = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? tweets = null,Object? binned = null,}) {
   return _then(_TweetState(
 tweets: null == tweets ? _self._tweets : tweets // ignore: cast_nullable_to_non_nullable
+as List<Tweet>,binned: null == binned ? _self._binned : binned // ignore: cast_nullable_to_non_nullable
 as List<Tweet>,
   ));
 }

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../providers/tweet_controller_provider.dart';
-import 'tweet_tile.dart';
+import '../../../../providers/tweet_controller_provider.dart';
+import '../../tweets/ui/tweet_tile.dart';
 
-class TweetsList extends ConsumerWidget {
-  const TweetsList({super.key});
+class BinnedList extends ConsumerWidget {
+  const BinnedList({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final tweetState = ref.watch(tweetControllerProvider);
-    final tweets = tweetState.tweets;
+    final tweets = tweetState.binned;
     return ListView.builder(
       itemCount: tweets.length,
       itemBuilder: (context, index) => TweetTile(tweet: tweets[index]),

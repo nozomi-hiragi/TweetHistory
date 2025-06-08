@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'ui/binned_list.dart';
+
 class BinScreen extends StatelessWidget {
   const BinScreen({super.key});
 
@@ -10,7 +12,7 @@ class BinScreen extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text('Bin'),
       ),
-      body: const Center(child: Text('ここにゴミ箱が表示されます')),
+      body: BinnedList(),
     );
   }
 }
