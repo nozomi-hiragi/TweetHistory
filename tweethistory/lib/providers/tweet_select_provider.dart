@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../state/tweet_selection.dart';
 import 'repository_provider.dart';
+import 'tweet_controller_provider.dart';
 
 class TweetSelectNotifier extends Notifier<TweetSelectState> {
   @override
@@ -27,6 +28,7 @@ class TweetSelectNotifier extends Notifier<TweetSelectState> {
     final selectedIds = state.selectedIds;
     if (selectedIds.isEmpty) return null;
     final result = await repository.setTag(tagName, selectedIds);
+    ref.read(tweetControllerProvider.notifier).refresh();
     return result;
   }
 }

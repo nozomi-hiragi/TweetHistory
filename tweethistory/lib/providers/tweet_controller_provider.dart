@@ -8,10 +8,17 @@ class TweetControllerNotifier extends Notifier<TweetState> {
   @override
   TweetState build() {
     final repository = ref.read(repositoryProvider).value!;
-    repository.loadAllTweets().then((tweets) {
+    repository.filteredTweets().then((tweets) {
       state = (TweetState(tweets: tweets));
     });
     return TweetState(tweets: []);
+  }
+
+  Future refresh() async {
+    final repository = ref.read(repositoryProvider).value!;
+    await repository.filteredTweets().then((tweets) {
+      state = (state.copyWith(tweets: tweets));
+    });
   }
 
   Future<void> addTweets(List<Tweet> tweets) async {
