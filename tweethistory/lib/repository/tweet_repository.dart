@@ -67,6 +67,17 @@ class TweetRepository {
     return tag.tweetIds;
   }
 
+  Future<Set<String>?> removeTag(String tagName, Set<String> ids) async {
+    final tag = await getTag(tagName);
+    if (tag == null) {
+      return null;
+    }
+    final updatedIds = tag.tweetIds.difference(ids);
+    final updatedTag = tag.copyWith(tweetIds: updatedIds);
+    await storage.callTags((db, store) => store.put(db, updatedTag.toJson()));
+    return updatedTag.tweetIds;
+  }
+
   // 🔧 今後拡張するなら...
   // - タグフィルタ取得
   // - 削除タグ付きのみ取得

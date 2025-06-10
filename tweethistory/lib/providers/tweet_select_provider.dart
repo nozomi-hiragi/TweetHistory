@@ -31,6 +31,15 @@ class TweetSelectNotifier extends Notifier<TweetSelectState> {
     ref.read(tweetControllerProvider.notifier).refresh();
     return result;
   }
+
+  Future<Set<String>?> removeTag(String tagName) async {
+    final repository = ref.read(repositoryProvider).value!;
+    final selectedIds = state.selectedIds;
+    if (selectedIds.isEmpty) return null;
+    final result = await repository.removeTag(tagName, selectedIds);
+    ref.read(tweetControllerProvider.notifier).refresh();
+    return result;
+  }
 }
 
 final selectModeProvider =
