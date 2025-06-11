@@ -16,14 +16,12 @@ class TweetControllerNotifier extends Notifier<TweetState> {
     final repository = ref.read(repositoryProvider).value!;
     final tagSelectionState = ref.read(tagSelectionProvider.notifier).state;
     final tags = await repository.getTags();
+    final binTag = await repository.getTag('bin');
 
     var filteredIds = <String>{};
     var noFilteredIds = <String>{};
-    var binnedIds = <String>{};
     for (var tag in tags) {
-      if (tag.name == "bin") {
-        binnedIds.addAll(tag.tweetIds);
-      } else if (tagSelectionState.selected.contains(tag.name)) {
+      if (tagSelectionState.selected.contains(tag.name)) {
         filteredIds.addAll(tag.tweetIds);
       } else {
         noFilteredIds.addAll(tag.tweetIds);
@@ -39,7 +37,7 @@ class TweetControllerNotifier extends Notifier<TweetState> {
       final isFilteredId = filteredIds.contains(tweet.id);
       final isNoFilteredId = noFilteredIds.contains(tweet.id);
       final isUnTaggedId = !(isFilteredId || isNoFilteredId);
-      if (binnedIds.contains(tweet.id)) {
+      if (binTag?.tweetIds.contains(tweet.id) ?? false) {
         binnedTweets.add(tweet);
       } else if (isSelected ? isFilteredId : isUnTaggedId) {
         filteredTweets.add(tweet);

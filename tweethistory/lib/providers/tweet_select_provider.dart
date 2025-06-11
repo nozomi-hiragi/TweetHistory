@@ -40,6 +40,13 @@ class TweetSelectNotifier extends Notifier<TweetSelectState> {
     ref.read(tweetControllerProvider.notifier).refresh();
     return result;
   }
+
+  Future setBinTag() async {
+    final repository = ref.read(repositoryProvider).value!;
+    final result = await repository.setBinTag(state.selectedIds);
+    ref.read(tweetControllerProvider.notifier).refresh();
+    return result;
+  }
 }
 
 final selectModeProvider =

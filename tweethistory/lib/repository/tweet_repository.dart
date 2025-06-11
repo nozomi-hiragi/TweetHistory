@@ -78,6 +78,20 @@ class TweetRepository {
     return updatedTag.tweetIds;
   }
 
+  Future setBinTag(Set<String> ids) {
+    return storage.callTags((db, store) async {
+      final tags = await store.getAll(db, Tag.fromJson);
+      final removeFuture = Future.wait(
+        tags
+            .where((tag) => tag.name != "bin" && tag.tweetIds.any(ids.contains))
+            .map((tag) => removeTag(tag.name, ids))
+            .toList(),
+      );
+      final setBinFuture = setTag("bin", ids);
+      return Future.wait([removeFuture, setBinFuture]);
+    });
+  }
+
   // 🔧 今後拡張するなら...
   // - タグフィルタ取得
   // - 削除タグ付きのみ取得

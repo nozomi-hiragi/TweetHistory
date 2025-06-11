@@ -21,13 +21,13 @@ class TweetsAppBar extends ConsumerWidget implements PreferredSizeWidget {
           IconButton(
             icon: const Icon(Icons.delete),
             onPressed: () async {
-              final res = await selectModeController.applyTag("bin");
+              final res = await selectModeController.setBinTag();
               selectModeController.toggle();
               if (!context.mounted) return;
               final snackbar =
                   res != null
-                      ? const SnackBar(content: Text('選択されたツイートを削除しました。'))
-                      : const SnackBar(content: Text('削除に失敗しました。'));
+                      ? const SnackBar(content: Text('選択されたツイートをゴミ箱に移動しました。'))
+                      : const SnackBar(content: Text('ゴミ箱に移動できませんでした。'));
               ScaffoldMessenger.of(context).showSnackBar(snackbar);
             },
             tooltip: '削除',
