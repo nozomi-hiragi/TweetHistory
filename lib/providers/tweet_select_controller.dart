@@ -1,10 +1,10 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../state/selection_state.dart';
-import 'repository_provider.dart';
-import 'tweet_controller_provider.dart';
+import 'repository_providers.dart';
+import 'tweet_controller.dart';
 
-class TweetSelectNotifier extends Notifier<SelectionState> {
+class TweetSelectController extends Notifier<SelectionState> {
   @override
   build() => SelectionState();
 
@@ -24,7 +24,7 @@ class TweetSelectNotifier extends Notifier<SelectionState> {
   }
 
   Future<Set<String>?> applyTag(String tagName) async {
-    final repository = await ref.read(repositoryProvider.future);
+    final repository = await ref.read(tweetRepositoryProvider.future);
     final selectedIds = state.selectedIds;
     if (selectedIds.isEmpty) return null;
     final result = await repository.setTag(tagName, selectedIds);
@@ -33,7 +33,7 @@ class TweetSelectNotifier extends Notifier<SelectionState> {
   }
 
   Future<Set<String>?> removeTag(String tagName) async {
-    final repository = await ref.read(repositoryProvider.future);
+    final repository = await ref.read(tweetRepositoryProvider.future);
     final selectedIds = state.selectedIds;
     if (selectedIds.isEmpty) return null;
     final result = await repository.removeTag(tagName, selectedIds);
@@ -61,7 +61,7 @@ class TweetSelectNotifier extends Notifier<SelectionState> {
   }
 
   Future setBinTag() async {
-    final repository = await ref.read(repositoryProvider.future);
+    final repository = await ref.read(tweetRepositoryProvider.future);
     final result = await repository.setBinTag(state.selectedIds);
     ref.read(tweetControllerProvider.notifier).refresh();
     state = SelectionState(isSelectionMode: false);
@@ -69,7 +69,7 @@ class TweetSelectNotifier extends Notifier<SelectionState> {
   }
 
   Future<Map<String, bool?>> getTagSelectionStatus() async {
-    final repository = await ref.read(repositoryProvider.future);
+    final repository = await ref.read(tweetRepositoryProvider.future);
     final tags = await repository.getTags();
     final ids = state.selectedIds;
     final idsLength = ids.length;
@@ -91,7 +91,7 @@ class TweetSelectNotifier extends Notifier<SelectionState> {
   }
 }
 
-final selectModeProvider =
-    NotifierProvider<TweetSelectNotifier, SelectionState>(
-      TweetSelectNotifier.new,
+final tweetSelectControllerProvider =
+    NotifierProvider<TweetSelectController, SelectionState>(
+      TweetSelectController.new,
     );

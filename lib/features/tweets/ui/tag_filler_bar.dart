@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../providers/tag_selection_provider.dart';
-import '../../../providers/tweet_controller_provider.dart';
+import '../../../providers/tag_select_controller.dart';
+import '../../../providers/tweet_controller.dart';
 import '../../../state/selected_values.dart';
 
 class TagFilterBar extends ConsumerWidget {
@@ -10,8 +10,8 @@ class TagFilterBar extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tagState = ref.watch(tagSelectionProvider);
-    final tagController = ref.read(tagSelectionProvider.notifier);
+    final tagState = ref.watch(tagSelectControllerProvider);
+    final tagController = ref.read(tagSelectControllerProvider.notifier);
     final tweetController = ref.read(tweetControllerProvider.notifier);
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),

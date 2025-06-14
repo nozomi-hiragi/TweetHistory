@@ -3,12 +3,13 @@ import '../models/tweet.dart';
 import '../storage/tweet/tweet_storage.dart';
 
 class TweetRepository {
-  late final TweetStorage storage;
+  final TweetStorage storage;
 
-  TweetRepository();
+  const TweetRepository._(this.storage);
 
-  Future<void> init() async {
-    storage = await TweetStorage.create();
+  static Future<TweetRepository> create() async {
+    final storage = await TweetStorage.create();
+    return TweetRepository._(storage);
   }
 
   Future<void> saveTweets(List<Tweet> tweets) => storage

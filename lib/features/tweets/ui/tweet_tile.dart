@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../models/tweet.dart';
-import '../../../providers/tweet_select_provider.dart';
+import '../../../providers/tweet_select_controller.dart';
 
 class TweetTile extends ConsumerWidget {
   const TweetTile({super.key, required this.tweet});
@@ -11,8 +11,8 @@ class TweetTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selectState = ref.watch(selectModeProvider);
-    final selectController = ref.read(selectModeProvider.notifier);
+    final selectState = ref.watch(tweetSelectControllerProvider);
+    final selectController = ref.read(tweetSelectControllerProvider.notifier);
     return GestureDetector(
       child: Card(
         margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),

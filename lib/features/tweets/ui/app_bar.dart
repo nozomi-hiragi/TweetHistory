@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../providers/tweet_select_provider.dart';
+import '../../../providers/tweet_select_controller.dart';
 import 'apply_tag_button.dart';
 
 class TweetsAppBar extends ConsumerWidget implements PreferredSizeWidget {
@@ -9,8 +9,10 @@ class TweetsAppBar extends ConsumerWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selectModeController = ref.read(selectModeProvider.notifier);
-    final tweetSelectState = ref.watch(selectModeProvider);
+    final selectModeController = ref.read(
+      tweetSelectControllerProvider.notifier,
+    );
+    final tweetSelectState = ref.watch(tweetSelectControllerProvider);
     final isSelectionMode = tweetSelectState.isSelectionMode;
     return AppBar(
       backgroundColor: Theme.of(context).colorScheme.inversePrimary,

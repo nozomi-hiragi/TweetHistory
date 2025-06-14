@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../providers/tweet_select_provider.dart';
+import '../../../providers/tweet_select_controller.dart';
 import 'tag_select_dialog.dart';
 
 class ApplyTagButton extends ConsumerWidget {
@@ -9,7 +9,9 @@ class ApplyTagButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selectModeController = ref.read(selectModeProvider.notifier);
+    final selectModeController = ref.read(
+      tweetSelectControllerProvider.notifier,
+    );
     return IconButton(
       icon: const Icon(Icons.bookmarks),
       onPressed: () async {

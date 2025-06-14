@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../providers/tweet_controller_provider.dart';
+import '../../../providers/tweet_controller.dart';
 import 'upload_dialog.dart';
 
 class TweetsUploadButton extends ConsumerWidget {

@@ -2,10 +2,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../models/tweet.dart';
 import '../state/tweet_state.dart';
-import 'repository_provider.dart';
-import 'tag_selection_provider.dart';
+import 'repository_providers.dart';
+import 'tag_select_controller.dart';
 
-class TweetControllerNotifier extends Notifier<TweetState> {
+class TweetController extends Notifier<TweetState> {
   @override
   TweetState build() {
     refresh();
@@ -13,8 +13,9 @@ class TweetControllerNotifier extends Notifier<TweetState> {
   }
 
   Future refresh() async {
-    final repository = await ref.read(repositoryProvider.future);
-    final tagSelectionState = ref.read(tagSelectionProvider.notifier).state;
+    final repository = await ref.read(tweetRepositoryProvider.future);
+    final tagSelectionState =
+        ref.read(tagSelectControllerProvider.notifier).state;
     final tags = await repository.getTags();
     final binTag = await repository.getTag('bin');
 
@@ -47,13 +48,12 @@ class TweetControllerNotifier extends Notifier<TweetState> {
   }
 
   Future<void> addTweets(List<Tweet> tweets) async {
-    final repository = await ref.read(repositoryProvider.future);
+    final repository = await ref.read(tweetRepositoryProvider.future);
     await repository.saveTweets(tweets);
     state = (state.copyWith(tweets: [...state.tweets, ...tweets]));
   }
 }
 
-final tweetControllerProvider =
-    NotifierProvider<TweetControllerNotifier, TweetState>(
-      () => TweetControllerNotifier(),
-    );
+final tweetControllerProvider = NotifierProvider<TweetController, TweetState>(
+  () => TweetController(),
+);

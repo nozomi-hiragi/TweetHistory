@@ -1,12 +1,12 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../state/selected_values.dart';
-import 'repository_provider.dart';
+import 'repository_providers.dart';
 
-class TagSelectionNotifier extends Notifier<SelectedValues> {
+class TagSelectController extends Notifier<SelectedValues> {
   @override
   SelectedValues build() {
-    ref.watch(repositoryProvider.future).then((repo) async {
+    ref.read(tweetRepositoryProvider.future).then((repo) async {
       final tags = await repo.getTags();
       state = state.copyWith(unselected: tags.map((tag) => tag.name).toList());
     });
@@ -35,7 +35,7 @@ class TagSelectionNotifier extends Notifier<SelectedValues> {
   }
 
   Future<bool> addTag(String name) async {
-    final repository = await ref.watch(repositoryProvider.future);
+    final repository = await ref.read(tweetRepositoryProvider.future);
     try {
       await repository.addTag(name);
       var tags = [...state.unselected, name];
@@ -48,7 +48,7 @@ class TagSelectionNotifier extends Notifier<SelectedValues> {
   }
 }
 
-final tagSelectionProvider =
-    NotifierProvider<TagSelectionNotifier, SelectedValues>(
-      TagSelectionNotifier.new,
+final tagSelectControllerProvider =
+    NotifierProvider<TagSelectController, SelectedValues>(
+      TagSelectController.new,
     );
