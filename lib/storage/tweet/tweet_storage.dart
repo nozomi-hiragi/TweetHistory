@@ -1,41 +1,39 @@
 import 'dart:async';
 import 'package:idb_shim/idb_browser.dart';
 
-import 'tag_store.dart';
-import 'tweet_store.dart';
+import '../database.dart';
+import '../store.dart';
+import '../store_params.dart';
+
+class TweetStores {
+  static final tweets = StoreParams('tweets', 'id');
+  static final tags = StoreParams('tags', 'name');
+  static final values = [tweets, tags];
+
+  static Map<StoreParams, Store> create(Database db) =>
+      StoreParams.createStores(db, TweetStores.values);
+}
 
 class TweetStorage {
   static const String _dbName = 'tweet_db';
   static const int _dbVersion = 1;
+  final Map<StoreParams, Store> _stores;
 
-  static final tweetsStore = TweetsStore();
-  static final tagStore = TagStore();
+  const TweetStorage._(this._stores);
 
-  final Database _db;
-
-  TweetStorage._(db) : _db = db;
-
-  static Future<TweetStorage> create() async {
-    final factory = idbFactoryBrowser;
-    final db = await factory.open(
+  static Future<TweetStorage> create({IdbFactory? factory}) async {
+    final db = await createDatabase(
+      factory ?? idbFactoryBrowser,
       _dbName,
       version: _dbVersion,
-      onUpgradeNeeded: (VersionChangeEvent e) {
-        final db = e.database;
-        for (var store in [tweetsStore, tagStore]) {
-          store.createObjectStore(db);
-        }
+      onUpgradeNeeded: (VersionChangeEvent e, createObjectStore) {
+        createObjectStore(TweetStores.values);
       },
     );
-    final storage = TweetStorage._(db);
-    return storage;
+    return TweetStorage._(TweetStores.create(db));
   }
 
-  Future<T> callTweetStore<T>(
-    Future<T> Function(Database db, TweetsStore store) action,
-  ) => action(_db, tweetsStore);
-
-  Future<T> callTags<T>(
-    Future<T> Function(Database db, TagStore store) action,
-  ) => action(_db, tagStore);
+  Store store(StoreParams type) =>
+      _stores[type] ??
+      (throw ArgumentError('Unknown store type: ${type.name}'));
 }

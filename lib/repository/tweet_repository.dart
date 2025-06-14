@@ -11,42 +11,35 @@ class TweetRepository {
     storage = await TweetStorage.create();
   }
 
-  Future<void> saveTweets(List<Tweet> tweets) => storage.callTweetStore(
-    (db, store) => store.putList(db, tweets, (tweet) => tweet.toJson()),
-  );
+  Future<void> saveTweets(List<Tweet> tweets) => storage
+      .store(TweetStores.tweets)
+      .putList(tweets, (tweet) => tweet.toJson());
 
   Future<List<Tweet>> loadAllTweets() =>
-      storage.callTweetStore((db, store) => store.getAll(db, Tweet.fromJson));
+      storage.store(TweetStores.tweets).getAll(Tweet.fromJson);
 
   Future<void> deleteTweet(String id) =>
-      storage.callTweetStore((db, store) => store.delete(db, id));
+      storage.store(TweetStores.tweets).delete(id);
 
-  Future<void> clearTweets() =>
-      storage.callTweetStore((db, store) => store.clear(db));
+  Future<void> clearTweets() => storage.store(TweetStores.tweets).clear();
 
   Future addTag(String name) {
     final tag = Tag(name: name);
-    return storage.callTags((db, store) {
-      return store.add(db, tag.toJson());
-    });
+    return storage.store(TweetStores.tags).add(tag.toJson());
   }
 
   Future<Tag?> getTag(String name) {
-    return storage.callTags((db, store) {
-      return store.get(db, name).then((obj) {
-        if (obj == null) return null;
-        final tag = Tag.fromJson(obj as Map<String, dynamic>);
-        return tag;
-      });
+    return storage.store(TweetStores.tags).get(name).then((obj) {
+      if (obj == null) return null;
+      return Tag.fromJson(obj as Map<String, dynamic>);
     });
   }
 
   Future<List<Tag>> getTags() {
-    return storage.callTags((db, store) {
-      return store
-          .getAll(db, Tag.fromJson)
-          .then((tags) => tags.where((tag) => tag.name != "bin").toList());
-    });
+    return storage
+        .store(TweetStores.tags)
+        .getAll(Tag.fromJson)
+        .then((tags) => tags.where((tag) => tag.name != "bin").toList());
   }
 
   Future<Set<String>?> setTag(String tagName, Set<String> ids) async {
@@ -61,9 +54,7 @@ class TweetRepository {
     if (tag == null) {
       return null;
     }
-    await storage.callTags((db, store) {
-      return store.put(db, tag.toJson());
-    });
+    await storage.store(TweetStores.tags).put(tag.toJson());
     return tag.tweetIds;
   }
 
@@ -74,22 +65,20 @@ class TweetRepository {
     }
     final updatedIds = tag.tweetIds.difference(ids);
     final updatedTag = tag.copyWith(tweetIds: updatedIds);
-    await storage.callTags((db, store) => store.put(db, updatedTag.toJson()));
+    await storage.store(TweetStores.tags).put(updatedTag.toJson());
     return updatedTag.tweetIds;
   }
 
-  Future setBinTag(Set<String> ids) {
-    return storage.callTags((db, store) async {
-      final tags = await store.getAll(db, Tag.fromJson);
-      final removeFuture = Future.wait(
-        tags
-            .where((tag) => tag.name != "bin" && tag.tweetIds.any(ids.contains))
-            .map((tag) => removeTag(tag.name, ids))
-            .toList(),
-      );
-      final setBinFuture = setTag("bin", ids);
-      return Future.wait([removeFuture, setBinFuture]);
-    });
+  Future setBinTag(Set<String> ids) async {
+    final tags = await storage.store(TweetStores.tags).getAll(Tag.fromJson);
+    final removeFuture = Future.wait(
+      tags
+          .where((tag) => tag.name != "bin" && tag.tweetIds.any(ids.contains))
+          .map((tag) => removeTag(tag.name, ids))
+          .toList(),
+    );
+    final setBinFuture = setTag("bin", ids);
+    return Future.wait([removeFuture, setBinFuture]);
   }
 
   // 🔧 今後拡張するなら...
