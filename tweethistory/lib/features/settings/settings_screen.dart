@@ -8,6 +8,10 @@ class SettingsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final themeMode = ref.watch(themeModeProvider);
+    final platformDark =
+        MediaQuery.of(context).platformBrightness == Brightness.dark;
+    final isDark =
+        themeMode == ThemeMode.dark || (themeMode == ThemeMode.system && platformDark);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -17,7 +21,7 @@ class SettingsScreen extends ConsumerWidget {
         children: [
           SwitchListTile(
             title: const Text('Dark Mode'),
-            value: themeMode == ThemeMode.dark,
+            value: isDark,
             onChanged: (val) {
               ref.read(themeModeProvider.notifier).setDarkMode(val);
             },
