@@ -24,7 +24,7 @@ class TweetSelectNotifier extends Notifier<SelectionState> {
   }
 
   Future<Set<String>?> applyTag(String tagName) async {
-    final repository = ref.read(repositoryProvider).value!;
+    final repository = await ref.read(repositoryProvider.future);
     final selectedIds = state.selectedIds;
     if (selectedIds.isEmpty) return null;
     final result = await repository.setTag(tagName, selectedIds);
@@ -33,7 +33,7 @@ class TweetSelectNotifier extends Notifier<SelectionState> {
   }
 
   Future<Set<String>?> removeTag(String tagName) async {
-    final repository = ref.read(repositoryProvider).value!;
+    final repository = await ref.read(repositoryProvider.future);
     final selectedIds = state.selectedIds;
     if (selectedIds.isEmpty) return null;
     final result = await repository.removeTag(tagName, selectedIds);
@@ -41,11 +41,53 @@ class TweetSelectNotifier extends Notifier<SelectionState> {
     return result;
   }
 
+  Future<Set<String>> applyTags(Map<String, bool?> selectedTags) async {
+    final failedTagNames = <String>{};
+    await Future.wait(
+      selectedTags.entries.map((e) async {
+        final fn =
+            e.value == true
+                ? applyTag
+                : e.value == false
+                ? removeTag
+                : (_) async => null;
+        return fn(e.key).then((res) {
+          if (res == null) failedTagNames.add(e.key);
+        });
+      }),
+    );
+    state = SelectionState(isSelectionMode: false);
+    return failedTagNames;
+  }
+
   Future setBinTag() async {
-    final repository = ref.read(repositoryProvider).value!;
+    final repository = await ref.read(repositoryProvider.future);
     final result = await repository.setBinTag(state.selectedIds);
     ref.read(tweetControllerProvider.notifier).refresh();
+    state = SelectionState(isSelectionMode: false);
     return result;
+  }
+
+  Future<Map<String, bool?>> getTagSelectionStatus() async {
+    final repository = await ref.read(repositoryProvider.future);
+    final tags = await repository.getTags();
+    final ids = state.selectedIds;
+    final idsLength = ids.length;
+    final Map<String, bool?> tagStatus = {
+      for (final tag in tags)
+        tag.name:
+            (() {
+              final count = ids
+                  .map((id) => tag.tweetIds.contains(id) ? 1 : 0)
+                  .fold(0, (a, b) => a + b);
+              return count <= 0
+                  ? false
+                  : count >= idsLength
+                  ? true
+                  : null;
+            })(),
+    };
+    return tagStatus;
   }
 }
 

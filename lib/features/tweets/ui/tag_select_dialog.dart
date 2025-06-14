@@ -31,18 +31,18 @@ class TagSelectDialog extends HookWidget {
       ),
       actions: [
         TextButton(
-          onPressed: () => Navigator.of(context).pop(),
           child: const Text('キャンセル'),
+          onPressed: () => Navigator.of(context).pop(),
         ),
         ElevatedButton(
-          onPressed:
-              () => Navigator.of(context).pop(
-                selectState.value.map(
-                  (key, value) =>
-                      MapEntry(key, value == tagStatus[key] ? null : value),
-                ),
-              ),
           child: const Text('適用'),
+          onPressed: () {
+            final result = selectState.value.map(
+              (key, value) =>
+                  MapEntry(key, value == tagStatus[key] ? null : value),
+            );
+            Navigator.of(context).pop(result);
+          },
         ),
       ],
     );

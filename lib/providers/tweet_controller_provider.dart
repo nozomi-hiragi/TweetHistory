@@ -13,7 +13,7 @@ class TweetControllerNotifier extends Notifier<TweetState> {
   }
 
   Future refresh() async {
-    final repository = ref.read(repositoryProvider).value!;
+    final repository = await ref.read(repositoryProvider.future);
     final tagSelectionState = ref.read(tagSelectionProvider.notifier).state;
     final tags = await repository.getTags();
     final binTag = await repository.getTag('bin');
@@ -47,7 +47,7 @@ class TweetControllerNotifier extends Notifier<TweetState> {
   }
 
   Future<void> addTweets(List<Tweet> tweets) async {
-    final repository = ref.read(repositoryProvider).value!;
+    final repository = await ref.read(repositoryProvider.future);
     await repository.saveTweets(tweets);
     state = (state.copyWith(tweets: [...state.tweets, ...tweets]));
   }

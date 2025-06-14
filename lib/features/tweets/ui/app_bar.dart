@@ -9,8 +9,8 @@ class TweetsAppBar extends ConsumerWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tweetSelectState = ref.watch(selectModeProvider);
     final selectModeController = ref.read(selectModeProvider.notifier);
+    final tweetSelectState = ref.watch(selectModeProvider);
     final isSelectionMode = tweetSelectState.isSelectionMode;
     return AppBar(
       backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -22,7 +22,6 @@ class TweetsAppBar extends ConsumerWidget implements PreferredSizeWidget {
             icon: const Icon(Icons.delete),
             onPressed: () async {
               final res = await selectModeController.setBinTag();
-              selectModeController.toggle();
               if (!context.mounted) return;
               final snackbar =
                   res != null

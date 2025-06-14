@@ -6,16 +6,10 @@ import 'repository_provider.dart';
 class TagSelectionNotifier extends Notifier<SelectedValues> {
   @override
   SelectedValues build() {
-    final repository = ref.watch(repositoryProvider).value!;
-    repository.getTags().then((tags) {
-      state = state.copyWith(
-        unselected:
-            tags.map((tag) {
-              return tag.name;
-            }).toList(),
-      );
+    ref.watch(repositoryProvider.future).then((repo) async {
+      final tags = await repo.getTags();
+      state = state.copyWith(unselected: tags.map((tag) => tag.name).toList());
     });
-
     return SelectedValues(selected: [], unselected: []);
   }
 
@@ -41,7 +35,7 @@ class TagSelectionNotifier extends Notifier<SelectedValues> {
   }
 
   Future<bool> addTag(String name) async {
-    final repository = ref.watch(repositoryProvider).value!;
+    final repository = await ref.watch(repositoryProvider.future);
     try {
       await repository.addTag(name);
       var tags = [...state.unselected, name];
