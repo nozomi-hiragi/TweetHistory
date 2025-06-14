@@ -7,7 +7,7 @@ class TagSelectController extends Notifier<SelectedValues> {
   @override
   SelectedValues build() {
     ref.read(tweetRepositoryProvider.future).then((repo) async {
-      final tags = await repo.getTags();
+      final tags = await repo.loadTags();
       state = state.copyWith(unselected: tags.map((tag) => tag.name).toList());
     });
     return SelectedValues(selected: [], unselected: []);

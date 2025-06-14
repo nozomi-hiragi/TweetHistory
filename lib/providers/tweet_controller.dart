@@ -1,6 +1,7 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../models/tweet.dart';
+import '../repository/tweet_repository.dart';
 import '../state/tweet_state.dart';
 import 'repository_providers.dart';
 import 'tag_select_controller.dart';
@@ -16,8 +17,8 @@ class TweetController extends Notifier<TweetState> {
     final repository = await ref.read(tweetRepositoryProvider.future);
     final tagSelectionState =
         ref.read(tagSelectControllerProvider.notifier).state;
-    final tags = await repository.getTags();
-    final binTag = await repository.getTag('bin');
+    final tags = await repository.loadTags();
+    final binTag = await repository.loadTag(tagNameBin);
 
     var filteredIds = <String>{};
     var noFilteredIds = <String>{};
