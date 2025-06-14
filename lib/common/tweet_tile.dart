@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../models/tweet.dart';
-import '../../../providers/tweet_select_controller.dart';
+import '../models/tweet.dart';
+import '../providers/tweet_select_controller.dart';
 
 class TweetTile extends ConsumerWidget {
   const TweetTile({super.key, required this.tweet});

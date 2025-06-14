@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../providers/tweet_controller.dart';
-import 'tweet_tile.dart';
+import '../../../common/tweet_tile.dart';
 
 class TweetsList extends ConsumerWidget {
   const TweetsList({super.key});

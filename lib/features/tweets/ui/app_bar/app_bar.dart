@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../providers/tweet_select_controller.dart';
+import '../../../../providers/tweet_select_controller.dart';
 import 'apply_tag_button.dart';
 
 class TweetsAppBar extends ConsumerWidget implements PreferredSizeWidget {
@@ -24,12 +24,12 @@ class TweetsAppBar extends ConsumerWidget implements PreferredSizeWidget {
             icon: const Icon(Icons.delete),
             onPressed: () async {
               final res = await selectModeController.setBinTag();
+              final message =
+                  res != null ? '選択されたツイートをゴミ箱に移動しました。' : 'ゴミ箱に移動できませんでした。';
               if (!context.mounted) return;
-              final snackbar =
-                  res != null
-                      ? const SnackBar(content: Text('選択されたツイートをゴミ箱に移動しました。'))
-                      : const SnackBar(content: Text('ゴミ箱に移動できませんでした。'));
-              ScaffoldMessenger.of(context).showSnackBar(snackbar);
+              ScaffoldMessenger.of(
+                context,
+              ).showSnackBar(SnackBar(content: Text(message)));
             },
             tooltip: '削除',
           ),
