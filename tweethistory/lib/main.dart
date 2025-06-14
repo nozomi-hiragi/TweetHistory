@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'features/tweets/tweets_screen.dart';
 import 'features/bin/bin_screen.dart';
 import 'features/settings/settings_screen.dart';
+import 'providers/theme_provider.dart';
 import 'features/tweets/ui/tweets_upload_button.dart';
 import 'providers/initialization_provider.dart';
 
@@ -17,11 +18,22 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final initialization = ref.watch(initializationProvider);
+    final themeMode = ref.watch(themeModeProvider);
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.deepPurple,
+          brightness: Brightness.light,
+        ),
       ),
+      darkTheme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.deepPurple,
+          brightness: Brightness.dark,
+        ),
+      ),
+      themeMode: themeMode,
       home: initialization.when(
         data: (data) => const MyHomePage(),
         error:
