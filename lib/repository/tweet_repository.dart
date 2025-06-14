@@ -1,4 +1,3 @@
-import 'package:flutter/widgets.dart';
 import 'package:idb_shim/idb.dart';
 
 import '../models/tag.dart';
