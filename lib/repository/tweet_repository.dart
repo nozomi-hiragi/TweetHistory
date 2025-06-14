@@ -1,3 +1,6 @@
+import 'package:flutter/widgets.dart';
+import 'package:idb_shim/idb.dart';
+
 import '../models/tag.dart';
 import '../models/tweet.dart';
 import '../storage/tweet/tweet_storage.dart';
@@ -9,8 +12,8 @@ class TweetRepository {
 
   const TweetRepository._(this.storage);
 
-  static Future<TweetRepository> create() async {
-    final storage = await TweetStorage.create();
+  static Future<TweetRepository> create({IdbFactory? factory}) async {
+    final storage = await TweetStorage.create(factory: factory);
     return TweetRepository._(storage);
   }
 
