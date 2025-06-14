@@ -3,7 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../providers/tag_selection_provider.dart';
 import '../../../providers/tweet_controller_provider.dart';
-import '../../../state/tag_selection.dart';
+import '../../../state/selected_values.dart';
 
 class TagFilterBar extends ConsumerWidget {
   const TagFilterBar({super.key});
@@ -19,7 +19,7 @@ class TagFilterBar extends ConsumerWidget {
         spacing: 8.0,
         runSpacing: 8.0,
         children: [
-          ...tagState.allTags.map((tag) {
+          ...tagState.values.map((tag) {
             final isSelected = tagState.selected.contains(tag);
             return FilterChip(
               label: Text(tag),

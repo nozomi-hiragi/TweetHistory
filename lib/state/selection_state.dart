@@ -1,11 +1,11 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'tweet_selection.freezed.dart';
+part 'selection_state.freezed.dart';
 
 @freezed
-abstract class TweetSelectState with _$TweetSelectState {
-  const factory TweetSelectState({
+abstract class SelectionState with _$SelectionState {
+  const factory SelectionState({
     @Default(false) bool isSelectionMode,
     @Default(<String>{}) Set<String> selectedIds,
-  }) = _TweetSelectState;
+  }) = _SelectionState;
 }

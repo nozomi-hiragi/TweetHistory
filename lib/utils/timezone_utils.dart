@@ -1,6 +1,16 @@
 import 'package:intl/intl.dart';
 
+/// Parses a timezone offset string in the format `+HHMM` or `-HHMM`
+/// and returns a [Duration] representing the offset.
+/// The hours and minutes are extracted from the string, and the sign
+/// is determined by the leading `+` or `-`.
 Duration parseTimezoneOffset(String z) {
+  if (z.length != 5 || !RegExp(r'^[+-]\d{4}$').hasMatch(z)) {
+    throw FormatException('Invalid timezone offset format', z);
+  }
+  if (z == '+0000' || z == '-0000') {
+    return Duration.zero;
+  }
   final sign = z.startsWith('-') ? -1 : 1;
   final hours = int.parse(z.substring(1, 3));
   final minutes = int.parse(z.substring(3, 5));

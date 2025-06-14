@@ -4,7 +4,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'tag_selection.dart';
+part of 'selected_values.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -13,20 +13,20 @@ part of 'tag_selection.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$TagSelectionState {
+mixin _$SelectedValues {
 
  List<String> get selected; List<String> get unselected;
-/// Create a copy of TagSelectionState
+/// Create a copy of SelectedValues
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$TagSelectionStateCopyWith<TagSelectionState> get copyWith => _$TagSelectionStateCopyWithImpl<TagSelectionState>(this as TagSelectionState, _$identity);
+$SelectedValuesCopyWith<SelectedValues> get copyWith => _$SelectedValuesCopyWithImpl<SelectedValues>(this as SelectedValues, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TagSelectionState&&const DeepCollectionEquality().equals(other.selected, selected)&&const DeepCollectionEquality().equals(other.unselected, unselected));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SelectedValues&&const DeepCollectionEquality().equals(other.selected, selected)&&const DeepCollectionEquality().equals(other.unselected, unselected));
 }
 
 
@@ -35,15 +35,15 @@ int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(
 
 @override
 String toString() {
-  return 'TagSelectionState(selected: $selected, unselected: $unselected)';
+  return 'SelectedValues(selected: $selected, unselected: $unselected)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $TagSelectionStateCopyWith<$Res>  {
-  factory $TagSelectionStateCopyWith(TagSelectionState value, $Res Function(TagSelectionState) _then) = _$TagSelectionStateCopyWithImpl;
+abstract mixin class $SelectedValuesCopyWith<$Res>  {
+  factory $SelectedValuesCopyWith(SelectedValues value, $Res Function(SelectedValues) _then) = _$SelectedValuesCopyWithImpl;
 @useResult
 $Res call({
  List<String> selected, List<String> unselected
@@ -54,14 +54,14 @@ $Res call({
 
 }
 /// @nodoc
-class _$TagSelectionStateCopyWithImpl<$Res>
-    implements $TagSelectionStateCopyWith<$Res> {
-  _$TagSelectionStateCopyWithImpl(this._self, this._then);
+class _$SelectedValuesCopyWithImpl<$Res>
+    implements $SelectedValuesCopyWith<$Res> {
+  _$SelectedValuesCopyWithImpl(this._self, this._then);
 
-  final TagSelectionState _self;
-  final $Res Function(TagSelectionState) _then;
+  final SelectedValues _self;
+  final $Res Function(SelectedValues) _then;
 
-/// Create a copy of TagSelectionState
+/// Create a copy of SelectedValues
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? selected = null,Object? unselected = null,}) {
   return _then(_self.copyWith(
@@ -77,8 +77,8 @@ as List<String>,
 /// @nodoc
 
 
-class _TagSelectionState implements TagSelectionState {
-  const _TagSelectionState({final  List<String> selected = const [], final  List<String> unselected = const []}): _selected = selected,_unselected = unselected;
+class _SelectedValues implements SelectedValues {
+  const _SelectedValues({final  List<String> selected = const [], final  List<String> unselected = const []}): _selected = selected,_unselected = unselected;
   
 
  final  List<String> _selected;
@@ -96,17 +96,17 @@ class _TagSelectionState implements TagSelectionState {
 }
 
 
-/// Create a copy of TagSelectionState
+/// Create a copy of SelectedValues
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$TagSelectionStateCopyWith<_TagSelectionState> get copyWith => __$TagSelectionStateCopyWithImpl<_TagSelectionState>(this, _$identity);
+_$SelectedValuesCopyWith<_SelectedValues> get copyWith => __$SelectedValuesCopyWithImpl<_SelectedValues>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TagSelectionState&&const DeepCollectionEquality().equals(other._selected, _selected)&&const DeepCollectionEquality().equals(other._unselected, _unselected));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SelectedValues&&const DeepCollectionEquality().equals(other._selected, _selected)&&const DeepCollectionEquality().equals(other._unselected, _unselected));
 }
 
 
@@ -115,15 +115,15 @@ int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(
 
 @override
 String toString() {
-  return 'TagSelectionState(selected: $selected, unselected: $unselected)';
+  return 'SelectedValues(selected: $selected, unselected: $unselected)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$TagSelectionStateCopyWith<$Res> implements $TagSelectionStateCopyWith<$Res> {
-  factory _$TagSelectionStateCopyWith(_TagSelectionState value, $Res Function(_TagSelectionState) _then) = __$TagSelectionStateCopyWithImpl;
+abstract mixin class _$SelectedValuesCopyWith<$Res> implements $SelectedValuesCopyWith<$Res> {
+  factory _$SelectedValuesCopyWith(_SelectedValues value, $Res Function(_SelectedValues) _then) = __$SelectedValuesCopyWithImpl;
 @override @useResult
 $Res call({
  List<String> selected, List<String> unselected
@@ -134,17 +134,17 @@ $Res call({
 
 }
 /// @nodoc
-class __$TagSelectionStateCopyWithImpl<$Res>
-    implements _$TagSelectionStateCopyWith<$Res> {
-  __$TagSelectionStateCopyWithImpl(this._self, this._then);
+class __$SelectedValuesCopyWithImpl<$Res>
+    implements _$SelectedValuesCopyWith<$Res> {
+  __$SelectedValuesCopyWithImpl(this._self, this._then);
 
-  final _TagSelectionState _self;
-  final $Res Function(_TagSelectionState) _then;
+  final _SelectedValues _self;
+  final $Res Function(_SelectedValues) _then;
 
-/// Create a copy of TagSelectionState
+/// Create a copy of SelectedValues
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? selected = null,Object? unselected = null,}) {
-  return _then(_TagSelectionState(
+  return _then(_SelectedValues(
 selected: null == selected ? _self._selected : selected // ignore: cast_nullable_to_non_nullable
 as List<String>,unselected: null == unselected ? _self._unselected : unselected // ignore: cast_nullable_to_non_nullable
 as List<String>,

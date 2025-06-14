@@ -1,11 +1,11 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../state/tag_selection.dart';
+import '../state/selected_values.dart';
 import 'repository_provider.dart';
 
-class TagSelectionNotifier extends Notifier<TagSelectionState> {
+class TagSelectionNotifier extends Notifier<SelectedValues> {
   @override
-  TagSelectionState build() {
+  SelectedValues build() {
     final repository = ref.watch(repositoryProvider).value!;
     repository.getTags().then((tags) {
       state = state.copyWith(
@@ -16,7 +16,7 @@ class TagSelectionNotifier extends Notifier<TagSelectionState> {
       );
     });
 
-    return TagSelectionState(selected: [], unselected: []);
+    return SelectedValues(selected: [], unselected: []);
   }
 
   void initialize(List<String> tags) =>
@@ -24,7 +24,7 @@ class TagSelectionNotifier extends Notifier<TagSelectionState> {
 
   bool selectTag(String tag) {
     if (!state.unselected.contains(tag)) return false;
-    state = TagSelectionState(
+    state = SelectedValues(
       selected: [...state.selected, tag],
       unselected: state.unselected.where((t) => t != tag).toList(),
     );
@@ -33,7 +33,7 @@ class TagSelectionNotifier extends Notifier<TagSelectionState> {
 
   bool unselectTag(String tag) {
     if (!state.selected.contains(tag)) return false;
-    state = TagSelectionState(
+    state = SelectedValues(
       selected: state.selected.where((t) => t != tag).toList(),
       unselected: [...state.unselected, tag],
     );
@@ -55,6 +55,6 @@ class TagSelectionNotifier extends Notifier<TagSelectionState> {
 }
 
 final tagSelectionProvider =
-    NotifierProvider<TagSelectionNotifier, TagSelectionState>(
+    NotifierProvider<TagSelectionNotifier, SelectedValues>(
       TagSelectionNotifier.new,
     );

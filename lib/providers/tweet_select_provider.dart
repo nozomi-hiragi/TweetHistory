@@ -1,15 +1,15 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../state/tweet_selection.dart';
+import '../state/selection_state.dart';
 import 'repository_provider.dart';
 import 'tweet_controller_provider.dart';
 
-class TweetSelectNotifier extends Notifier<TweetSelectState> {
+class TweetSelectNotifier extends Notifier<SelectionState> {
   @override
-  build() => TweetSelectState();
+  build() => SelectionState();
 
   void toggle() =>
-      state = TweetSelectState(isSelectionMode: !state.isSelectionMode);
+      state = SelectionState(isSelectionMode: !state.isSelectionMode);
 
   bool toggleSelection(String tweetId) {
     final selectedIds = Set<String>.from(state.selectedIds);
@@ -50,6 +50,6 @@ class TweetSelectNotifier extends Notifier<TweetSelectState> {
 }
 
 final selectModeProvider =
-    NotifierProvider<TweetSelectNotifier, TweetSelectState>(
+    NotifierProvider<TweetSelectNotifier, SelectionState>(
       TweetSelectNotifier.new,
     );
