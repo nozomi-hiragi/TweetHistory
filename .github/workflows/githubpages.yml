@@ -37,15 +37,12 @@ jobs:
 
       - name: Flutter Version
         run: flutter --version
-        working-directory: tweethistory
 
       - name: Get Dependencies
         run: flutter pub get
-        working-directory: tweethistory
 
       - name: Build Flutter Web
         run: flutter build web --base-href /${{ steps.version.outputs.repository }}/
-        working-directory: tweethistory
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -53,7 +50,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './tweethistory/build/web'
+          path: './build/web'
 
   deploy:
     environment:
