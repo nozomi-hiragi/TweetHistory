@@ -3,8 +3,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../providers/search_query_provider.dart';
 
-class SearchBar extends ConsumerWidget {
-  const SearchBar({super.key});
+class MySearchBar extends ConsumerWidget {
+  const MySearchBar({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
