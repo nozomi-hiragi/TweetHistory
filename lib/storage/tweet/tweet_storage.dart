@@ -8,7 +8,8 @@ import '../store_params.dart';
 class TweetStores {
   static final tweets = StoreParams('tweets', 'id');
   static final tags = StoreParams('tags', 'name');
-  static final values = [tweets, tags];
+  static final deleted = StoreParams('deleted', 'id');
+  static final values = [tweets, tags, deleted];
 
   static Map<StoreParams, Store> create(Database db) =>
       StoreParams.createStores(db, TweetStores.values);
@@ -16,7 +17,7 @@ class TweetStores {
 
 class TweetStorage {
   static const String _dbName = 'tweet_db';
-  static const int _dbVersion = 1;
+  static const int _dbVersion = 2;
   final Map<StoreParams, Store> _stores;
 
   const TweetStorage._(this._stores);
