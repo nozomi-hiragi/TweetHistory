@@ -26,17 +26,17 @@ class MySearchBar extends ConsumerWidget {
               ),
             ),
           ),
-          PopupMenuButton<SortOrder>(
-            icon: const Icon(Icons.sort),
-            onSelected: (order) {
-              ref.read(sortOrderProvider.notifier).set(order);
+          IconButton(
+            icon: Icon(
+              order == SortOrder.newestFirst
+                  ? Icons.arrow_downward
+                  : Icons.arrow_upward,
+            ),
+            tooltip: order == SortOrder.newestFirst ? '新しい順' : '古い順',
+            onPressed: () {
+              ref.read(sortOrderProvider.notifier).toggle();
               ref.read(tweetControllerProvider.notifier).refresh();
             },
-            itemBuilder: (context) => const [
-              PopupMenuItem(value: SortOrder.newestFirst, child: Text('新しい順')),
-              PopupMenuItem(value: SortOrder.oldestFirst, child: Text('古い順')),
-            ],
-            tooltip: order == SortOrder.newestFirst ? '新しい順' : '古い順',
           ),
         ],
       ),
