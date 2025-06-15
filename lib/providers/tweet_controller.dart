@@ -5,6 +5,7 @@ import '../repository/tweet_repository.dart';
 import '../state/tweet_state.dart';
 import 'repository_providers.dart';
 import 'tag_select_controller.dart';
+import 'sort_order_provider.dart';
 
 class TweetController extends Notifier<TweetState> {
   @override
@@ -33,6 +34,8 @@ class TweetController extends Notifier<TweetState> {
     final allTweets = await repository.loadAllTweets();
     final isSelected = tagSelectionState.selected.isNotEmpty;
 
+    final order = ref.read(sortOrderProvider);
+
     var filteredTweets = <Tweet>[];
     var binnedTweets = <Tweet>[];
     for (var tweet in allTweets) {
@@ -45,7 +48,15 @@ class TweetController extends Notifier<TweetState> {
         filteredTweets.add(tweet);
       }
     }
-    state = (TweetState(tweets: filteredTweets, binned: binnedTweets));
+
+    int compare(Tweet a, Tweet b) => order == SortOrder.newestFirst
+        ? b.createdAt.compareTo(a.createdAt)
+        : a.createdAt.compareTo(b.createdAt);
+
+    filteredTweets = [...filteredTweets]..sort(compare);
+    binnedTweets = [...binnedTweets]..sort(compare);
+
+    state = TweetState(tweets: filteredTweets, binned: binnedTweets);
   }
 
   Future<void> addTweets(List<Tweet> tweets) async {
