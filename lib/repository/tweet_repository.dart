@@ -51,4 +51,35 @@ class TweetRepository {
   Future<List<Tag>> loadTags() => loadAllTags().then(
     (tags) => tags.where((tag) => tag.name != tagNameBin).toList(),
   );
+
+  Future<void> deleteTweets(Set<String> ids) async {
+    // store deleted ids
+    await storage
+        .store(TweetStores.deleted)
+        .putList(ids.toList(), (id) => {'id': id});
+
+    // delete tweet records
+    final tweetStore = storage.store(TweetStores.tweets);
+    for (final id in ids) {
+      await tweetStore.delete(id);
+    }
+
+    // remove ids from all tags
+    final tags = await loadAllTags();
+    for (final tag in tags) {
+      if (tag.tweetIds.intersection(ids).isEmpty) continue;
+      await saveTag(tag.copyWith(tweetIds: tag.tweetIds.difference(ids)));
+    }
+  }
+
+  Future<void> restoreTweets(Set<String> ids) async {
+    final binTag = await loadTag(tagNameBin);
+    if (binTag == null) return;
+    await removeIdsFromTag(binTag, ids);
+  }
+
+  Future<Set<String>> loadDeletedIds() async {
+    final objs = await storage.store(TweetStores.deleted).getAll((obj) => obj);
+    return objs.map((e) => e['id'] as String).toSet();
+  }
 }
