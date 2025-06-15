@@ -24,17 +24,26 @@ class TweetsList extends HookConsumerWidget {
               .where((t) => t.text.toLowerCase().contains(query.toLowerCase()))
               .toList();
 
-    final ScrollController controller = ScrollController();
-    controller.addListener(() {
-      if (showItemNum.value >= tweets.length) return;
-      if ((controller.offset / controller.position.maxScrollExtent) > 0.99) {
-        final newNum = min(showItemNum.value + pageNum, tweets.length);
-        showItemNum.value = newNum;
+    final controller = useScrollController();
+
+    useEffect(() {
+      void listener() {
+        if (showItemNum.value >= tweets.length) return;
+        if ((controller.offset / controller.position.maxScrollExtent) > 0.99) {
+          final newNum = min(showItemNum.value + pageNum, tweets.length);
+          showItemNum.value = newNum;
+        }
       }
-    });
+
+      controller.addListener(listener);
+      return () => controller.removeListener(listener);
+    }, [controller, tweets.length]);
 
     useEffect(() {
       showItemNum.value = pageNum;
+      if (controller.hasClients) {
+        controller.jumpTo(0);
+      }
       return null;
     }, [query, tweetState.tweets]);
 
