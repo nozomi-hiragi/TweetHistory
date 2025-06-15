@@ -111,6 +111,16 @@ class TweetSelectController extends Notifier<SelectionState> {
     return true;
   }
 
+  Future<bool> restoreTweets() async {
+    final repository = await ref.read(tweetRepositoryProvider.future);
+    final ids = state.selectedIds;
+    if (ids.isEmpty) return false;
+    await repository.restoreTweets(ids);
+    state = SelectionState(isSelectionMode: false);
+    ref.read(tweetControllerProvider.notifier).refresh();
+    return true;
+  }
+
   Future<Map<String, bool?>> getTagSelectionStatus() async {
     final repository = await ref.read(tweetRepositoryProvider.future);
     final tags = await repository.loadTags();

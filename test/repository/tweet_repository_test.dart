@@ -114,9 +114,9 @@ void main() {
             final regularTags = await repository.loadTags();
 
             expect(allTags.any((tag) => tag.name == tagNameBin), isTrue);
-          expect(regularTags.any((tag) => tag.name == tagNameBin), isFalse);
-        },
-      );
+            expect(regularTags.any((tag) => tag.name == tagNameBin), isFalse);
+          },
+        );
       });
 
       group('deleteTweets', () {
@@ -133,13 +133,9 @@ void main() {
           );
           await repository.saveTweets([tweet1, tweet2]);
           await repository.addTag(tagNameBin);
-          await repository.saveTag(
-            Tag(name: tagNameBin, tweetIds: {'1', '2'}),
-          );
+          await repository.saveTag(Tag(name: tagNameBin, tweetIds: {'1', '2'}));
           await repository.addTag('tag1');
-          await repository.saveTag(
-            Tag(name: 'tag1', tweetIds: {'1'}),
-          );
+          await repository.saveTag(Tag(name: 'tag1', tweetIds: {'1'}));
 
           await repository.deleteTweets({'1'});
 
@@ -151,6 +147,30 @@ void main() {
           expect(tag1?.tweetIds.contains('1'), isFalse);
           final deletedIds = await repository.loadDeletedIds();
           expect(deletedIds.contains('1'), isTrue);
+        });
+      });
+
+      group('restoreTweets', () {
+        test('remove ids from bin tag', () async {
+          final tweet1 = Tweet(
+            id: '1',
+            text: 't1',
+            createdAt: DateTime(2025, 1, 1),
+          );
+          final tweet2 = Tweet(
+            id: '2',
+            text: 't2',
+            createdAt: DateTime(2025, 1, 2),
+          );
+          await repository.saveTweets([tweet1, tweet2]);
+          await repository.addTag(tagNameBin);
+          await repository.saveTag(Tag(name: tagNameBin, tweetIds: {'1', '2'}));
+
+          await repository.restoreTweets({'1'});
+
+          final binTag = await repository.loadTag(tagNameBin);
+          expect(binTag?.tweetIds.contains('1'), isFalse);
+          expect(binTag?.tweetIds.contains('2'), isTrue);
         });
       });
     });

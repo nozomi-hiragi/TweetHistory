@@ -71,6 +71,12 @@ class TweetRepository {
     }
   }
 
+  Future<void> restoreTweets(Set<String> ids) async {
+    final binTag = await loadTag(tagNameBin);
+    if (binTag == null) return;
+    await removeIdsFromTag(binTag, ids);
+  }
+
   Future<Set<String>> loadDeletedIds() async {
     final objs = await storage.store(TweetStores.deleted).getAll((obj) => obj);
     return objs.map((e) => e['id'] as String).toSet();
