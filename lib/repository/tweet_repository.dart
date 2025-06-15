@@ -54,7 +54,8 @@ class TweetRepository {
 
   Future<void> deleteTweets(Set<String> ids) async {
     // store deleted ids
-    await storage.store(TweetStores.deleted)
+    await storage
+        .store(TweetStores.deleted)
         .putList(ids.toList(), (id) => {'id': id});
 
     // delete tweet records
