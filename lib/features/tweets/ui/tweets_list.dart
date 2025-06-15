@@ -5,6 +5,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../providers/tweet_controller.dart';
+import '../../../providers/search_query_provider.dart';
 import '../../../common/tweet_tile.dart';
 
 const pageNum = 20;
@@ -16,7 +17,12 @@ class TweetsList extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final showItemNum = useState(pageNum);
     final tweetState = ref.watch(tweetControllerProvider);
-    final tweets = tweetState.tweets;
+    final query = ref.watch(searchQueryProvider);
+    final tweets = query.isEmpty
+        ? tweetState.tweets
+        : tweetState.tweets
+              .where((t) => t.text.toLowerCase().contains(query.toLowerCase()))
+              .toList();
 
     final ScrollController controller = ScrollController();
     controller.addListener(() {
@@ -26,6 +32,11 @@ class TweetsList extends HookConsumerWidget {
         showItemNum.value = newNum;
       }
     });
+
+    useEffect(() {
+      showItemNum.value = pageNum;
+      return null;
+    }, [query, tweetState.tweets]);
 
     return ListView.builder(
       controller: controller,

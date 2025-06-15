@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../providers/tweet_select_controller.dart';
+import '../../../providers/search_query_provider.dart';
+import '../../../common/search_bar.dart';
 
 class BinAppBar extends ConsumerWidget implements PreferredSizeWidget {
   const BinAppBar({super.key});
@@ -13,7 +15,9 @@ class BinAppBar extends ConsumerWidget implements PreferredSizeWidget {
     final isSelectionMode = selectState.isSelectionMode;
     return AppBar(
       backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-      title: const Text('Bin'),
+      title: isSelectionMode
+          ? Text('${selectState.selectedIds.length}件選択中')
+          : const SearchBar(),
       actions: [
         if (isSelectionMode)
           IconButton(
