@@ -1,8 +1,9 @@
 {
-  "name": "Flutter Codespace",
-  "image": "ghcr.io/cirruslabs/flutter:3.10.0-1.3.pre",
-  "postCreateCommand": "flutter --version && flutter pub get",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
   "forwardPorts": [3000],
+  "name": "Flutter",
   "customizations": {
     "vscode": {
       "extensions": [
