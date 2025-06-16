@@ -13,11 +13,14 @@ class BinnedList extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final tweetState = ref.watch(tweetControllerProvider);
     final query = ref.watch(searchQueryProvider);
-    final tweets = query.isEmpty
-        ? tweetState.binned
-        : tweetState.binned
-              .where((t) => t.text.toLowerCase().contains(query.toLowerCase()))
-              .toList();
+    final tweets =
+        query.isEmpty
+            ? tweetState.binned
+            : tweetState.binned
+                .where(
+                  (t) => t.text.toLowerCase().contains(query.toLowerCase()),
+                )
+                .toList();
 
     final controller = useScrollController();
 

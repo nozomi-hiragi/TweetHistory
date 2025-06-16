@@ -8,9 +8,11 @@ class SortOrderNotifier extends Notifier<SortOrder> {
 
   void set(SortOrder order) => state = order;
 
-  void toggle() => state = state == SortOrder.newestFirst
-      ? SortOrder.oldestFirst
-      : SortOrder.newestFirst;
+  void toggle() =>
+      state =
+          state == SortOrder.newestFirst
+              ? SortOrder.oldestFirst
+              : SortOrder.newestFirst;
 }
 
 final sortOrderProvider = NotifierProvider<SortOrderNotifier, SortOrder>(

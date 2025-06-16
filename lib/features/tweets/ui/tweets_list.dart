@@ -18,11 +18,14 @@ class TweetsList extends HookConsumerWidget {
     final showItemNum = useState(pageNum);
     final tweetState = ref.watch(tweetControllerProvider);
     final query = ref.watch(searchQueryProvider);
-    final tweets = query.isEmpty
-        ? tweetState.tweets
-        : tweetState.tweets
-              .where((t) => t.text.toLowerCase().contains(query.toLowerCase()))
-              .toList();
+    final tweets =
+        query.isEmpty
+            ? tweetState.tweets
+            : tweetState.tweets
+                .where(
+                  (t) => t.text.toLowerCase().contains(query.toLowerCase()),
+                )
+                .toList();
 
     final controller = useScrollController();
 

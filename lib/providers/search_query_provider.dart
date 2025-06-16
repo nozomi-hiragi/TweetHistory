@@ -9,5 +9,6 @@ class SearchQueryNotifier extends Notifier<String> {
   void clear() => state = '';
 }
 
-final searchQueryProvider =
-    NotifierProvider<SearchQueryNotifier, String>(SearchQueryNotifier.new);
+final searchQueryProvider = NotifierProvider<SearchQueryNotifier, String>(
+  SearchQueryNotifier.new,
+);

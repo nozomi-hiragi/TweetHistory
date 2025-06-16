@@ -49,9 +49,10 @@ class TweetController extends Notifier<TweetState> {
       }
     }
 
-    int compare(Tweet a, Tweet b) => order == SortOrder.newestFirst
-        ? b.createdAt.compareTo(a.createdAt)
-        : a.createdAt.compareTo(b.createdAt);
+    int compare(Tweet a, Tweet b) =>
+        order == SortOrder.newestFirst
+            ? b.createdAt.compareTo(a.createdAt)
+            : a.createdAt.compareTo(b.createdAt);
 
     filteredTweets = [...filteredTweets]..sort(compare);
     binnedTweets = [...binnedTweets]..sort(compare);
