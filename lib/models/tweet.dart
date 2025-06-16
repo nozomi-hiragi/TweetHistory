@@ -12,8 +12,8 @@ abstract class Tweet with _$Tweet {
     required String text,
     required DateTime createdAt,
     @Default([]) List<Media> media,
-    @JsonKey(defaultValue: 0) @Default(0) int favoriteCount,
-    @JsonKey(defaultValue: 0) @Default(0) int retweetCount,
+    @Default(0) int favoriteCount,
+    @Default(0) int retweetCount,
   }) = _Tweet;
 
   factory Tweet.fromJson(Map<String, dynamic> json) => _$TweetFromJson(json);

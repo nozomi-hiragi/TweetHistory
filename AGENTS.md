@@ -17,6 +17,11 @@ This file provides guidelines for working with the TweetHistory repository.
   flutter test
   ```
 
+- Generate `*.freezed.dart` and `*.g.dart` files:
+  ```sh
+  flutter pub run build_runner build --delete-conflicting-outputs
+  ```
+
 ## Contribution Guidelines
 
 - Keep commit messages concise and descriptive.

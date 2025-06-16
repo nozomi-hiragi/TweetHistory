@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Tweet {
 
- String get id; String get text; DateTime get createdAt; List<Media> get media;@JsonKey(defaultValue: 0) int get favoriteCount;@JsonKey(defaultValue: 0) int get retweetCount;
+ String get id; String get text; DateTime get createdAt; List<Media> get media; int get favoriteCount; int get retweetCount;
 /// Create a copy of Tweet
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -49,7 +49,7 @@ abstract mixin class $TweetCopyWith<$Res>  {
   factory $TweetCopyWith(Tweet value, $Res Function(Tweet) _then) = _$TweetCopyWithImpl;
 @useResult
 $Res call({
- String id, String text, DateTime createdAt, List<Media> media,@JsonKey(defaultValue: 0) int favoriteCount,@JsonKey(defaultValue: 0) int retweetCount
+ String id, String text, DateTime createdAt, List<Media> media, int favoriteCount, int retweetCount
 });
 
 
@@ -85,7 +85,7 @@ as int,
 @JsonSerializable()
 
 class _Tweet implements Tweet {
-  const _Tweet({required this.id, required this.text, required this.createdAt, final  List<Media> media = const [], @JsonKey(defaultValue: 0) this.favoriteCount = 0, @JsonKey(defaultValue: 0) this.retweetCount = 0}): _media = media;
+  const _Tweet({required this.id, required this.text, required this.createdAt, final  List<Media> media = const [], this.favoriteCount = 0, this.retweetCount = 0}): _media = media;
   factory _Tweet.fromJson(Map<String, dynamic> json) => _$TweetFromJson(json);
 
 @override final  String id;
@@ -98,8 +98,8 @@ class _Tweet implements Tweet {
   return EqualUnmodifiableListView(_media);
 }
 
-@override@JsonKey(defaultValue: 0) final  int favoriteCount;
-@override@JsonKey(defaultValue: 0) final  int retweetCount;
+@override@JsonKey() final  int favoriteCount;
+@override@JsonKey() final  int retweetCount;
 
 /// Create a copy of Tweet
 /// with the given fields replaced by the non-null parameter values.
@@ -134,7 +134,7 @@ abstract mixin class _$TweetCopyWith<$Res> implements $TweetCopyWith<$Res> {
   factory _$TweetCopyWith(_Tweet value, $Res Function(_Tweet) _then) = __$TweetCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String text, DateTime createdAt, List<Media> media,@JsonKey(defaultValue: 0) int favoriteCount,@JsonKey(defaultValue: 0) int retweetCount
+ String id, String text, DateTime createdAt, List<Media> media, int favoriteCount, int retweetCount
 });
 
 
