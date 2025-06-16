@@ -1,8 +1,15 @@
 # TweetHistory
 
-Twitterからダウンロードしたアーカイブのtweets.jsを見たり仕分けたりするWebアプリです。
+Twitterからダウンロードしたアーカイブの`tweets.js`を読み込み、タグ付けや検索ができるWebアプリです。
 
 [TweetHistory](https://nozomi-hiragi.github.io/TweetHistory/)
+
+## 主な機能
+- tweets.js のインポート
+- タグ付け・タグによるフィルタリング
+- キーワード検索と日付順並び替え
+- ツイートをゴミ箱へ移動して管理
+- ダークモード切り替え
 
 ## 開発について
 
