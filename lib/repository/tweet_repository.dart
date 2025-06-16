@@ -13,7 +13,9 @@ class TweetRepository {
 
   static Future<TweetRepository> create({IdbFactory? factory}) async {
     final storage = await TweetStorage.create(factory: factory);
-    return TweetRepository._(storage);
+    final repo = TweetRepository._(storage);
+    await repo._ensureCountFields();
+    return repo;
   }
 
   Future<void> saveTweets(List<Tweet> tweets) => storage
@@ -81,5 +83,24 @@ class TweetRepository {
   Future<Set<String>> loadDeletedIds() async {
     final objs = await storage.store(TweetStores.deleted).getAll((obj) => obj);
     return objs.map((e) => e['id'] as String).toSet();
+  }
+
+  Future<void> _ensureCountFields() async {
+    final store = storage.store(TweetStores.tweets);
+    final records = await store.getAll((obj) => Map<String, dynamic>.from(obj));
+    for (final obj in records) {
+      bool updated = false;
+      if (!obj.containsKey('favoriteCount')) {
+        obj['favoriteCount'] = 0;
+        updated = true;
+      }
+      if (!obj.containsKey('retweetCount')) {
+        obj['retweetCount'] = 0;
+        updated = true;
+      }
+      if (updated) {
+        await store.put(obj);
+      }
+    }
   }
 }
