@@ -21,3 +21,6 @@ TweetHistory で扱うツイートデータの基本的なモデルを定義し�
 | type | string | Yes | `'photo'` や `'video'` など |
 
 タグ情報は `Tag` モデルとして別途管理しています。
+
+既存データに `favoriteCount` または `retweetCount` が含まれていない場合は、
+読み込み時に自動で `0` が設定されます。

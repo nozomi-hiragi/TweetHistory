@@ -3,6 +3,7 @@ import 'package:idb_shim/idb_shim.dart';
 import 'package:tweethistory/models/tag.dart';
 import 'package:tweethistory/models/tweet.dart';
 import 'package:tweethistory/repository/tweet_repository.dart';
+import 'package:tweethistory/storage/tweet/tweet_storage.dart';
 
 void main() {
   group('TweetRepository', () {
@@ -42,6 +43,32 @@ void main() {
           expect(loadedTweets[1].text, equals('Test tweet 2'));
         },
       );
+    });
+
+    group('migration', () {
+      setUp(() async {
+        await idbFactory.deleteDatabase('tweet_db');
+        final storage = await TweetStorage.create(factory: idbFactory);
+        await storage.store(TweetStores.tweets).put({
+          'id': 'old1',
+          'text': 'old',
+          'createdAt': DateTime(2025, 1, 1).toIso8601String(),
+          'media': [],
+        });
+        repository = await TweetRepository.create(factory: idbFactory);
+      });
+
+      test('missing count fields are set to zero', () async {
+        final tweets = await repository.loadAllTweets();
+        expect(tweets.single.favoriteCount, 0);
+        expect(tweets.single.retweetCount, 0);
+
+        final raw = await repository.storage
+            .store(TweetStores.tweets)
+            .getAll((obj) => obj);
+        expect(raw.single['favoriteCount'], 0);
+        expect(raw.single['retweetCount'], 0);
+      });
     });
 
     group('tags', () {
