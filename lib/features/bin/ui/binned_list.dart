@@ -26,7 +26,7 @@ class BinnedList extends HookConsumerWidget {
         controller.jumpTo(0);
       }
       return null;
-    }, [query, tweetState.binned]);
+    }, [query]);
 
     return ListView.builder(
       controller: controller,
