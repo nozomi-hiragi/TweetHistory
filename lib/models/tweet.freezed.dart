@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Tweet {
 
- String get id; String get text; DateTime get createdAt; List<Media> get media;
+ String get id; String get text; DateTime get createdAt; List<Media> get media;@JsonKey(defaultValue: 0) int get favoriteCount;@JsonKey(defaultValue: 0) int get retweetCount;
 /// Create a copy of Tweet
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -29,16 +29,16 @@ $TweetCopyWith<Tweet> get copyWith => _$TweetCopyWithImpl<Tweet>(this as Tweet, 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Tweet&&(identical(other.id, id) || other.id == id)&&(identical(other.text, text) || other.text == text)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&const DeepCollectionEquality().equals(other.media, media));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Tweet&&(identical(other.id, id) || other.id == id)&&(identical(other.text, text) || other.text == text)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&const DeepCollectionEquality().equals(other.media, media)&&(identical(other.favoriteCount, favoriteCount) || other.favoriteCount == favoriteCount)&&(identical(other.retweetCount, retweetCount) || other.retweetCount == retweetCount));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,text,createdAt,const DeepCollectionEquality().hash(media));
+int get hashCode => Object.hash(runtimeType,id,text,createdAt,const DeepCollectionEquality().hash(media),favoriteCount,retweetCount);
 
 @override
 String toString() {
-  return 'Tweet(id: $id, text: $text, createdAt: $createdAt, media: $media)';
+  return 'Tweet(id: $id, text: $text, createdAt: $createdAt, media: $media, favoriteCount: $favoriteCount, retweetCount: $retweetCount)';
 }
 
 
@@ -49,7 +49,7 @@ abstract mixin class $TweetCopyWith<$Res>  {
   factory $TweetCopyWith(Tweet value, $Res Function(Tweet) _then) = _$TweetCopyWithImpl;
 @useResult
 $Res call({
- String id, String text, DateTime createdAt, List<Media> media
+ String id, String text, DateTime createdAt, List<Media> media,@JsonKey(defaultValue: 0) int favoriteCount,@JsonKey(defaultValue: 0) int retweetCount
 });
 
 
@@ -66,13 +66,15 @@ class _$TweetCopyWithImpl<$Res>
 
 /// Create a copy of Tweet
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? text = null,Object? createdAt = null,Object? media = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? text = null,Object? createdAt = null,Object? media = null,Object? favoriteCount = null,Object? retweetCount = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,text: null == text ? _self.text : text // ignore: cast_nullable_to_non_nullable
 as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,media: null == media ? _self.media : media // ignore: cast_nullable_to_non_nullable
-as List<Media>,
+as List<Media>,favoriteCount: null == favoriteCount ? _self.favoriteCount : favoriteCount // ignore: cast_nullable_to_non_nullable
+as int,retweetCount: null == retweetCount ? _self.retweetCount : retweetCount // ignore: cast_nullable_to_non_nullable
+as int,
   ));
 }
 
@@ -83,7 +85,7 @@ as List<Media>,
 @JsonSerializable()
 
 class _Tweet implements Tweet {
-  const _Tweet({required this.id, required this.text, required this.createdAt, final  List<Media> media = const []}): _media = media;
+  const _Tweet({required this.id, required this.text, required this.createdAt, final  List<Media> media = const [], @JsonKey(defaultValue: 0) this.favoriteCount = 0, @JsonKey(defaultValue: 0) this.retweetCount = 0}): _media = media;
   factory _Tweet.fromJson(Map<String, dynamic> json) => _$TweetFromJson(json);
 
 @override final  String id;
@@ -96,6 +98,8 @@ class _Tweet implements Tweet {
   return EqualUnmodifiableListView(_media);
 }
 
+@override@JsonKey(defaultValue: 0) final  int favoriteCount;
+@override@JsonKey(defaultValue: 0) final  int retweetCount;
 
 /// Create a copy of Tweet
 /// with the given fields replaced by the non-null parameter values.
@@ -110,16 +114,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Tweet&&(identical(other.id, id) || other.id == id)&&(identical(other.text, text) || other.text == text)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&const DeepCollectionEquality().equals(other._media, _media));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Tweet&&(identical(other.id, id) || other.id == id)&&(identical(other.text, text) || other.text == text)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&const DeepCollectionEquality().equals(other._media, _media)&&(identical(other.favoriteCount, favoriteCount) || other.favoriteCount == favoriteCount)&&(identical(other.retweetCount, retweetCount) || other.retweetCount == retweetCount));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,text,createdAt,const DeepCollectionEquality().hash(_media));
+int get hashCode => Object.hash(runtimeType,id,text,createdAt,const DeepCollectionEquality().hash(_media),favoriteCount,retweetCount);
 
 @override
 String toString() {
-  return 'Tweet(id: $id, text: $text, createdAt: $createdAt, media: $media)';
+  return 'Tweet(id: $id, text: $text, createdAt: $createdAt, media: $media, favoriteCount: $favoriteCount, retweetCount: $retweetCount)';
 }
 
 
@@ -130,7 +134,7 @@ abstract mixin class _$TweetCopyWith<$Res> implements $TweetCopyWith<$Res> {
   factory _$TweetCopyWith(_Tweet value, $Res Function(_Tweet) _then) = __$TweetCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String text, DateTime createdAt, List<Media> media
+ String id, String text, DateTime createdAt, List<Media> media,@JsonKey(defaultValue: 0) int favoriteCount,@JsonKey(defaultValue: 0) int retweetCount
 });
 
 
@@ -147,13 +151,15 @@ class __$TweetCopyWithImpl<$Res>
 
 /// Create a copy of Tweet
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? text = null,Object? createdAt = null,Object? media = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? text = null,Object? createdAt = null,Object? media = null,Object? favoriteCount = null,Object? retweetCount = null,}) {
   return _then(_Tweet(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,text: null == text ? _self.text : text // ignore: cast_nullable_to_non_nullable
 as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,media: null == media ? _self._media : media // ignore: cast_nullable_to_non_nullable
-as List<Media>,
+as List<Media>,favoriteCount: null == favoriteCount ? _self.favoriteCount : favoriteCount // ignore: cast_nullable_to_non_nullable
+as int,retweetCount: null == retweetCount ? _self.retweetCount : retweetCount // ignore: cast_nullable_to_non_nullable
+as int,
   ));
 }
 

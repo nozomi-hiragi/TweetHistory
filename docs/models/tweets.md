@@ -11,6 +11,8 @@ TweetHistory で扱うツイートデータの基本的なモデルを定義し�
 | text | string | Yes | ツイート本文 |
 | createdAt | DateTime | Yes | 投稿日時 |
 | media | List&lt;Media&gt; | No | 添付メディア情報 |
+| favoriteCount | int | Yes | いいね数 |
+| retweetCount | int | Yes | リツイート数 |
 
 ### Media
 | フィールド名 | 型 | 必須 | 説明 |
