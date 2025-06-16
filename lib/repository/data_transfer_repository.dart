@@ -21,7 +21,7 @@ class DataTransferRepository {
     final deleted = await tweetRepository.loadDeletedIds();
 
     return {
-      'indexeddb': {
+      'indexedDB': {
         'tweet_db': {
           'tweets': tweets.map((t) => t.toJson()).toList(),
           'tags': tags.map((t) => t.toJson()).toList(),
@@ -33,7 +33,7 @@ class DataTransferRepository {
   }
 
   Future<void> importAll(Map<String, dynamic> data) async {
-    final db = data['indexeddb'];
+    final db = data['indexedDB'];
     if (db is Map) {
       final tweetDb = db['tweet_db'];
       if (tweetDb is Map) {
@@ -57,9 +57,9 @@ class DataTransferRepository {
       }
     }
 
-    final prefs = data['preferences'];
-    if (prefs is Map) {
-      final index = prefs['themeMode'];
+    final preferences = data['preferences'];
+    if (preferences is Map) {
+      final index = preferences['themeMode'];
       if (index is int && index >= 0 && index < ThemeMode.values.length) {
         preferencesRepository.themeMode = ThemeMode.values[index];
       }
