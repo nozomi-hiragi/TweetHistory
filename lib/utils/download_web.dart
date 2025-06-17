@@ -1,14 +1,18 @@
-import 'dart:html' as html;
+import 'dart:js_interop';
+import 'dart:typed_data';
 
-void downloadFile(String filename, List<int> bytes) {
-  final blob = html.Blob([bytes]);
-  final url = html.Url.createObjectUrlFromBlob(blob);
+import 'package:web/web.dart' as web;
+
+void downloadFile(String filename, Uint8List bytes) {
+  final file = web.File([bytes.toJS].toJS, filename);
+  final url = web.URL.createObjectURL(file);
   final anchor =
-      html.AnchorElement(href: url)
-        ..setAttribute('download', filename)
+      web.HTMLAnchorElement()
+        ..href = url
+        ..download = filename
         ..style.display = 'none';
-  html.document.body!.append(anchor);
+  web.document.body!.append(anchor);
   anchor.click();
   anchor.remove();
-  html.Url.revokeObjectUrl(url);
+  web.URL.revokeObjectURL(url);
 }

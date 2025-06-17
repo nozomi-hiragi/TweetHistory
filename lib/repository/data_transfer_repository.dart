@@ -1,10 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:tweethistory/storage/tweet/tweet_storage.dart';
 
 import 'tweet_repository.dart';
 import 'preferences_repository.dart';
-import '../models/tag.dart';
-import '../models/tweet.dart';
 
 class DataTransferRepository {
   final TweetRepository tweetRepository;

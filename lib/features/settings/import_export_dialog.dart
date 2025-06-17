@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:typed_data';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
@@ -17,7 +16,7 @@ class ImportExportDialog extends ConsumerWidget {
     final repo = await ref.read(dataTransferRepositoryProvider.future);
     final data = await repo.exportAll();
     final jsonStr = repo.exportJson(data);
-    final bytes = Uint8List.fromList(utf8.encode(jsonStr));
+    final bytes = utf8.encode(jsonStr);
     if (kIsWeb) {
       downloadFile('tweethistory_export.json', bytes);
       if (context.mounted) {
