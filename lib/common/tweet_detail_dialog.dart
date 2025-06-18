@@ -7,6 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../models/tweet.dart';
 import '../providers/user_id_controller.dart';
+import '../providers/tweet_controller.dart';
 import 'dialogs/user_id_input_dialog.dart';
 
 class TweetDetailDialog extends ConsumerWidget {
@@ -20,6 +21,55 @@ class TweetDetailDialog extends ConsumerWidget {
             ? 'https://x.com/$userId/status/${tweet.id}'
             : 'https://x.com/i/status/${tweet.id}';
     web.window.open(url, '_blank');
+  }
+
+  Future<void> _showDeleteConfirmation(
+    BuildContext context,
+    WidgetRef ref,
+  ) async {
+    final l10n = AppLocalizations.of(context)!;
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder:
+          (context) => AlertDialog(
+            title: Text(l10n.confirmDeleteTweet),
+            content: Text(l10n.deleteTweetWarning),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(false),
+                child: Text(l10n.cancel),
+              ),
+              FilledButton(
+                onPressed: () => Navigator.of(context).pop(true),
+                child: Text(l10n.delete),
+              ),
+            ],
+          ),
+    );
+
+    if (confirmed == true) {
+      try {
+        await ref.read(tweetControllerProvider.notifier).deleteTweet(tweet.id);
+        if (context.mounted) {
+          Navigator.of(context).pop(); // Close detail dialog
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(l10n.tweetsDeletedSuccess),
+              duration: const Duration(seconds: 2),
+            ),
+          );
+        }
+      } catch (e) {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(l10n.tweetsDeletedError),
+              duration: const Duration(seconds: 2),
+            ),
+          );
+        }
+      }
+    }
   }
 
   @override
@@ -87,10 +137,7 @@ class TweetDetailDialog extends ConsumerWidget {
               // Media section
               if (tweet.media.isNotEmpty) ...[
                 const SizedBox(height: 16),
-                Text(
-                  l10n.media,
-                  style: Theme.of(context).textTheme.titleSmall,
-                ),
+                Text(l10n.media, style: Theme.of(context).textTheme.titleSmall),
                 const SizedBox(height: 8),
                 ...tweet.media.map((media) => _buildMediaItem(context, media)),
               ],
@@ -107,6 +154,11 @@ class TweetDetailDialog extends ConsumerWidget {
           onPressed: () => UserIdInputDialog.show(context, allowEmpty: false),
           icon: const Icon(Icons.settings),
           label: Text(l10n.userIdSetting),
+        ),
+        TextButton.icon(
+          onPressed: () => _showDeleteConfirmation(context, ref),
+          icon: const Icon(Icons.delete),
+          label: Text(l10n.deleteThisTweet),
         ),
         FilledButton.icon(
           onPressed: () => _openTweetInBrowser(userId),

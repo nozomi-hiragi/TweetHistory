@@ -807,5 +807,17 @@
   "moveToBinError": "Failed to move to bin.",
   "@moveToBinError": {
     "description": "Error message when moving to bin fails"
+  },
+  "confirmDeleteTweet": "Delete this tweet?",
+  "@confirmDeleteTweet": {
+    "description": "Confirmation message for deleting a tweet"
+  },
+  "deleteThisTweet": "Delete this tweet",
+  "@deleteThisTweet": {
+    "description": "Button text to delete a tweet"
+  },
+  "deleteTweetWarning": "This tweet will be deleted.",
+  "@deleteTweetWarning": {
+    "description": "Warning message when deleting a tweet"
   }
 }
