@@ -89,6 +89,32 @@ tweet_db (v2)
 - **Storage**: `idb_shim` (IndexedDB), `shared_preferences` (settings)
 - **Linting**: `custom_lint` + `riverpod_lint`
 
+## Version Management
+
+When updating the application version, the following files must be modified:
+
+1. **pubspec.yaml** (line 19): `version: X.X.X+1`
+2. **ios/Runner.xcodeproj/project.pbxproj**: All instances of `MARKETING_VERSION = X.X.X;`
+3. **windows/runner/Runner.rc** (line 72): `#define VERSION_AS_STRING "X.X.X"`
+
+**Example for version 0.2.1:**
+```yaml
+# pubspec.yaml
+version: 0.2.1+1
+```
+
+```objc
+// iOS project.pbxproj (3 locations)
+MARKETING_VERSION = 0.2.1;
+```
+
+```c
+// Windows Runner.rc
+#define VERSION_AS_STRING "0.2.1"
+```
+
+**Note:** Android, macOS, and web builds automatically use the version from `pubspec.yaml` via Flutter's build system.
+
 ## Development Notes
 
 - Always run `dart run build_runner build` after modifying Freezed models
