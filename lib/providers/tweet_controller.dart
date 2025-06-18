@@ -6,6 +6,7 @@ import '../state/tweet_state.dart';
 import 'repository_providers.dart';
 import 'tag_select_controller.dart';
 import 'sort_order_provider.dart';
+import 'period_filter_provider.dart';
 
 class TweetController extends Notifier<TweetState> {
   @override
@@ -18,6 +19,7 @@ class TweetController extends Notifier<TweetState> {
     final repository = await ref.read(tweetRepositoryProvider.future);
     final tagSelectionState =
         ref.read(tagSelectControllerProvider.notifier).state;
+    final period = ref.read(periodFilterProvider);
     final tags = await repository.loadTags();
     final binTag = await repository.loadTag(tagNameBin);
 
@@ -39,6 +41,12 @@ class TweetController extends Notifier<TweetState> {
     var filteredTweets = <Tweet>[];
     var binnedTweets = <Tweet>[];
     for (var tweet in allTweets) {
+      if (period.since != null && tweet.createdAt.isBefore(period.since!)) {
+        continue;
+      }
+      if (period.until != null && tweet.createdAt.isAfter(period.until!)) {
+        continue;
+      }
       final isFilteredId = filteredIds.contains(tweet.id);
       final isNoFilteredId = noFilteredIds.contains(tweet.id);
       final isUnTaggedId = !(isFilteredId || isNoFilteredId);
@@ -49,9 +57,10 @@ class TweetController extends Notifier<TweetState> {
       }
     }
 
-    int compare(Tweet a, Tweet b) => order == SortOrder.newestFirst
-        ? b.createdAt.compareTo(a.createdAt)
-        : a.createdAt.compareTo(b.createdAt);
+    int compare(Tweet a, Tweet b) =>
+        order == SortOrder.newestFirst
+            ? b.createdAt.compareTo(a.createdAt)
+            : a.createdAt.compareTo(b.createdAt);
 
     filteredTweets = [...filteredTweets]..sort(compare);
     binnedTweets = [...binnedTweets]..sort(compare);
