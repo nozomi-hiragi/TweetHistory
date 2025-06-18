@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../providers/theme_mode_controller.dart';
+import 'import_export_dialog.dart';
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
@@ -27,7 +28,15 @@ class SettingsScreen extends ConsumerWidget {
               ref.read(themeModeControllerProvider.notifier).setDarkMode(val);
             },
           ),
-          const ListTile(title: Text('Import/Export settings (coming soon)')),
+          ListTile(
+            title: const Text('Import / Export'),
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (_) => const ImportExportDialog(),
+              );
+            },
+          ),
         ],
       ),
     );
