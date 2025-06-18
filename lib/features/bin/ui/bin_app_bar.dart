@@ -26,7 +26,8 @@ class BinAppBar extends ConsumerWidget implements PreferredSizeWidget {
             icon: const Icon(Icons.delete_forever),
             onPressed: () async {
               final res = await selectController.deleteTweets();
-              final message = res ? '選択されたツイートを削除しました。' : 'ツイートを削除できませんでした。';
+              final message =
+                  res ? l10n.tweetsDeletedSuccess : l10n.tweetsDeletedError;
               if (!context.mounted) return;
               ScaffoldMessenger.of(
                 context,
@@ -39,7 +40,8 @@ class BinAppBar extends ConsumerWidget implements PreferredSizeWidget {
             icon: const Icon(Icons.restore_from_trash),
             onPressed: () async {
               final res = await selectController.restoreTweets();
-              final message = res ? '選択されたツイートを戻しました。' : 'ツイートを戻せませんでした。';
+              final message =
+                  res ? l10n.tweetsRestoredSuccess : l10n.tweetsRestoredError;
               if (!context.mounted) return;
               ScaffoldMessenger.of(
                 context,

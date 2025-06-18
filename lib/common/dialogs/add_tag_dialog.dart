@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddTagDialog extends StatelessWidget {
   const AddTagDialog({super.key});
@@ -12,23 +13,24 @@ class AddTagDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final controller = TextEditingController();
     
     return AlertDialog(
-      title: const Text('新しいタグを追加'),
+      title: Text(l10n.addNewTag),
       content: TextField(
         controller: controller,
         autofocus: true,
-        decoration: const InputDecoration(hintText: 'タグ名'),
+        decoration: InputDecoration(hintText: l10n.tagNamePlaceholder),
       ),
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: const Text('キャンセル'),
+          child: Text(l10n.cancel),
         ),
         TextButton(
           onPressed: () => Navigator.of(context).pop(controller.text.trim()),
-          child: const Text('追加'),
+          child: Text(l10n.add),
         ),
       ],
     );

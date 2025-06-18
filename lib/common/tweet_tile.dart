@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -10,7 +11,10 @@ import '../providers/repository_providers.dart';
 import 'tweet_detail_dialog.dart';
 
 // Provider to get tags for a specific tweet
-final tweetTagsProvider = FutureProvider.family<List<String>, String>((ref, tweetId) async {
+final tweetTagsProvider = FutureProvider.family<List<String>, String>((
+  ref,
+  tweetId,
+) async {
   final repository = await ref.read(tweetRepositoryProvider.future);
   final allTags = await repository.loadAllTags();
   return allTags
@@ -26,16 +30,17 @@ class TweetTile extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final selectState = ref.watch(tweetSelectControllerProvider);
     final selectController = ref.read(tweetSelectControllerProvider.notifier);
     final theme = Theme.of(context);
     final deleted = useRef(false);
     final isSelected = selectState.selectedIds.contains(tweet.id);
-    final dateFormat = DateFormat('yyyy年M月d日 HH:mm', 'ja');
-    
+    final dateFormat = DateFormat.yMMMd(l10n.localeName).add_Hm();
+
     // Get tags for this tweet using AsyncValue
     final tweetTagsAsync = ref.watch(tweetTagsProvider(tweet.id));
-    
+
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: AnimatedContainer(
@@ -58,14 +63,18 @@ class TweetTile extends HookConsumerWidget {
             },
             child: Container(
               decoration: BoxDecoration(
-                color: isSelected 
-                    ? theme.colorScheme.secondaryContainer.withValues(alpha: 0.3)
-                    : theme.colorScheme.surface,
+                color:
+                    isSelected
+                        ? theme.colorScheme.secondaryContainer.withValues(
+                          alpha: 0.3,
+                        )
+                        : theme.colorScheme.surface,
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(
-                  color: isSelected
-                      ? theme.colorScheme.secondary.withValues(alpha: 0.4)
-                      : theme.colorScheme.outline.withValues(alpha: 0.1),
+                  color:
+                      isSelected
+                          ? theme.colorScheme.secondary.withValues(alpha: 0.4)
+                          : theme.colorScheme.outline.withValues(alpha: 0.1),
                   width: isSelected ? 2 : 1,
                 ),
                 boxShadow: [
@@ -105,7 +114,7 @@ class TweetTile extends HookConsumerWidget {
                     ],
                   ),
                   const SizedBox(height: 12),
-                  
+
                   // Tweet content
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -127,7 +136,9 @@ class TweetTile extends HookConsumerWidget {
                             errorBuilder: (context, error, stackTrace) {
                               if (!deleted.value) {
                                 deleted.value = true;
-                                WidgetsBinding.instance.addPostFrameCallback((_) {
+                                WidgetsBinding.instance.addPostFrameCallback((
+                                  _,
+                                ) {
                                   ref
                                       .read(tweetControllerProvider.notifier)
                                       .deleteTweet(tweet.id);
@@ -141,7 +152,7 @@ class TweetTile extends HookConsumerWidget {
                             },
                           ),
                         ),
-                      
+
                       // Tweet text
                       Expanded(
                         child: Column(
@@ -156,20 +167,34 @@ class TweetTile extends HookConsumerWidget {
                               maxLines: 3,
                               overflow: TextOverflow.ellipsis,
                             ),
-                            
+
                             // Tags
                             tweetTagsAsync.when(
-                              data: (tags) => tags.isNotEmpty ? Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const SizedBox(height: 12),
-                                  Wrap(
-                                    spacing: 6,
-                                    runSpacing: 6,
-                                    children: tags.map((tag) => _buildTagChip(theme, tag)).toList(),
-                                  ),
-                                ],
-                              ) : const SizedBox.shrink(),
+                              data:
+                                  (tags) =>
+                                      tags.isNotEmpty
+                                          ? Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              const SizedBox(height: 12),
+                                              Wrap(
+                                                spacing: 6,
+                                                runSpacing: 6,
+                                                children:
+                                                    tags
+                                                        .map(
+                                                          (tag) =>
+                                                              _buildTagChip(
+                                                                theme,
+                                                                tag,
+                                                              ),
+                                                        )
+                                                        .toList(),
+                                              ),
+                                            ],
+                                          )
+                                          : const SizedBox.shrink(),
                               loading: () => const SizedBox.shrink(),
                               error: (_, __) => const SizedBox.shrink(),
                             ),

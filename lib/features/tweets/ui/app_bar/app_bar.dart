@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../../providers/tweet_select_controller.dart';
@@ -10,6 +11,7 @@ class TweetsAppBar extends ConsumerWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final selectModeController = ref.read(
       tweetSelectControllerProvider.notifier,
     );
@@ -19,7 +21,7 @@ class TweetsAppBar extends ConsumerWidget implements PreferredSizeWidget {
       backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       title:
           isSelectionMode
-              ? Text('${tweetSelectState.selectedIds.length}件選択中')
+              ? Text(l10n.selectedCount(tweetSelectState.selectedIds.length))
               : const MySearchBar(),
       actions: [
         if (isSelectionMode) ApplyTagButton(),
@@ -29,18 +31,20 @@ class TweetsAppBar extends ConsumerWidget implements PreferredSizeWidget {
             onPressed: () async {
               final res = await selectModeController.setBinTag();
               final message =
-                  res != null ? '選択されたツイートをゴミ箱に移動しました。' : 'ゴミ箱に移動できませんでした。';
+                  res != null
+                      ? l10n.moveToBinSuccess
+                      : l10n.moveToBinError;
               if (!context.mounted) return;
               ScaffoldMessenger.of(
                 context,
               ).showSnackBar(SnackBar(content: Text(message)));
             },
-            tooltip: '削除',
+            tooltip: l10n.delete,
           ),
         IconButton(
           icon: Icon(isSelectionMode ? Icons.close : Icons.select_all),
           onPressed: () => selectModeController.toggle(),
-          tooltip: isSelectionMode ? 'キャンセル' : '選択モード',
+          tooltip: isSelectionMode ? l10n.cancel : l10n.select,
         ),
       ],
     );

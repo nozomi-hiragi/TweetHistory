@@ -78,9 +78,9 @@ class _TabConfig {
   });
 }
 
-const keyTweets = "tweets";
-const keyBin = "bin";
-const keySettings = "settings";
+const keyTweets = 'tweets';
+const keyBin = 'bin';
+const keySettings = 'settings';
 
 class MyHomePage extends ConsumerWidget {
   const MyHomePage({super.key});

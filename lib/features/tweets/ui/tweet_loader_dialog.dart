@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../providers/tweet_controller.dart';
 import '../../../providers/tweet_loader_provider.dart';
@@ -8,6 +9,7 @@ class TweetLoaderDialog extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final tweetController = ref.read(tweetControllerProvider.notifier);
     final loaderState = ref.watch(streamTweetLoaderProvider);
     return Dialog(
@@ -20,7 +22,7 @@ class TweetLoaderDialog extends ConsumerWidget {
                 children: [
                   const CircularProgressIndicator(),
                   const SizedBox(height: 16),
-                  const Text('ファイルを準備しています...'),
+                  Text(l10n.preparingFile),
                 ],
               ),
           data: (state) {
@@ -30,16 +32,16 @@ class TweetLoaderDialog extends ConsumerWidget {
               children: [
                 LinearProgressIndicator(value: state.progress),
                 const SizedBox(height: 16),
-                Text('${(state.progress * 100).toInt()}% 完了'),
+                Text(l10n.percentComplete((state.progress * 100).toInt())),
                 const SizedBox(height: 16),
                 if (state.progress < 1.0) ...[
-                  const Text('ツイートを読み込んでいます...'),
+                  Text(l10n.loadingTweets),
                 ] else ...[
-                  const Text('読み込みが完了しました！'),
+                  Text(l10n.loadingComplete),
                   const SizedBox(height: 16),
                   ElevatedButton(
                     onPressed: () => Navigator.of(context).pop(),
-                    child: const Text('完了'),
+                    child: Text(l10n.done),
                   ),
                 ],
               ],
@@ -51,11 +53,11 @@ class TweetLoaderDialog extends ConsumerWidget {
                 children: [
                   const Icon(Icons.error, color: Colors.red, size: 48),
                   const SizedBox(height: 16),
-                  Text('エラー: $error'),
+                  Text('${l10n.error}: $error'),
                   const SizedBox(height: 16),
                   ElevatedButton(
                     onPressed: () => Navigator.of(context).pop(),
-                    child: const Text('閉じる'),
+                    child: Text(l10n.close),
                   ),
                 ],
               ),

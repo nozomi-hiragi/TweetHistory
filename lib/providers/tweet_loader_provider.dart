@@ -92,7 +92,7 @@ class StreamTweetLoaderNotifier extends StreamNotifier<TweetLoaderState> {
     final controller = StreamController<TweetLoaderState>();
 
     Future<void> run() async {
-      await Future.delayed(Duration(microseconds: 1));
+      await Future.delayed(Duration.zero);
       double lastProgress = 0.0;
       final bytes = _bytes;
       if (bytes == null) return controller.add(const TweetLoaderState());

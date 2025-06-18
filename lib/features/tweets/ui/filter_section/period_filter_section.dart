@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 
@@ -12,22 +13,20 @@ class PeriodFilterSection extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final periodState = ref.watch(periodFilterProvider);
     final periodController = ref.read(periodFilterProvider.notifier);
     final tweetController = ref.read(tweetControllerProvider.notifier);
     final localeController = ref.read(localeControllerProvider.notifier);
     final currentLocale = localeController.getEffectiveLocale();
-    final dateFormat =
-        currentLocale.languageCode == 'ja'
-            ? DateFormat('yyyy年M月d日', 'ja')
-            : DateFormat('MMM d, yyyy', 'en');
+    final dateFormat = DateFormat.yMMMd(currentLocale.languageCode);
     final theme = Theme.of(context);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          currentLocale.languageCode == 'ja' ? '期間' : 'Period',
+          l10n.period,
           style: theme.textTheme.labelMedium?.copyWith(
             color: theme.colorScheme.onSurfaceVariant,
             fontWeight: FontWeight.w500,
@@ -41,10 +40,8 @@ class PeriodFilterSection extends ConsumerWidget {
             DateChip(
               label:
                   periodState.since != null
-                      ? '${currentLocale.languageCode == 'ja' ? '開始: ' : 'Since: '}${dateFormat.format(periodState.since!)}'
-                      : (currentLocale.languageCode == 'ja'
-                          ? '開始日を選択'
-                          : 'Select start date'),
+                      ? '${l10n.since}${dateFormat.format(periodState.since!)}'
+                      : l10n.selectStartDate,
               isActive: periodState.since != null,
               onPressed: () async {
                 final picked = await showDatePicker(
@@ -72,10 +69,8 @@ class PeriodFilterSection extends ConsumerWidget {
             DateChip(
               label:
                   periodState.until != null
-                      ? '${currentLocale.languageCode == 'ja' ? '終了: ' : 'Until: '}${dateFormat.format(periodState.until!)}'
-                      : (currentLocale.languageCode == 'ja'
-                          ? '終了日を選択'
-                          : 'Select end date'),
+                      ? '${l10n.until}${dateFormat.format(periodState.until!)}'
+                      : l10n.selectEndDate,
               isActive: periodState.until != null,
               onPressed: () async {
                 final picked = await showDatePicker(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 class TagSelectDialog extends HookWidget {
@@ -8,9 +9,10 @@ class TagSelectDialog extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final selectState = useState(tagStatus);
     return AlertDialog(
-      title: const Text('タグを選択'),
+      title: Text(l10n.selectTags),
       content: SizedBox(
         width: double.maxFinite,
         child: ListView(
@@ -31,11 +33,11 @@ class TagSelectDialog extends HookWidget {
       ),
       actions: [
         TextButton(
-          child: const Text('キャンセル'),
+          child: Text(l10n.cancel),
           onPressed: () => Navigator.of(context).pop(),
         ),
         ElevatedButton(
-          child: const Text('適用'),
+          child: Text(l10n.apply),
           onPressed: () {
             final result = selectState.value.map(
               (key, value) =>

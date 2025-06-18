@@ -1,6 +1,7 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:result_dart/result_dart.dart';
 
 Future<Result<Uint8List>> _pickJsFile() async {
@@ -25,14 +26,15 @@ class UploadDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     return AlertDialog(
-      title: const Text('Upload tweets.js'),
+      title: Text(l10n.uploadTweetsFile),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('ファイルを選択してアップロードしてください。'),
+          Text(l10n.selectFileToUpload),
           const SizedBox(height: 12),
           if (kIsWeb)
             Container(
@@ -42,7 +44,7 @@ class UploadDialog extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Text(
-                '⚠ 注意：このアプリはブラウザ上で動作しているため、非常に大きなファイル（例：100MB以上）は読み込めない場合があります。',
+                l10n.webBrowserWarning,
                 style: TextStyle(
                   color: theme.colorScheme.error,
                   fontSize: 13,
@@ -70,11 +72,11 @@ class UploadDialog extends StatelessWidget {
               );
             });
           },
-          child: const Text('アップロード'),
+          child: Text(l10n.upload),
         ),
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: const Text('キャンセル'),
+          child: Text(l10n.cancel),
         ),
       ],
     );

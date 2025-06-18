@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../providers/user_id_controller.dart';
@@ -20,62 +21,64 @@ class UserIdInputDialog extends ConsumerWidget {
   }) {
     return showDialog(
       context: context,
-      builder: (_) => UserIdInputDialog(
-        initialValue: initialValue,
-        allowEmpty: allowEmpty,
-      ),
+      builder:
+          (_) => UserIdInputDialog(
+            initialValue: initialValue,
+            allowEmpty: allowEmpty,
+          ),
     );
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final controller = TextEditingController(text: initialValue ?? '');
-    
     return AlertDialog(
-      title: const Text('ユーザーID設定'),
+      title: Text(l10n.userIdSetting),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('X(Twitter)のユーザーID（@なし）を入力してください：'),
+          Text(l10n.userIdDescription),
           const SizedBox(height: 8),
           TextField(
             controller: controller,
-            decoration: const InputDecoration(
-              hintText: 'username',
-              border: OutlineInputBorder(),
+            decoration: InputDecoration(
+              hintText: l10n.userIdPlaceholder,
+              border: const OutlineInputBorder(),
             ),
           ),
           const SizedBox(height: 8),
-          const Text(
-            '例: https://x.com/username の場合は "username" を入力',
-            style: TextStyle(fontSize: 12, color: Colors.grey),
+          Text(
+            l10n.userIdExample,
+            style: const TextStyle(fontSize: 12, color: Colors.grey),
           ),
         ],
       ),
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: const Text('キャンセル'),
+          child: Text(l10n.cancel),
         ),
         FilledButton(
           onPressed: () {
             final value = controller.text.trim();
             if (value.isNotEmpty || allowEmpty) {
-              ref.read(userIdControllerProvider.notifier)
+              ref
+                  .read(userIdControllerProvider.notifier)
                   .setUserId(value.isEmpty ? null : value);
               Navigator.of(context).pop();
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text(value.isEmpty 
-                      ? 'ユーザーIDをクリアしました' 
-                      : 'ユーザーIDを設定しました'),
+                  content: Text(
+                    value.isEmpty ? l10n.userIdCleared : l10n.userIdSet,
+                  ),
                   duration: const Duration(seconds: 2),
                 ),
               );
             }
           },
-          child: const Text('保存'),
+          child: Text(l10n.save),
         ),
       ],
     );

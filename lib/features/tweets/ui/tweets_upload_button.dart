@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../providers/tweet_loader_provider.dart';
@@ -12,6 +13,7 @@ class TweetsUploadButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final tweetLoader = ref.read(streamTweetLoaderProvider.notifier);
     return FloatingActionButton(
       key: const ValueKey('fab'),
@@ -30,7 +32,7 @@ class TweetsUploadButton extends ConsumerWidget {
         );
         tweetLoader.load(bytes);
       },
-      tooltip: 'Upload',
+      tooltip: l10n.upload,
       child: const Icon(Icons.add),
     );
   }

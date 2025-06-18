@@ -4,6 +4,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tweethistory/providers/tweet_controller.dart';
 
@@ -14,6 +15,7 @@ class ImportExportDialog extends ConsumerWidget {
   const ImportExportDialog({super.key});
 
   Future<void> _exportData(BuildContext context, WidgetRef ref) async {
+    final l10n = AppLocalizations.of(context)!;
     final repo = await ref.read(dataTransferControllerProvider.future);
     final data = await repo.exportAll();
     final jsonStr = repo.exportJson(data);
@@ -24,20 +26,21 @@ class ImportExportDialog extends ConsumerWidget {
         Navigator.of(context).pop();
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(const SnackBar(content: Text('Exported')));
+        ).showSnackBar(SnackBar(content: Text(l10n.exportSuccess)));
       }
     } else {
       await Clipboard.setData(ClipboardData(text: jsonStr));
       if (context.mounted) {
         Navigator.of(context).pop();
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Data copied to clipboard')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(l10n.dataCopiedToClipboard)));
       }
     }
   }
 
   Future<void> _importData(BuildContext context, WidgetRef ref) async {
+    final l10n = AppLocalizations.of(context)!;
     try {
       final result = await FilePicker.platform.pickFiles(
         type: FileType.custom,
@@ -58,14 +61,14 @@ class ImportExportDialog extends ConsumerWidget {
         Navigator.of(context).pop();
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(const SnackBar(content: Text('Imported successfully')));
+        ).showSnackBar(SnackBar(content: Text(l10n.importSuccess)));
       }
     } catch (e) {
       if (context.mounted) {
         Navigator.of(context).pop();
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Import failed: ${e.toString()}'),
+            content: Text(l10n.importFailed(e.toString())),
             backgroundColor: Theme.of(context).colorScheme.error,
           ),
         );
@@ -75,21 +78,22 @@ class ImportExportDialog extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     return AlertDialog(
-      title: const Text('Import / Export'),
-      content: const Text('Choose an action'),
+      title: Text(l10n.importExport),
+      content: Text(l10n.chooseAction),
       actions: [
         TextButton(
           onPressed: () => _importData(context, ref),
-          child: const Text('Import'),
+          child: Text(l10n.importData),
         ),
         TextButton(
           onPressed: () => _exportData(context, ref),
-          child: const Text('Export'),
+          child: Text(l10n.exportData),
         ),
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: const Text('Cancel'),
+          child: Text(l10n.cancel),
         ),
       ],
     );

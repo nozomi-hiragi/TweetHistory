@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../providers/search_query_provider.dart';
@@ -10,6 +11,7 @@ class MySearchBar extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final order = ref.watch(sortOrderProvider);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -18,8 +20,8 @@ class MySearchBar extends ConsumerWidget {
           Expanded(
             child: TextField(
               onChanged: ref.read(searchQueryProvider.notifier).set,
-              decoration: const InputDecoration(
-                hintText: '検索',
+              decoration: InputDecoration(
+                hintText: l10n.search,
                 prefixIcon: Icon(Icons.search),
                 border: OutlineInputBorder(),
                 isDense: true,
@@ -32,7 +34,10 @@ class MySearchBar extends ConsumerWidget {
                   ? Icons.arrow_downward
                   : Icons.arrow_upward,
             ),
-            tooltip: order == SortOrder.newestFirst ? '新しい順' : '古い順',
+            tooltip:
+                order == SortOrder.newestFirst
+                    ? l10n.sortNewestFirst
+                    : l10n.sortOldestFirst,
             onPressed: () {
               ref.read(sortOrderProvider.notifier).toggle();
               ref.read(tweetControllerProvider.notifier).refresh();

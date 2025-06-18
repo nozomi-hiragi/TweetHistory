@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddTagChip extends StatelessWidget {
-  final Locale currentLocale;
   final VoidCallback onPressed;
 
   const AddTagChip({
     super.key,
-    required this.currentLocale,
     required this.onPressed,
   });
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
 
     return ActionChip(
@@ -21,7 +21,7 @@ class AddTagChip extends StatelessWidget {
           Icon(Icons.add, size: 18),
           const SizedBox(width: 6),
           Text(
-            currentLocale.languageCode == 'ja' ? 'タグを追加' : 'Add Tag',
+            l10n.addTag,
             style: theme.textTheme.labelMedium?.copyWith(
               color: theme.colorScheme.primary,
               fontWeight: FontWeight.w600,

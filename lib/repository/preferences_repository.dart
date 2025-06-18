@@ -27,5 +27,5 @@ class PreferencesRepository {
   String? get userId => _instance.getString(_keyUserId);
 
   set locale(String locale) => _instance.setString(_keyLocale, locale);
-  String get locale => _instance.getString(_keyLocale) ?? "";
+  String get locale => _instance.getString(_keyLocale) ?? '';
 }

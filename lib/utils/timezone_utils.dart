@@ -31,8 +31,8 @@ DateTime parseTwitterDate(String raw) {
   final offsetStr = match.group(2)!;
 
   final local = DateFormat(
-    "EEE MMM dd HH:mm:ss yyyy",
-    "en_US",
+    'EEE MMM dd HH:mm:ss yyyy',
+    'en_US',
   ).parseUtc(dateTimeStr);
   final offset = parseTimezoneOffset(offsetStr);
 

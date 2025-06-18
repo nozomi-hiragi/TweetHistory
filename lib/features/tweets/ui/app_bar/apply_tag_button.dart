@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../../providers/tweet_select_controller.dart';
@@ -9,6 +10,7 @@ class ApplyTagButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final selectModeController = ref.read(
       tweetSelectControllerProvider.notifier,
     );
@@ -26,13 +28,13 @@ class ApplyTagButton extends ConsumerWidget {
         final failedTags = await selectModeController.applyTags(selectedTags);
         final message =
             failedTags.isEmpty
-                ? 'タグ付与が完了しました。'
-                : 'タグ付与に失敗しました: ${failedTags.join(', ')}';
+                ? l10n.tagApplySuccess
+                : l10n.tagApplyError(failedTags.join(', '));
         final snackBar = SnackBar(content: Text(message));
         if (!context.mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
       },
-      tooltip: "振り分け",
+      tooltip: l10n.applyTag,
     );
   }
 }

@@ -42,8 +42,8 @@ class SettingsScreen extends ConsumerWidget {
             onTap: () => _showLanguageDialog(context, ref),
           ),
           ListTile(
-            title: const Text('ユーザーID'),
-            subtitle: Text(userId?.isNotEmpty == true ? '@$userId' : '未設定'),
+            title: Text(l10n.userId),
+            subtitle: Text(userId?.isNotEmpty == true ? '@$userId' : l10n.notSet),
             trailing: const Icon(Icons.edit),
             onTap: () => UserIdInputDialog.show(context, initialValue: userId),
           ),

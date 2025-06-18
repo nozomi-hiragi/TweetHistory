@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../../providers/tag_select_controller.dart';
 import '../../../../providers/tweet_controller.dart';
-import '../../../../providers/locale_controller.dart';
 import '../../../../state/selected_values.dart';
 import '../../../../common/dialogs/add_tag_dialog.dart';
 import 'tag_chip.dart';
@@ -14,11 +14,10 @@ class TagFilterSection extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final tagState = ref.watch(tagSelectControllerProvider);
     final tagController = ref.read(tagSelectControllerProvider.notifier);
     final tweetController = ref.read(tweetControllerProvider.notifier);
-    final localeController = ref.read(localeControllerProvider.notifier);
-    final currentLocale = localeController.getEffectiveLocale();
     final theme = Theme.of(context);
 
     return Column(
@@ -27,7 +26,7 @@ class TagFilterSection extends ConsumerWidget {
         Row(
           children: [
             Text(
-              currentLocale.languageCode == 'ja' ? 'タグ' : 'Tags',
+              l10n.tagsLabel,
               style: theme.textTheme.labelMedium?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,
                 fontWeight: FontWeight.w500,
@@ -43,9 +42,7 @@ class TagFilterSection extends ConsumerWidget {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Text(
-                  currentLocale.languageCode == 'ja'
-                      ? '${tagState.selected.length}個選択中'
-                      : '${tagState.selected.length} selected',
+                  l10n.countSelected(tagState.selected.length),
                   style: theme.textTheme.labelSmall?.copyWith(
                     color: theme.colorScheme.onPrimaryContainer,
                   ),
@@ -73,7 +70,6 @@ class TagFilterSection extends ConsumerWidget {
               );
             }),
             AddTagChip(
-              currentLocale: currentLocale,
               onPressed: () async {
                 final newTag = await AddTagDialog.show(context);
                 if (newTag != null && newTag.isNotEmpty) {
