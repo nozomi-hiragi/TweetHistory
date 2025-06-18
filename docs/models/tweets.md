@@ -1,24 +1,26 @@
-# Tweetsモデル仕様
+# Tweet モデル仕様
 
 ## 概要
-Tweetsモデルは、ユーザーが投稿したツイート情報を管理します。
+TweetHistory で扱うツイートデータの基本的なモデルを定義します。
 
 ## フィールド
 
-| フィールド名   | 型       | 必須 | 説明                     |
-| -------------- | -------- | ---- | ------------------------ |
-| id             | integer  | Yes  | ツイートの一意なID       |
-| user_id        | integer  | Yes  | 投稿ユーザーのID         |
-| content        | string   | Yes  | ツイート本文             |
-| created_at     | datetime | Yes  | ツイート作成日時         |
-| updated_at     | datetime | Yes  | ツイート更新日時         |
-| in_reply_to_id | integer  | No   | 返信先ツイートのID       |
-| retweet_id     | integer  | No   | リツイート元ツイートのID |
-| like_count     | integer  | No   | いいね数                 |
-| retweet_count  | integer  | No   | リツイート数             |
+| フィールド名 | 型 | 必須 | 説明 |
+| --- | --- | --- | --- |
+| id | string | Yes | ツイート ID |
+| text | string | Yes | ツイート本文 |
+| createdAt | DateTime | Yes | 投稿日時 |
+| media | List&lt;Media&gt; | No | 添付メディア情報 |
+| favoriteCount | int | Yes | いいね数 |
+| retweetCount | int | Yes | リツイート数 |
 
-## 補足
-- `content`は最大280文字まで。
-- `in_reply_to_id`や`retweet_id`は該当しない場合はnull。
-- 各ツイートは必ず1人のユーザーに紐づきます。
-- 日時はISO 8601形式で保存します。
+### Media
+| フィールド名 | 型 | 必須 | 説明 |
+| --- | --- | --- | --- |
+| url | string | Yes | メディアの URL |
+| type | string | Yes | `'photo'` や `'video'` など |
+
+タグ情報は `Tag` モデルとして別途管理しています。
+
+既存データに `favoriteCount` または `retweetCount` が含まれていない場合は、
+読み込み時に自動で `0` が設定されます。
