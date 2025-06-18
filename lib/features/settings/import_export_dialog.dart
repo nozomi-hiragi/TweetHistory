@@ -38,24 +38,38 @@ class ImportExportDialog extends ConsumerWidget {
   }
 
   Future<void> _importData(BuildContext context, WidgetRef ref) async {
-    final result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['json'],
-      withData: true,
-    );
-    if (result == null || result.files.isEmpty) return;
-    final bytes = result.files.single.bytes;
-    if (bytes == null) return;
-    final jsonStr = utf8.decode(bytes);
-    final data = jsonDecode(jsonStr) as Map<String, dynamic>;
-    final repo = await ref.read(dataTransferRepositoryProvider.future);
-    await repo.importAll(data);
-    ref.read(tweetControllerProvider.notifier).refresh();
-    if (context.mounted) {
-      Navigator.of(context).pop();
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text('Imported')));
+    try {
+      final result = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: ['json'],
+        withData: true,
+      );
+      if (result == null || result.files.isEmpty) return;
+      final bytes = result.files.single.bytes;
+      if (bytes == null) return;
+      
+      final jsonStr = utf8.decode(bytes);
+      final data = jsonDecode(jsonStr) as Map<String, dynamic>;
+      final repo = await ref.read(dataTransferRepositoryProvider.future);
+      await repo.importAll(data);
+      ref.read(tweetControllerProvider.notifier).refresh();
+      
+      if (context.mounted) {
+        Navigator.of(context).pop();
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text('Imported successfully')));
+      }
+    } catch (e) {
+      if (context.mounted) {
+        Navigator.of(context).pop();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Import failed: ${e.toString()}'),
+            backgroundColor: Theme.of(context).colorScheme.error,
+          ),
+        );
+      }
     }
   }
 

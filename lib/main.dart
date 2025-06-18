@@ -20,7 +20,7 @@ class MyApp extends ConsumerWidget {
     final initialization = ref.watch(initializationProvider);
     final themeMode = ref.watch(themeModeControllerProvider);
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Tweet History',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.deepPurple,
