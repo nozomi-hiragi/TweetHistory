@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../../providers/tag_select_controller.dart';
 import '../../../../providers/tweet_controller.dart';
 import '../../../../providers/period_filter_provider.dart';
-import '../../../../providers/locale_controller.dart';
 import 'period_filter_section.dart';
+import 'tag_filter_section.dart';
 
 class FilterSection extends ConsumerWidget {
   const FilterSection({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final tagState = ref.watch(tagSelectControllerProvider);
     final tagController = ref.read(tagSelectControllerProvider.notifier);
     final tweetController = ref.read(tweetControllerProvider.notifier);
     final periodState = ref.watch(periodFilterProvider);
     final periodController = ref.read(periodFilterProvider.notifier);
-    final localeController = ref.read(localeControllerProvider.notifier);
-    final currentLocale = localeController.getEffectiveLocale();
     final theme = Theme.of(context);
     final hasActiveFilters =
         periodState.since != null ||
@@ -47,7 +47,7 @@ class FilterSection extends ConsumerWidget {
               ),
               const SizedBox(width: 8),
               Text(
-                currentLocale.languageCode == 'ja' ? 'フィルター' : 'Filters',
+                l10n.filter,
                 style: theme.textTheme.titleSmall?.copyWith(
                   color: theme.colorScheme.onSurfaceVariant,
                   fontWeight: FontWeight.w600,
@@ -68,7 +68,7 @@ class FilterSection extends ConsumerWidget {
                           : null,
                   icon: const Icon(Icons.clear_all, size: 16),
                   label: Text(
-                    currentLocale.languageCode == 'ja' ? 'すべてクリア' : 'Clear All',
+                    l10n.clear,
                   ),
                   style: TextButton.styleFrom(
                     foregroundColor: theme.colorScheme.error,
@@ -84,7 +84,7 @@ class FilterSection extends ConsumerWidget {
             children: [
               PeriodFilterSection(),
               SizedBox(height: 16),
-              FilterSection(),
+              TagFilterSection(),
             ],
           ),
         ],

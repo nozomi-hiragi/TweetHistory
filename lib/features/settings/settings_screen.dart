@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../providers/theme_mode_controller.dart';
 import '../../providers/user_id_controller.dart';
@@ -11,6 +12,7 @@ class SettingsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final themeMode = ref.watch(themeModeControllerProvider);
     final userId = ref.watch(userIdControllerProvider);
     final currentLanguage = ref.watch(localeControllerProvider);
@@ -22,19 +24,19 @@ class SettingsScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('Settings'),
+        title: Text(l10n.settingsTitle),
       ),
       body: ListView(
         children: [
           SwitchListTile(
-            title: const Text('Dark Mode'),
+            title: Text(l10n.themeDark),
             value: isDark,
             onChanged: (val) {
               ref.read(themeModeControllerProvider.notifier).setDarkMode(val);
             },
           ),
           ListTile(
-            title: const Text('Language / 言語'),
+            title: Text(l10n.language),
             subtitle: Text(currentLanguage.displayName),
             trailing: const Icon(Icons.language),
             onTap: () => _showLanguageDialog(context, ref),
@@ -46,7 +48,7 @@ class SettingsScreen extends ConsumerWidget {
             onTap: () => UserIdInputDialog.show(context, initialValue: userId),
           ),
           ListTile(
-            title: const Text('Import / Export'),
+            title: Text(l10n.importExport),
             onTap: () {
               showDialog(
                 context: context,
@@ -60,17 +62,18 @@ class SettingsScreen extends ConsumerWidget {
   }
 
   void _showLanguageDialog(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     showDialog<SupportedLanguage>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Select Language / 言語を選択'),
+        title: Text(l10n.language),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: SupportedLanguage.values.map((language) {
             return RadioListTile<SupportedLanguage>(
               title: Text(language.displayName),
               subtitle: language == SupportedLanguage.system 
-                  ? const Text('Follows system settings')
+                  ? Text(l10n.languageSystem)
                   : null,
               value: language,
               groupValue: ref.read(localeControllerProvider),
@@ -86,7 +89,7 @@ class SettingsScreen extends ConsumerWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: const Text('Cancel / キャンセル'),
+            child: Text(l10n.cancel),
           ),
         ],
       ),

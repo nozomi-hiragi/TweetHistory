@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../providers/tweet_select_controller.dart';
@@ -9,6 +10,7 @@ class BinAppBar extends ConsumerWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final selectController = ref.read(tweetSelectControllerProvider.notifier);
     final selectState = ref.watch(tweetSelectControllerProvider);
     final isSelectionMode = selectState.isSelectionMode;
@@ -16,7 +18,7 @@ class BinAppBar extends ConsumerWidget implements PreferredSizeWidget {
       backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       title:
           isSelectionMode
-              ? Text('${selectState.selectedIds.length}件選択中')
+              ? Text(l10n.selectedCount(selectState.selectedIds.length))
               : const MySearchBar(),
       actions: [
         if (isSelectionMode)
@@ -30,7 +32,7 @@ class BinAppBar extends ConsumerWidget implements PreferredSizeWidget {
                 context,
               ).showSnackBar(SnackBar(content: Text(message)));
             },
-            tooltip: '削除',
+            tooltip: l10n.delete,
           ),
         if (isSelectionMode)
           IconButton(
@@ -43,12 +45,12 @@ class BinAppBar extends ConsumerWidget implements PreferredSizeWidget {
                 context,
               ).showSnackBar(SnackBar(content: Text(message)));
             },
-            tooltip: '戻す',
+            tooltip: l10n.restoreFromBin,
           ),
         IconButton(
           icon: Icon(isSelectionMode ? Icons.close : Icons.select_all),
           onPressed: () => selectController.toggle(),
-          tooltip: isSelectionMode ? 'キャンセル' : '選択モード',
+          tooltip: isSelectionMode ? l10n.cancel : l10n.select,
         ),
       ],
     );

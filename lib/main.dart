@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'features/tweets/tweets_screen.dart';
@@ -29,6 +30,7 @@ class MyApp extends ConsumerWidget {
     return MaterialApp(
       title: 'Tweet History',
       localizationsDelegates: const [
+        AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
@@ -64,26 +66,41 @@ class MyApp extends ConsumerWidget {
   }
 }
 
-class _TabItem {
+class _TabConfig {
   final Widget screen;
   final IconData icon;
-  final String label;
+  final String key;
 
-  const _TabItem({
+  const _TabConfig({
     required this.screen,
     required this.icon,
-    required this.label,
+    required this.key,
   });
 }
+
+const keyTweets = "tweets";
+const keyBin = "bin";
+const keySettings = "settings";
 
 class MyHomePage extends ConsumerWidget {
   const MyHomePage({super.key});
 
-  static const List<_TabItem> _tabs = [
-    _TabItem(screen: TweetsScreen(), icon: Icons.home, label: 'Tweets'),
-    _TabItem(screen: BinScreen(), icon: Icons.archive, label: 'Bin'),
-    _TabItem(screen: SettingsScreen(), icon: Icons.settings, label: 'Settings'),
+  static const List<_TabConfig> _tabConfigs = [
+    _TabConfig(screen: TweetsScreen(), icon: Icons.home, key: keyTweets),
+    _TabConfig(screen: BinScreen(), icon: Icons.archive, key: keyBin),
+    _TabConfig(
+      screen: SettingsScreen(),
+      icon: Icons.settings,
+      key: keySettings,
+    ),
   ];
+
+  static final Map<String, String Function(AppLocalizations)> labelDictionary =
+      {
+        keyTweets: (l) => l.navTweets,
+        keyBin: (l) => l.navBin,
+        keySettings: (l) => l.navSettings,
+      };
 
   void _onItemTapped(WidgetRef ref, int index) {
     ref.read(tabControllerProvider.notifier).index = index;
@@ -91,16 +108,17 @@ class MyHomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final currentIndex = ref.watch(tabControllerProvider);
     return Scaffold(
-      body: _tabs[currentIndex].screen,
+      body: _tabConfigs[currentIndex].screen,
       bottomNavigationBar: BottomNavigationBar(
         items:
-            _tabs
+            _tabConfigs
                 .map(
-                  (tab) => BottomNavigationBarItem(
-                    icon: Icon(tab.icon),
-                    label: tab.label,
+                  (config) => BottomNavigationBarItem(
+                    icon: Icon(config.icon),
+                    label: labelDictionary[config.key]!(l10n),
                   ),
                 )
                 .toList(),
