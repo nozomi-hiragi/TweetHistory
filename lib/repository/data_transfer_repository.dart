@@ -27,7 +27,10 @@ class DataTransferRepository {
           'deleted': deleted.map((id) => {'id': id}).toList(),
         },
       },
-      'preferences': {'themeMode': preferencesRepository.themeMode.index},
+      'preferences': {
+        'themeMode': preferencesRepository.themeMode.index,
+        'userId': preferencesRepository.userId,
+      },
     };
   }
 
@@ -61,6 +64,10 @@ class DataTransferRepository {
       final index = preferences['themeMode'];
       if (index is int && index >= 0 && index < ThemeMode.values.length) {
         preferencesRepository.themeMode = ThemeMode.values[index];
+      }
+      final userId = preferences['userId'];
+      if (userId is String?) {
+        preferencesRepository.userId = userId;
       }
     }
   }

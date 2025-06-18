@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../models/tweet.dart';
 import '../providers/tweet_controller.dart';
 import '../providers/tweet_select_controller.dart';
+import 'tweet_detail_dialog.dart';
 
 class TweetTile extends HookConsumerWidget {
   const TweetTile({super.key, required this.tweet});
@@ -52,6 +53,11 @@ class TweetTile extends HookConsumerWidget {
       onTap: () {
         if (selectState.isSelectionMode) {
           selectController.toggleSelection(tweet.id);
+        } else {
+          showDialog(
+            context: context,
+            builder: (_) => TweetDetailDialog(tweet: tweet),
+          );
         }
       },
     );

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../providers/theme_mode_controller.dart';
+import '../../providers/user_id_controller.dart';
+import '../../common/dialogs/user_id_input_dialog.dart';
 import 'import_export_dialog.dart';
 
 class SettingsScreen extends ConsumerWidget {
@@ -9,6 +11,7 @@ class SettingsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final themeMode = ref.watch(themeModeControllerProvider);
+    final userId = ref.watch(userIdControllerProvider);
     final platformDark =
         MediaQuery.of(context).platformBrightness == Brightness.dark;
     final isDark =
@@ -27,6 +30,12 @@ class SettingsScreen extends ConsumerWidget {
             onChanged: (val) {
               ref.read(themeModeControllerProvider.notifier).setDarkMode(val);
             },
+          ),
+          ListTile(
+            title: const Text('ユーザーID'),
+            subtitle: Text(userId?.isNotEmpty == true ? '@$userId' : '未設定'),
+            trailing: const Icon(Icons.edit),
+            onTap: () => UserIdInputDialog.show(context, initialValue: userId),
           ),
           ListTile(
             title: const Text('Import / Export'),
