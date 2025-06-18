@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:tweethistory/providers/tweet_controller.dart';
 
 import '../../providers/repository_providers.dart';
 import '../../utils/download.dart';
@@ -49,6 +50,7 @@ class ImportExportDialog extends ConsumerWidget {
     final data = jsonDecode(jsonStr) as Map<String, dynamic>;
     final repo = await ref.read(dataTransferRepositoryProvider.future);
     await repo.importAll(data);
+    ref.read(tweetControllerProvider.notifier).refresh();
     if (context.mounted) {
       Navigator.of(context).pop();
       ScaffoldMessenger.of(
