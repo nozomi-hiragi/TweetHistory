@@ -192,5 +192,7 @@
   "other": "その他",
   "confirmDeleteTweet": "ツイートを削除しますか？",
   "deleteThisTweet": "このツイートを削除",
-  "deleteTweetWarning": "このツイートを削除します。"
+  "deleteTweetWarning": "このツイートを削除します。",
+  "version": "バージョン",
+  "license": "ライセンス"
 }

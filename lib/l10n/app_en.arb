@@ -819,5 +819,13 @@
   "deleteTweetWarning": "This tweet will be deleted.",
   "@deleteTweetWarning": {
     "description": "Warning message when deleting a tweet"
+  },
+  "version": "Version",
+  "@version": {
+    "description": "Label for version information"
+  },
+  "license": "License",
+  "@license": {
+    "description": "Label for license information"
   }
 }

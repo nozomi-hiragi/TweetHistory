@@ -115,6 +115,41 @@ MARKETING_VERSION = 0.2.1;
 
 **Note:** Android, macOS, and web builds automatically use the version from `pubspec.yaml` via Flutter's build system.
 
+## Internationalization (i18n)
+
+This project supports multiple languages through Flutter's internationalization framework:
+
+### Language Support
+- **Japanese (ja)**: Primary language for UI and documentation
+- **English (en)**: Secondary language support
+
+### Localization Guidelines
+
+**IMPORTANT:** All user-visible text MUST be internationalized using the `AppLocalizations` system. Never use hardcoded strings in UI components.
+
+#### Adding New Text
+1. Add the key-value pair to both `lib/l10n/app_ja.arb` and `lib/l10n/app_en.arb`
+2. Use descriptive keys (e.g., `version`, `license`, `settings`)
+3. Include `@description` metadata in English .arb file for context
+
+#### Using Localized Text
+```dart
+// ❌ Wrong - hardcoded string
+Text('バージョン')
+
+// ✅ Correct - localized
+final l10n = AppLocalizations.of(context)!;
+Text(l10n.version)
+```
+
+#### Code Generation
+Run `flutter gen-l10n` or `flutter pub get` to regenerate localization files after adding new keys.
+
+### Localization Files
+- `lib/l10n/app_ja.arb`: Japanese translations
+- `lib/l10n/app_en.arb`: English translations with descriptions
+- Generated files are in `lib/l10n/` (auto-generated, do not edit)
+
 ## Development Notes
 
 - Always run `dart run build_runner build` after modifying Freezed models
