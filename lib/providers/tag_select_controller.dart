@@ -34,6 +34,13 @@ class TagSelectController extends Notifier<SelectedValues> {
     return true;
   }
 
+  void clearSelection() {
+    state = SelectedValues(
+      selected: [],
+      unselected: [...state.selected, ...state.unselected]..sort(),
+    );
+  }
+
   Future<bool> addTag(String name) async {
     final repository = await ref.read(tweetRepositoryProvider.future);
     try {

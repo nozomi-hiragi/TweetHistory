@@ -26,8 +26,8 @@ dart run custom_lint           # Custom linting rules
 
 ### Build & Run
 ```bash
-flutter run -d chrome          # Run on web
-flutter build web              # Build for web deployment
+flutter run -d chrome --web-port 3000  # Run on web (port 3000)
+flutter build web                      # Build for web deployment
 ```
 
 ## Architecture

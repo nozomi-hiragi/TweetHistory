@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'ui/app_bar/app_bar.dart';
-import 'ui/tag_filler_bar.dart';
+import 'ui/tag_filter_bar.dart';
 import 'ui/tweets_list.dart';
 
 class TweetsScreen extends StatelessWidget {

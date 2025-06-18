@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'features/tweets/tweets_screen.dart';
@@ -6,6 +7,7 @@ import 'features/bin/bin_screen.dart';
 import 'features/settings/settings_screen.dart';
 import 'providers/theme_mode_controller.dart';
 import 'providers/tab_controller.dart';
+import 'providers/locale_controller.dart';
 import 'features/tweets/ui/tweets_upload_button.dart';
 import 'providers/initialization_provider.dart';
 
@@ -20,8 +22,22 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final initialization = ref.watch(initializationProvider);
     final themeMode = ref.watch(themeModeControllerProvider);
+    ref.watch(localeControllerProvider); // Watch for locale changes
+    final localeController = ref.read(localeControllerProvider.notifier);
+    final currentLocale = localeController.getEffectiveLocale();
+    
     return MaterialApp(
       title: 'Tweet History',
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('ja', 'JP'),
+        Locale('en', 'US'),
+      ],
+      locale: currentLocale,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.deepPurple,
