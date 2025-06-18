@@ -21,9 +21,9 @@ class Store {
   }
 
   Future<void> putList<T>(
-    List<T> objects,
+    List<T> objects, {
     Object Function(T obj)? converter,
-  ) async {
+  }) async {
     final cvt = converter ?? ((obj) => obj as Object);
     final txn = _db.transaction(storeName, idbModeReadWrite);
     final store = txn.objectStore(storeName);
@@ -41,9 +41,9 @@ class Store {
     return record;
   }
 
-  Future<List<T>> getAll<T>(
+  Future<List<T>> getAll<T>({
     T Function(Map<String, dynamic> obj)? converter,
-  ) async {
+  }) async {
     final cvt = converter ?? ((obj) => obj as T);
     final txn = _db.transaction(storeName, idbModeReadOnly);
     final store = txn.objectStore(storeName);

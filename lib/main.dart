@@ -25,7 +25,7 @@ class MyApp extends ConsumerWidget {
     ref.watch(localeControllerProvider); // Watch for locale changes
     final localeController = ref.read(localeControllerProvider.notifier);
     final currentLocale = localeController.getEffectiveLocale();
-    
+
     return MaterialApp(
       title: 'Tweet History',
       localizationsDelegates: const [
@@ -33,10 +33,7 @@ class MyApp extends ConsumerWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: const [
-        Locale('ja', 'JP'),
-        Locale('en', 'US'),
-      ],
+      supportedLocales: const [Locale('ja', 'JP'), Locale('en', 'US')],
       locale: currentLocale,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
@@ -85,15 +82,11 @@ class MyHomePage extends ConsumerWidget {
   static const List<_TabItem> _tabs = [
     _TabItem(screen: TweetsScreen(), icon: Icons.home, label: 'Tweets'),
     _TabItem(screen: BinScreen(), icon: Icons.archive, label: 'Bin'),
-    _TabItem(
-      screen: SettingsScreen(),
-      icon: Icons.settings,
-      label: 'Settings',
-    ),
+    _TabItem(screen: SettingsScreen(), icon: Icons.settings, label: 'Settings'),
   ];
 
   void _onItemTapped(WidgetRef ref, int index) {
-    ref.read(tabControllerProvider.notifier).setTabIndex(index);
+    ref.read(tabControllerProvider.notifier).index = index;
   }
 
   @override

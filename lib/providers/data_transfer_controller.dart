@@ -1,23 +1,34 @@
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:tweethistory/storage/tweet/tweet_storage.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'tweet_repository.dart';
-import 'preferences_repository.dart';
+import '../models/tag.dart';
+import '../models/tweet.dart';
+import '../repository/preferences_repository.dart';
+import '../repository/tweet_repository.dart';
+import '../storage/tweet/tweet_storage.dart';
+import 'repository_providers.dart';
 
-class DataTransferRepository {
+class DataTransferController {
   final TweetRepository tweetRepository;
   final PreferencesRepository preferencesRepository;
 
-  const DataTransferRepository({
+  const DataTransferController({
     required this.tweetRepository,
     required this.preferencesRepository,
   });
 
   Future<Map<String, dynamic>> exportAll() async {
-    final tweets = await tweetRepository.loadAllTweets();
-    final tags = await tweetRepository.loadAllTags();
-    final deleted = await tweetRepository.loadDeletedIds();
+    final [
+      tweets as List<Tweet>,
+      tags as List<Tag>,
+      deleted as List<Set<String>>,
+    ] = await Future.wait([
+      tweetRepository.loadAllTweets(),
+      tweetRepository.loadAllTags(),
+      tweetRepository.loadDeletedIds(),
+    ]);
 
     return {
       'indexedDB': {
@@ -42,9 +53,11 @@ class DataTransferRepository {
         final tweetStore = tweetRepository.storage.store(TweetStores.tweets);
         final tagStore = tweetRepository.storage.store(TweetStores.tags);
         final deletedStore = tweetRepository.storage.store(TweetStores.deleted);
-        await tweetStore.clear();
-        await tagStore.clear();
-        await deletedStore.clear();
+        await Future.wait([
+          tweetStore.clear(),
+          tagStore.clear(),
+          deletedStore.clear(),
+        ]);
 
         final tweets =
             (tweetDb['tweets'] as List? ?? []).cast<Map<String, dynamic>>();
@@ -53,9 +66,11 @@ class DataTransferRepository {
         final deleted =
             (tweetDb['deleted'] as List? ?? []).cast<Map<String, dynamic>>();
 
-        await tweetStore.putList(tweets, (obj) => obj);
-        await tagStore.putList(tags, (obj) => obj);
-        await deletedStore.putList(deleted, (obj) => obj);
+        await Future.wait([
+          tweetStore.putList(tweets),
+          tagStore.putList(tags),
+          deletedStore.putList(deleted),
+        ]);
       }
     }
 
@@ -75,3 +90,14 @@ class DataTransferRepository {
   String exportJson(Map<String, dynamic> data) =>
       const JsonEncoder.withIndent('  ').convert(data);
 }
+
+final dataTransferControllerProvider = FutureProvider<DataTransferController>((
+  ref,
+) async {
+  final tweetRepo = await ref.watch(tweetRepositoryProvider.future);
+  final prefRepo = await ref.watch(preferencesRepositoryProvider.future);
+  return DataTransferController(
+    tweetRepository: tweetRepo,
+    preferencesRepository: prefRepo,
+  );
+});

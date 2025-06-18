@@ -1,14 +1,19 @@
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tweethistory/providers/repository_providers.dart';
+import 'package:tweethistory/repository/preferences_repository.dart';
 
 enum SupportedLanguage {
   japanese('ja', 'JP', '日本語'),
   english('en', 'US', 'English'),
   system('system', '', 'System');
 
-  const SupportedLanguage(this.languageCode, this.countryCode, this.displayName);
+  const SupportedLanguage(
+    this.languageCode,
+    this.countryCode,
+    this.displayName,
+  );
 
   final String languageCode;
   final String countryCode;
@@ -21,7 +26,7 @@ enum SupportedLanguage {
 
   static SupportedLanguage fromLocale(Locale? locale) {
     if (locale == null) return SupportedLanguage.system;
-    
+
     switch (locale.languageCode) {
       case 'ja':
         return SupportedLanguage.japanese;
@@ -34,9 +39,6 @@ enum SupportedLanguage {
 }
 
 class LocaleController extends Notifier<SupportedLanguage> {
-  static const String _prefKey = 'locale_setting';
-  SharedPreferences? _prefs;
-
   @override
   SupportedLanguage build() {
     _loadPreferences();
@@ -44,10 +46,10 @@ class LocaleController extends Notifier<SupportedLanguage> {
   }
 
   Future<void> _loadPreferences() async {
-    _prefs = await SharedPreferences.getInstance();
-    final savedLanguage = _prefs?.getString(_prefKey);
-    
-    if (savedLanguage != null) {
+    final repository = await ref.watch(preferencesRepositoryProvider.future);
+    final savedLanguage = repository.locale;
+
+    if (savedLanguage.isNotEmpty) {
       final language = SupportedLanguage.values.firstWhere(
         (lang) => lang.name == savedLanguage,
         orElse: () => SupportedLanguage.system,
@@ -56,30 +58,39 @@ class LocaleController extends Notifier<SupportedLanguage> {
     }
   }
 
-  Future<void> setLanguage(SupportedLanguage language) async {
-    state = language;
-    _prefs ??= await SharedPreferences.getInstance();
-    await _prefs!.setString(_prefKey, language.name);
+  void setLanguage(SupportedLanguage language) {
+    set(PreferencesRepository repository) {
+      state = language;
+      repository.locale = language.name;
+    }
+
+    final repository = ref.watch(preferencesRepositoryProvider).value;
+    if (repository != null) {
+      set(repository);
+    } else {
+      ref.watch(preferencesRepositoryProvider.future).then(set);
+    }
   }
 
   Locale getEffectiveLocale() {
     if (state.locale != null) {
       return state.locale!;
     }
-    
+
     // Get system locale
     final systemLocale = ui.PlatformDispatcher.instance.locale;
-    
+
     // Check if system locale is supported
     if (systemLocale.languageCode == 'ja') {
       return const Locale('ja', 'JP');
     }
-    
+
     // Default to English if system locale is not supported
     return const Locale('en', 'US');
   }
 }
 
-final localeControllerProvider = NotifierProvider<LocaleController, SupportedLanguage>(
-  () => LocaleController(),
-);
+final localeControllerProvider =
+    NotifierProvider<LocaleController, SupportedLanguage>(
+      () => LocaleController(),
+    );

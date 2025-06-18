@@ -20,10 +20,10 @@ class TweetRepository {
 
   Future<void> saveTweets(List<Tweet> tweets) => storage
       .store(TweetStores.tweets)
-      .putList(tweets, (tweet) => tweet.toJson());
+      .putList(tweets, converter: (tweet) => tweet.toJson());
 
   Future<List<Tweet>> loadAllTweets() =>
-      storage.store(TweetStores.tweets).getAll(Tweet.fromJson);
+      storage.store(TweetStores.tweets).getAll(converter: Tweet.fromJson);
 
   Future<void> addTag(String name) {
     final tag = Tag(name: name);
@@ -48,7 +48,7 @@ class TweetRepository {
   }
 
   Future<List<Tag>> loadAllTags() =>
-      storage.store(TweetStores.tags).getAll(Tag.fromJson);
+      storage.store(TweetStores.tags).getAll(converter: Tag.fromJson);
 
   Future<List<Tag>> loadTags() => loadAllTags().then(
     (tags) => tags.where((tag) => tag.name != tagNameBin).toList(),
@@ -58,7 +58,7 @@ class TweetRepository {
     // store deleted ids
     await storage
         .store(TweetStores.deleted)
-        .putList(ids.toList(), (id) => {'id': id});
+        .putList(ids.toList(), converter: (id) => {'id': id});
 
     // delete tweet records
     final tweetStore = storage.store(TweetStores.tweets);
@@ -81,13 +81,17 @@ class TweetRepository {
   }
 
   Future<Set<String>> loadDeletedIds() async {
-    final objs = await storage.store(TweetStores.deleted).getAll((obj) => obj);
-    return objs.map((e) => e['id'] as String).toSet();
+    final ids = await storage
+        .store(TweetStores.deleted)
+        .getAll(converter: (obj) => obj['id'] as String);
+    return ids.toSet();
   }
 
   Future<void> _ensureCountFields() async {
     final store = storage.store(TweetStores.tweets);
-    final records = await store.getAll((obj) => Map<String, dynamic>.from(obj));
+    final records = await store.getAll(
+      converter: (obj) => Map<String, dynamic>.from(obj),
+    );
     for (final obj in records) {
       bool updated = false;
       if (!obj.containsKey('favoriteCount')) {

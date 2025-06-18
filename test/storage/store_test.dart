@@ -48,28 +48,28 @@ void main() {
   });
 
   test('putList - 複数のオブジェクトを追加・更新できること', () async {
-    final testObjs = [
+    final testObjects = [
       {'id': 1, 'name': 'test1'},
       {'id': 2, 'name': 'test2'},
     ];
-    await store.putList(testObjs, null);
+    await store.putList(testObjects);
 
-    final results = await store.getAll((obj) => obj);
+    final results = await store.getAll();
     expect(results.length, 2);
     expect(results[0]['name'], 'test1');
     expect(results[1]['name'], 'test2');
   });
 
   test('getAll - すべてのオブジェクトを取得できること', () async {
-    final testObjs = [
+    final testObjects = [
       {'id': 1, 'name': 'test1'},
       {'id': 2, 'name': 'test2'},
     ];
-    await store.putList(testObjs, null);
+    await store.putList(testObjects);
 
-    final results = await store.getAll((obj) => obj);
+    final results = await store.getAll();
     expect(results.length, 2);
-    expect(results, containsAll(testObjs));
+    expect(results, containsAll(testObjects));
   });
 
   test('delete - オブジェクトを削除できること', () async {
@@ -82,14 +82,14 @@ void main() {
   });
 
   test('clear - すべてのオブジェクトを削除できること', () async {
-    final testObjs = [
+    final testObjects = [
       {'id': 1, 'name': 'test1'},
       {'id': 2, 'name': 'test2'},
     ];
-    await store.putList(testObjs, null);
+    await store.putList(testObjects);
 
     await store.clear();
-    final results = await store.getAll((obj) => obj);
+    final results = await store.getAll();
     expect(results.isEmpty, true);
   });
 

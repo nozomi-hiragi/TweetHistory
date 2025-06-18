@@ -63,9 +63,7 @@ void main() {
         expect(tweets.single.favoriteCount, 0);
         expect(tweets.single.retweetCount, 0);
 
-        final raw = await repository.storage
-            .store(TweetStores.tweets)
-            .getAll((obj) => obj);
+        final raw = await repository.storage.store(TweetStores.tweets).getAll();
         expect(raw.single['favoriteCount'], 0);
         expect(raw.single['retweetCount'], 0);
       });

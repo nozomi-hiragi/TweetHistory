@@ -7,14 +7,14 @@ import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tweethistory/providers/tweet_controller.dart';
 
-import '../../providers/repository_providers.dart';
+import '../../providers/data_transfer_controller.dart';
 import '../../utils/download.dart';
 
 class ImportExportDialog extends ConsumerWidget {
   const ImportExportDialog({super.key});
 
   Future<void> _exportData(BuildContext context, WidgetRef ref) async {
-    final repo = await ref.read(dataTransferRepositoryProvider.future);
+    final repo = await ref.read(dataTransferControllerProvider.future);
     final data = await repo.exportAll();
     final jsonStr = repo.exportJson(data);
     final bytes = utf8.encode(jsonStr);
@@ -47,13 +47,13 @@ class ImportExportDialog extends ConsumerWidget {
       if (result == null || result.files.isEmpty) return;
       final bytes = result.files.single.bytes;
       if (bytes == null) return;
-      
+
       final jsonStr = utf8.decode(bytes);
       final data = jsonDecode(jsonStr) as Map<String, dynamic>;
-      final repo = await ref.read(dataTransferRepositoryProvider.future);
+      final repo = await ref.read(dataTransferControllerProvider.future);
       await repo.importAll(data);
       ref.read(tweetControllerProvider.notifier).refresh();
-      
+
       if (context.mounted) {
         Navigator.of(context).pop();
         ScaffoldMessenger.of(

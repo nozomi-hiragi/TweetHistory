@@ -4,9 +4,7 @@ class TabController extends Notifier<int> {
   @override
   int build() => 0;
 
-  void setTabIndex(int index) {
-    state = index;
-  }
+  set index(int index) => state = index;
 }
 
 final tabControllerProvider = NotifierProvider<TabController, int>(
