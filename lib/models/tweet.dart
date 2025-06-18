@@ -12,6 +12,8 @@ abstract class Tweet with _$Tweet {
     required String text,
     required DateTime createdAt,
     @Default([]) List<Media> media,
+    @Default(0) int favoriteCount,
+    @Default(0) int retweetCount,
   }) = _Tweet;
 
   factory Tweet.fromJson(Map<String, dynamic> json) => _$TweetFromJson(json);
@@ -23,13 +25,24 @@ abstract class Tweet with _$Tweet {
     final text = tweet['full_text'] as String;
     final createdAt = parseTwitterDate(tweet['created_at'] as String);
 
-    final mediaJson = tweet['entities']?['media'] as List?;
-    final media =
-        mediaJson != null
-            ? mediaJson.map((m) => Media.fromRawJson(m)).toList()
-            : <Media>[];
+    final favoriteCount =
+        int.tryParse(tweet['favorite_count']?.toString() ?? '0') ?? 0;
+    final retweetCount =
+        int.tryParse(tweet['retweet_count']?.toString() ?? '0') ?? 0;
 
-    return Tweet(id: id, text: text, createdAt: createdAt, media: media);
+    final mediaJson = tweet['entities']?['media'] as List?;
+    final media = mediaJson != null
+        ? mediaJson.map((m) => Media.fromRawJson(m)).toList()
+        : <Media>[];
+
+    return Tweet(
+      id: id,
+      text: text,
+      createdAt: createdAt,
+      media: media,
+      favoriteCount: favoriteCount,
+      retweetCount: retweetCount,
+    );
   }
 }
 

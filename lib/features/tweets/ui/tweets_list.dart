@@ -45,7 +45,7 @@ class TweetsList extends HookConsumerWidget {
         controller.jumpTo(0);
       }
       return null;
-    }, [query, tweetState.tweets]);
+    }, [query]);
 
     return ListView.builder(
       controller: controller,

@@ -15,6 +15,8 @@ _Tweet _$TweetFromJson(Map<String, dynamic> json) => _Tweet(
           ?.map((e) => Media.fromJson(e as Map<String, dynamic>))
           .toList() ??
       const [],
+  favoriteCount: (json['favoriteCount'] as num?)?.toInt() ?? 0,
+  retweetCount: (json['retweetCount'] as num?)?.toInt() ?? 0,
 );
 
 Map<String, dynamic> _$TweetToJson(_Tweet instance) => <String, dynamic>{
@@ -22,6 +24,8 @@ Map<String, dynamic> _$TweetToJson(_Tweet instance) => <String, dynamic>{
   'text': instance.text,
   'createdAt': instance.createdAt.toIso8601String(),
   'media': instance.media.map((e) => e.toJson()).toList(),
+  'favoriteCount': instance.favoriteCount,
+  'retweetCount': instance.retweetCount,
 };
 
 _Media _$MediaFromJson(Map<String, dynamic> json) =>

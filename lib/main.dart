@@ -5,6 +5,7 @@ import 'features/tweets/tweets_screen.dart';
 import 'features/bin/bin_screen.dart';
 import 'features/settings/settings_screen.dart';
 import 'providers/theme_mode_controller.dart';
+import 'providers/tab_controller.dart';
 import 'features/tweets/ui/tweets_upload_button.dart';
 import 'providers/initialization_provider.dart';
 
@@ -20,7 +21,7 @@ class MyApp extends ConsumerWidget {
     final initialization = ref.watch(initializationProvider);
     final themeMode = ref.watch(themeModeControllerProvider);
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Tweet History',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.deepPurple,
@@ -62,36 +63,28 @@ class _TabItem {
   });
 }
 
-class MyHomePage extends StatefulWidget {
+class MyHomePage extends ConsumerWidget {
   const MyHomePage({super.key});
 
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _index = 0;
-
-  final List<_TabItem> _tabs = [
-    const _TabItem(screen: TweetsScreen(), icon: Icons.home, label: 'Tweets'),
-    const _TabItem(screen: BinScreen(), icon: Icons.archive, label: 'Bin'),
-    const _TabItem(
+  static const List<_TabItem> _tabs = [
+    _TabItem(screen: TweetsScreen(), icon: Icons.home, label: 'Tweets'),
+    _TabItem(screen: BinScreen(), icon: Icons.archive, label: 'Bin'),
+    _TabItem(
       screen: SettingsScreen(),
       icon: Icons.settings,
       label: 'Settings',
     ),
   ];
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _index = index;
-    });
+  void _onItemTapped(WidgetRef ref, int index) {
+    ref.read(tabControllerProvider.notifier).setTabIndex(index);
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final currentIndex = ref.watch(tabControllerProvider);
     return Scaffold(
-      body: _tabs[_index].screen,
+      body: _tabs[currentIndex].screen,
       bottomNavigationBar: BottomNavigationBar(
         items:
             _tabs
@@ -102,8 +95,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 )
                 .toList(),
-        currentIndex: _index,
-        onTap: _onItemTapped,
+        currentIndex: currentIndex,
+        onTap: (index) => _onItemTapped(ref, index),
       ),
       floatingActionButton: AnimatedSwitcher(
         duration: const Duration(milliseconds: 200),
@@ -115,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: FadeTransition(opacity: animation, child: child),
           );
         },
-        child: _index == 0 ? const TweetsUploadButton() : null,
+        child: currentIndex == 0 ? const TweetsUploadButton() : null,
       ),
     );
   }

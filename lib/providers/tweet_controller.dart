@@ -73,6 +73,12 @@ class TweetController extends Notifier<TweetState> {
     await repository.saveTweets(tweets);
     state = (state.copyWith(tweets: [...state.tweets, ...tweets]));
   }
+
+  Future<void> deleteTweet(String id) async {
+    final repository = await ref.read(tweetRepositoryProvider.future);
+    await repository.deleteTweets({id});
+    await refresh();
+  }
 }
 
 final tweetControllerProvider = NotifierProvider<TweetController, TweetState>(
