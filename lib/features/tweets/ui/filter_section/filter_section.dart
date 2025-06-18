@@ -5,6 +5,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../../providers/tag_select_controller.dart';
 import '../../../../providers/tweet_controller.dart';
 import '../../../../providers/period_filter_provider.dart';
+import '../../../../providers/search_query_provider.dart';
+import '../../../../providers/repository_providers.dart';
 import 'period_filter_section.dart';
 import 'tag_filter_section.dart';
 
@@ -19,6 +21,7 @@ class FilterSection extends ConsumerWidget {
     final tweetController = ref.read(tweetControllerProvider.notifier);
     final periodState = ref.watch(periodFilterProvider);
     final periodController = ref.read(periodFilterProvider.notifier);
+    final searchController = ref.read(searchQueryProvider.notifier);
     final theme = Theme.of(context);
     final hasActiveFilters =
         periodState.since != null ||
@@ -59,17 +62,26 @@ class FilterSection extends ConsumerWidget {
                 child: TextButton.icon(
                   onPressed:
                       hasActiveFilters
-                          ? () {
+                          ? () async {
+                            // 全フィルターをクリア
+                            searchController.clear();
                             periodController.setSince(null);
                             periodController.setUntil(null);
                             tagController.clearSelection();
+
+                            // Preferencesからも削除
+                            ref
+                                .read(preferencesRepositoryProvider.future)
+                                .then(
+                                  (preference) =>
+                                      preference.clearFilterSettings(),
+                                );
+
                             tweetController.refresh();
                           }
                           : null,
                   icon: const Icon(Icons.clear_all, size: 16),
-                  label: Text(
-                    l10n.clear,
-                  ),
+                  label: Text(l10n.clear),
                   style: TextButton.styleFrom(
                     foregroundColor: theme.colorScheme.error,
                     textStyle: theme.textTheme.labelSmall,
