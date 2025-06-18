@@ -1,0 +1,110 @@
+import 'package:idb_shim/idb.dart';
+
+import '../models/tag.dart';
+import '../models/tweet.dart';
+import '../storage/tweet/tweet_storage.dart';
+
+const tagNameBin = 'bin';
+
+class TweetRepository {
+  final TweetStorage storage;
+
+  const TweetRepository._(this.storage);
+
+  static Future<TweetRepository> create({IdbFactory? factory}) async {
+    final storage = await TweetStorage.create(factory: factory);
+    final repo = TweetRepository._(storage);
+    await repo._ensureCountFields();
+    return repo;
+  }
+
+  Future<void> saveTweets(List<Tweet> tweets) => storage
+      .store(TweetStores.tweets)
+      .putList(tweets, converter: (tweet) => tweet.toJson());
+
+  Future<List<Tweet>> loadAllTweets() =>
+      storage.store(TweetStores.tweets).getAll(converter: Tweet.fromJson);
+
+  Future<void> addTag(String name) {
+    final tag = Tag(name: name);
+    return storage.store(TweetStores.tags).add(tag.toJson());
+  }
+
+  Future<Set<String>?> saveTag(Tag tag) async {
+    await storage.store(TweetStores.tags).put(tag.toJson());
+    return tag.tweetIds;
+  }
+
+  Future<Set<String>?> removeIdsFromTag(Tag tag, Set<String> ids) async {
+    final updatedIds = tag.tweetIds.difference(ids);
+    final updatedTag = tag.copyWith(tweetIds: updatedIds);
+    return saveTag(updatedTag);
+  }
+
+  Future<Tag?> loadTag(String name) async {
+    final obj = await storage.store(TweetStores.tags).get(name);
+    if (obj == null) return null;
+    return Tag.fromJson(obj as Map<String, dynamic>);
+  }
+
+  Future<List<Tag>> loadAllTags() =>
+      storage.store(TweetStores.tags).getAll(converter: Tag.fromJson);
+
+  Future<List<Tag>> loadTags() => loadAllTags().then(
+    (tags) => tags.where((tag) => tag.name != tagNameBin).toList(),
+  );
+
+  Future<void> deleteTweets(Set<String> ids) async {
+    // store deleted ids
+    await storage
+        .store(TweetStores.deleted)
+        .putList(ids.toList(), converter: (id) => {'id': id});
+
+    // delete tweet records
+    final tweetStore = storage.store(TweetStores.tweets);
+    for (final id in ids) {
+      await tweetStore.delete(id);
+    }
+
+    // remove ids from all tags
+    final tags = await loadAllTags();
+    for (final tag in tags) {
+      if (tag.tweetIds.intersection(ids).isEmpty) continue;
+      await saveTag(tag.copyWith(tweetIds: tag.tweetIds.difference(ids)));
+    }
+  }
+
+  Future<void> restoreTweets(Set<String> ids) async {
+    final binTag = await loadTag(tagNameBin);
+    if (binTag == null) return;
+    await removeIdsFromTag(binTag, ids);
+  }
+
+  Future<Set<String>> loadDeletedIds() async {
+    final ids = await storage
+        .store(TweetStores.deleted)
+        .getAll(converter: (obj) => obj['id'] as String);
+    return ids.toSet();
+  }
+
+  Future<void> _ensureCountFields() async {
+    final store = storage.store(TweetStores.tweets);
+    final records = await store.getAll(
+      converter: (obj) => Map<String, dynamic>.from(obj),
+    );
+    for (final obj in records) {
+      bool updated = false;
+      if (!obj.containsKey('favoriteCount')) {
+        obj['favoriteCount'] = 0;
+        updated = true;
+      }
+      if (!obj.containsKey('retweetCount')) {
+        obj['retweetCount'] = 0;
+        updated = true;
+      }
+      if (updated) {
+        await store.put(obj);
+      }
+    }
+  }
+}
