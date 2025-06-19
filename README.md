@@ -26,7 +26,7 @@ Twitterからダウンロードしたアーカイブの`tweets.js`を読み込�
 ### 🌐 ユーザー体験
 - **多言語対応** - 日本語・英語インターフェース
 - **ダークモード** - 目に優しいテーマ切り替え
-- **レスポンシブデザイン** - デスクトップ・モバイル対応
+- **マルチプラットフォーム** - Web・デスクトップアプリ対応（Mac動作確認済、Windows動作未確認）
 
 ## 🚀 開発セットアップ
 
@@ -45,6 +45,12 @@ dart run build_runner build
 
 # 開発サーバー起動（Web）
 flutter run -d chrome --web-port 3000
+
+# デスクトップアプリ起動（Mac）
+flutter run -d macos
+
+# デスクトップアプリ起動（Windows、動作未確認）
+flutter run -d windows
 ```
 
 ### 開発コマンド
@@ -60,13 +66,17 @@ flutter test
 flutter analyze
 dart run custom_lint
 
-# プロダクションビルド
+# プロダクションビルド（Web）
 flutter build web
+
+# プロダクションビルド（デスクトップ）
+flutter build macos           # Mac
+flutter build windows         # Windows（動作未確認）
 ```
 
 ## 🏗️ アーキテクチャ
 
-- **フレームワーク**: Flutter Web
+- **フレームワーク**: Flutter（Web・デスクトップ）
 - **状態管理**: Riverpod + Flutter Hooks
 - **データ永続化**: IndexedDB (idb_shim)
 - **設定管理**: SharedPreferences
