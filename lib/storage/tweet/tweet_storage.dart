@@ -1,5 +1,8 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:idb_shim/idb_browser.dart';
+import 'package:idb_sqflite/idb_sqflite.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart' hide Database;
 
 import '../database.dart';
 import '../store.dart';
@@ -23,8 +26,20 @@ class TweetStorage {
   const TweetStorage._(this._stores);
 
   static Future<TweetStorage> create({IdbFactory? factory}) async {
+    IdbFactory idbFactory;
+
+    if (factory != null) {
+      idbFactory = factory;
+    } else if (kIsWeb) {
+      idbFactory = idbFactoryBrowser;
+    } else {
+      // Desktop: Initialize sqflite and create idb factory
+      sqfliteFfiInit();
+      idbFactory = getIdbFactorySqflite(databaseFactoryFfi);
+    }
+
     final db = await createDatabase(
-      factory ?? idbFactoryBrowser,
+      idbFactory,
       _dbName,
       version: _dbVersion,
       onUpgradeNeeded: (VersionChangeEvent e, createObjectStore) {

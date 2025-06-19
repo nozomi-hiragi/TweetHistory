@@ -49,17 +49,20 @@ class TweetController extends Notifier<TweetState> {
       if (period.until != null && tweet.createdAt.isAfter(period.until!)) {
         continue;
       }
-      
+
       // Apply tweet type filtering
-      if (typeFilter.showReplies || typeFilter.showRetweets || typeFilter.showRegular) {
+      if (typeFilter.showReplies ||
+          typeFilter.showRetweets ||
+          typeFilter.showRegular) {
         final isReply = tweet.isReply;
         final isRetweet = tweet.isRetweet;
         final isRegular = !isReply && !isRetweet;
-        
-        final shouldShow = (typeFilter.showReplies && isReply) ||
-                          (typeFilter.showRetweets && isRetweet) ||
-                          (typeFilter.showRegular && isRegular);
-        
+
+        final shouldShow =
+            (typeFilter.showReplies && isReply) ||
+            (typeFilter.showRetweets && isRetweet) ||
+            (typeFilter.showRegular && isRegular);
+
         if (!shouldShow) {
           continue;
         }

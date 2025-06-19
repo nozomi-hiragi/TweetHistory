@@ -3,7 +3,7 @@ import 'dart:typed_data';
 
 import 'package:web/web.dart' as web;
 
-void downloadFile(String filename, Uint8List bytes) {
+Future<void> downloadFile(String filename, Uint8List bytes) async {
   final file = web.File([bytes.toJS].toJS, filename);
   final url = web.URL.createObjectURL(file);
   final anchor =

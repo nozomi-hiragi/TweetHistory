@@ -1,9 +1,7 @@
 import 'dart:convert';
 
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tweethistory/providers/tweet_controller.dart';
@@ -20,22 +18,12 @@ class ImportExportDialog extends ConsumerWidget {
     final data = await repo.exportAll();
     final jsonStr = repo.exportJson(data);
     final bytes = utf8.encode(jsonStr);
-    if (kIsWeb) {
-      downloadFile('tweethistory_export.json', bytes);
-      if (context.mounted) {
-        Navigator.of(context).pop();
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text(l10n.exportSuccess)));
-      }
-    } else {
-      await Clipboard.setData(ClipboardData(text: jsonStr));
-      if (context.mounted) {
-        Navigator.of(context).pop();
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text(l10n.dataCopiedToClipboard)));
-      }
+    await downloadFile('tweethistory_export.json', bytes);
+    if (context.mounted) {
+      Navigator.of(context).pop();
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(l10n.exportSuccess)));
     }
   }
 
