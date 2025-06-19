@@ -8,26 +8,13 @@ TweetHistory is a Flutter web application for viewing and organizing Twitter arc
 
 ## Development Commands
 
-### Setup & Code Generation
 ```bash
+# Essential commands
 flutter pub get
-dart run build_runner build  # Generate freezed/json_serializable code
-dart run build_runner watch  # Watch mode for development
-dart run build_runner build --delete-conflicting-outputs  # Clean rebuild
-```
-
-### Testing & Quality
-```bash
-flutter test                    # Run all tests
-flutter test test/repository/   # Run specific test directory
-flutter analyze                 # Static analysis
-dart run custom_lint           # Custom linting rules
-```
-
-### Build & Run
-```bash
-flutter run -d chrome --web-port 3000  # Run on web (port 3000)
-flutter build web                      # Build for web deployment
+dart run build_runner build
+flutter test
+flutter analyze
+flutter run -d web-server --web-port 3000
 ```
 
 ## Architecture
@@ -45,49 +32,16 @@ UI Widget → ref.watch(provider) → Controller → Repository → Storage Laye
 - Dependency injection through `ref.read()` in provider constructors
 - Centralized initialization via `initializationProvider`
 
-### Data Models & Code Generation
-All data models use **Freezed** for immutability and code generation:
-
-- Domain models: `Tweet`, `Tag` with multiple constructors (e.g., `fromRawJson` for Twitter API data)
-- State objects: `TweetState`, `SelectionState` for UI state management
-- Automatic generation of `copyWith`, `==`, `hashCode`, and JSON serialization
-
-### Storage Architecture
-Uses **IndexedDB** via `idb_shim` for cross-platform storage:
-
-```
-tweet_db (v2)
-├── tweets (id: primary key)
-├── tags (name: primary key)
-└── deleted (id: primary key)
-```
-
-**Repository Pattern:**
-- `TweetRepository`: Core tweet operations with IndexedDB
-- `PreferencesRepository`: App settings with SharedPreferences  
-- `DataTransferRepository`: Import/export functionality
-- Repositories handle multiple storage backends atomically
-
-### Special Architectural Decisions
-
-1. **Soft Delete Pattern**: Deleted tweets are moved to "bin" tag and tracked separately
-2. **Tag-Based Organization**: Flexible tagging system with special handling for system tags
-3. **Cross-Platform Storage**: Unified storage API using `idb_shim` for web and native
-4. **Data Migration**: Built-in schema migration logic (see `_ensureCountFields`)
-
-## Testing Patterns
-
-- **Provider Testing**: Uses `ProviderContainer` with overrides for isolation
-- **Repository Testing**: Uses `idbFactoryMemory` for in-memory IndexedDB
-- **State Testing**: Tests controller behavior and state transitions
-- Explicit migration testing for data schema changes
+### Key Architecture
+- **Data Models**: Freezed for immutability (`Tweet`, `Tag`, state objects)
+- **Storage**: IndexedDB via `idb_shim` with repository pattern
+- **Special Patterns**: Soft delete ("bin" tag), tag-based organization
 
 ## Key Dependencies
-
 - **State Management**: `hooks_riverpod` + `flutter_hooks`
 - **Code Generation**: `freezed` + `json_serializable` + `build_runner`
-- **Storage**: `idb_shim` (IndexedDB), `shared_preferences` (settings)
-- **Linting**: `custom_lint` + `riverpod_lint`
+- **Storage**: `idb_shim` (IndexedDB), `shared_preferences`
+- **Testing**: `ProviderContainer` overrides, `idbFactoryMemory`
 
 ## Version Management
 
@@ -119,43 +73,20 @@ MARKETING_VERSION = 0.2.1;
 
 This project supports multiple languages through Flutter's internationalization framework:
 
-### Language Support
-- **Japanese (ja)**: Primary language for UI and documentation
-- **English (en)**: Secondary language support
+### Localization
+**CRITICAL:** All user text MUST use `AppLocalizations.of(context)!` - never hardcode strings.
 
-### Localization Guidelines
-
-**IMPORTANT:** All user-visible text MUST be internationalized using the `AppLocalizations` system. Never use hardcoded strings in UI components.
-
-#### Adding New Text
-1. Add the key-value pair to both `lib/l10n/app_ja.arb` and `lib/l10n/app_en.arb`
-2. Use descriptive keys (e.g., `version`, `license`, `settings`)
-3. Include `@description` metadata in English .arb file for context
-
-#### Using Localized Text
 ```dart
-// ❌ Wrong - hardcoded string
-Text('バージョン')
-
-// ✅ Correct - localized
+// ✅ Correct
 final l10n = AppLocalizations.of(context)!;
 Text(l10n.version)
 ```
 
-#### Code Generation
-Run `flutter gen-l10n` or `flutter pub get` to regenerate localization files after adding new keys.
-
-### Localization Files
-- `lib/l10n/app_ja.arb`: Japanese translations
-- `lib/l10n/app_en.arb`: English translations with descriptions
-- Generated files are in `lib/l10n/` (auto-generated, do not edit)
+Files: `lib/l10n/app_ja.arb` (primary), `lib/l10n/app_en.arb`
 
 ## Development Notes
-
-- Always run `dart run build_runner build` after modifying Freezed models
-- Use `flutter run -d chrome` for web development
-- IndexedDB data persists between sessions in browser dev tools
-- The app handles Twitter archive JSON format with timezone conversion
+- Run `dart run build_runner build` after Freezed model changes
+- IndexedDB data persists in browser dev tools
 
 ## Design Philosophy Notes
 
@@ -197,3 +128,37 @@ onDeleted: isEditMode ? onDelete : null,
 - Cleaner state management without backward compatibility cruft
 
 This demonstrates the principle of "simple solutions are often better solutions" and the value of understanding existing Flutter patterns before building custom ones.
+
+### Tweet Detail Tag Integration Implementation (January 2025)
+
+**Claude's Initial Approach vs User's Preferred Implementation:**
+
+**Claude's Design:**
+- Complex helper function `_getTagStatusForTweet()` separated from usage
+- Inline `_buildTagChip()` method within dialog class
+- Verbose try-catch blocks with detailed error handling
+- Multiple levels of nesting and function separation
+
+**User's Preferred Design:**
+- Direct tag status logic inline where needed
+- Extracted `TagStateChip` as standalone reusable widget
+- Streamlined error handling focused on essential cases
+- Cleaner separation: UI components as separate files, logic inline
+
+**Key Insights:**
+1. **Component Extraction over Method Inlining**: User prefers creating reusable widgets in separate files rather than private methods within classes
+2. **Logic Positioning**: Simple logic should be inline where used, complex reusable UI should be extracted
+3. **Code Organization**: Separate files for reusable components vs helper methods within classes
+4. **Error Handling**: Focus on essential error cases rather than comprehensive try-catch blocks
+
+**Technical Implementation:**
+```dart
+// User's approach: Reusable component
+// lib/common/tag_state_chip.dart
+class TagStateChip extends StatelessWidget { ... }
+
+// Claude's approach: Private method
+Widget _buildTagChip(BuildContext context, String tag) { ... }
+```
+
+This demonstrates preference for widget extraction over method extraction, and inline logic over helper functions when the logic is straightforward.

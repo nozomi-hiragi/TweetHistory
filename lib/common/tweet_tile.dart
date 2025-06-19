@@ -8,6 +8,7 @@ import '../models/tweet.dart';
 import '../providers/tweet_controller.dart';
 import '../providers/tweet_select_controller.dart';
 import '../providers/repository_providers.dart';
+import 'tag_state_chip.dart';
 import 'tweet_detail_dialog.dart';
 
 // Provider to get tags for a specific tweet
@@ -144,8 +145,7 @@ class TweetTile extends HookConsumerWidget {
                 return Wrap(
                   spacing: 6,
                   runSpacing: 6,
-                  children:
-                      tags.map((tag) => _buildTagChip(theme, tag)).toList(),
+                  children: tags.map((tag) => TagStateChip(tag: tag)).toList(),
                 );
               },
               loading: () => const SizedBox.shrink(),
@@ -183,28 +183,6 @@ class TweetTile extends HookConsumerWidget {
           );
         }
       },
-    );
-  }
-
-  Widget _buildTagChip(ThemeData theme, String tag) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      decoration: BoxDecoration(
-        color: theme.colorScheme.primaryContainer.withValues(alpha: 0.6),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: theme.colorScheme.primary.withValues(alpha: 0.2),
-          width: 1,
-        ),
-      ),
-      child: Text(
-        tag,
-        style: theme.textTheme.labelSmall?.copyWith(
-          color: theme.colorScheme.onPrimaryContainer,
-          fontWeight: FontWeight.w500,
-          fontSize: 11,
-        ),
-      ),
     );
   }
 }
