@@ -10,8 +10,13 @@ class TweetSelectController extends Notifier<SelectionState> {
   @override
   build() => SelectionState();
 
-  void toggle() =>
-      state = SelectionState(isSelectionMode: !state.isSelectionMode);
+  void toggleEditMode() {
+    final newMode =
+        state.mode == SelectionMode.edit
+            ? SelectionMode.normal
+            : SelectionMode.edit;
+    state = SelectionState(mode: newMode);
+  }
 
   bool toggleSelection(String tweetId) {
     final selectedIds = Set<String>.from(state.selectedIds);
@@ -70,7 +75,7 @@ class TweetSelectController extends Notifier<SelectionState> {
         });
       }),
     );
-    state = SelectionState(isSelectionMode: false);
+    state = SelectionState(mode: SelectionMode.normal);
     return failedTagNames;
   }
 
@@ -97,7 +102,7 @@ class TweetSelectController extends Notifier<SelectionState> {
     ).then((v) => v.last);
 
     ref.read(tweetControllerProvider.notifier).refresh();
-    state = SelectionState(isSelectionMode: false);
+    state = SelectionState(mode: SelectionMode.normal);
     return result;
   }
 
@@ -106,7 +111,7 @@ class TweetSelectController extends Notifier<SelectionState> {
     final ids = state.selectedIds;
     if (ids.isEmpty) return false;
     await repository.deleteTweets(ids);
-    state = SelectionState(isSelectionMode: false);
+    state = SelectionState(mode: SelectionMode.normal);
     ref.read(tweetControllerProvider.notifier).refresh();
     return true;
   }
@@ -116,7 +121,7 @@ class TweetSelectController extends Notifier<SelectionState> {
     final ids = state.selectedIds;
     if (ids.isEmpty) return false;
     await repository.restoreTweets(ids);
-    state = SelectionState(isSelectionMode: false);
+    state = SelectionState(mode: SelectionMode.normal);
     ref.read(tweetControllerProvider.notifier).refresh();
     return true;
   }

@@ -41,6 +41,59 @@ class TweetRepository {
     return saveTag(updatedTag);
   }
 
+  /// Renames a tag by creating a new tag with the new name and deleting the old one
+  /// Returns true if successful, false if the new name already exists or operation fails
+  Future<bool> renameTag(String oldName, String newName) async {
+    try {
+      // Cannot rename system tags
+      if (oldName == tagNameBin) return false;
+      
+      // Check if new name already exists
+      final existingTag = await loadTag(newName);
+      if (existingTag != null) return false;
+      
+      // Get the old tag
+      final oldTag = await loadTag(oldName);
+      if (oldTag == null) return false;
+      
+      // Create new tag with the same tweet IDs
+      final newTag = Tag(name: newName, tweetIds: oldTag.tweetIds);
+      
+      // Save new tag and delete old tag in a transaction-like manner
+      await saveTag(newTag);
+      await _deleteTagByName(oldName);
+      
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  /// Deletes a tag completely
+  /// Returns true if successful, false if tag is system tag or operation fails
+  Future<bool> deleteTag(String tagName) async {
+    try {
+      // Cannot delete system tags
+      if (tagName == tagNameBin) return false;
+      
+      // Check if tag exists
+      final tag = await loadTag(tagName);
+      if (tag == null) return false;
+      
+      // Delete the tag
+      await _deleteTagByName(tagName);
+      
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  /// Helper method to delete a tag by name from storage
+  Future<void> _deleteTagByName(String tagName) async {
+    await storage.store(TweetStores.tags).delete(tagName);
+  }
+
   Future<Tag?> loadTag(String name) async {
     final obj = await storage.store(TweetStores.tags).get(name);
     if (obj == null) return null;

@@ -156,3 +156,44 @@ Run `flutter gen-l10n` or `flutter pub get` to regenerate localization files aft
 - Use `flutter run -d chrome` for web development
 - IndexedDB data persists between sessions in browser dev tools
 - The app handles Twitter archive JSON format with timezone conversion
+
+## Design Philosophy Notes
+
+### Tag Edit Mode Implementation (December 2024)
+
+**Claude's Initial Approach vs User's Preferred Implementation:**
+
+**Claude's Design:**
+- Complex TagChip with multiple UI modes (`_buildEditModeChip` vs `_buildNormalChip`)
+- Popup menus and bottom sheets for tag editing
+- Separate visual styling for edit mode
+- More elaborate interaction patterns
+
+**User's Preferred Design:**
+- Simple, unified TagChip using existing FilterChip component
+- Elegant reuse of existing `onSelected` and `onDeleted` callbacks
+- `onSelected` behavior changes contextually based on `isEditMode`
+- `onDeleted` only appears in edit mode
+- Clean, minimal code with maximum reuse
+
+**Key Insights:**
+1. **Simplicity over Complexity**: User prefers leveraging existing Flutter components rather than building custom UI
+2. **Behavioral Polymorphism**: Same UI element (FilterChip) behaves differently based on context rather than having separate implementations
+3. **Code Reuse**: Maximizing use of existing patterns and callbacks rather than introducing new interaction paradigms
+4. **UI Consistency**: Maintaining visual consistency by reusing the same component with different behaviors
+
+**Technical Implementation:**
+```dart
+// User's elegant approach:
+onSelected: (v) => isEditMode ? onRename?.call() : onSelected?.call(v),
+onDeleted: isEditMode ? onDelete : null,
+
+// vs Claude's complex approach with separate widgets and popup menus
+```
+
+**Backward Compatibility Notes:**
+- User removed the legacy `isSelectionMode` getter, simplifying the state model
+- Removed legacy `toggle()` method, keeping only `toggleEditMode()`
+- Cleaner state management without backward compatibility cruft
+
+This demonstrates the principle of "simple solutions are often better solutions" and the value of understanding existing Flutter patterns before building custom ones.
