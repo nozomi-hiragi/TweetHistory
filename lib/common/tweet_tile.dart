@@ -16,6 +16,9 @@ final tweetTagsProvider = FutureProvider.family<List<String>, String>((
   ref,
   tweetId,
 ) async {
+  // Watch tweet controller to trigger refresh when tags change
+  ref.watch(tweetControllerProvider);
+  
   final repository = await ref.read(tweetRepositoryProvider.future);
   final allTags = await repository.loadAllTags();
   return allTags
