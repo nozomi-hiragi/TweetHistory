@@ -481,5 +481,9 @@
   "retweetFrom": "Retweet from:",
   "@retweetFrom": {
     "description": "Label prefix for retweet source"
+  },
+  "regularTweet": "Regular Tweet",
+  "@regularTweet": {
+    "description": "Label for regular tweet type"
   }
 }

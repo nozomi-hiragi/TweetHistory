@@ -106,5 +106,6 @@
   "reply": "返信",
   "retweet": "リツイート",
   "replyTo": "返信先:",
-  "retweetFrom": "リツイート元:"
+  "retweetFrom": "リツイート元:",
+  "regularTweet": "通常ツイート"
 }

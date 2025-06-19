@@ -7,6 +7,7 @@ import 'repository_providers.dart';
 import 'tag_select_controller.dart';
 import 'sort_order_provider.dart';
 import 'period_filter_provider.dart';
+import 'tweet_type_filter_provider.dart';
 
 class TweetController extends Notifier<TweetState> {
   @override
@@ -20,6 +21,7 @@ class TweetController extends Notifier<TweetState> {
     final tagSelectionState =
         ref.read(tagSelectControllerProvider.notifier).state;
     final period = ref.read(periodFilterProvider);
+    final typeFilter = ref.read(tweetTypeFilterProvider);
     final tags = await repository.loadTags();
     final binTag = await repository.loadTag(tagNameBin);
 
@@ -46,6 +48,21 @@ class TweetController extends Notifier<TweetState> {
       }
       if (period.until != null && tweet.createdAt.isAfter(period.until!)) {
         continue;
+      }
+      
+      // Apply tweet type filtering
+      if (typeFilter.showReplies || typeFilter.showRetweets || typeFilter.showRegular) {
+        final isReply = tweet.isReply;
+        final isRetweet = tweet.isRetweet;
+        final isRegular = !isReply && !isRetweet;
+        
+        final shouldShow = (typeFilter.showReplies && isReply) ||
+                          (typeFilter.showRetweets && isRetweet) ||
+                          (typeFilter.showRegular && isRegular);
+        
+        if (!shouldShow) {
+          continue;
+        }
       }
       final isFilteredId = filteredIds.contains(tweet.id);
       final isNoFilteredId = noFilteredIds.contains(tweet.id);

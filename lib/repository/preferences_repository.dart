@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
+import '../state/tweet_type_filter_state.dart';
+
 class PreferencesRepository {
   final SharedPreferences _instance;
   final String _keyThemeMode = 'themeMode';
@@ -11,6 +13,7 @@ class PreferencesRepository {
   final String _keyLastSelectedTags = 'lastSelectedTags';
   final String _keyLastPeriodSince = 'lastPeriodSince';
   final String _keyLastPeriodUntil = 'lastPeriodUntil';
+  final String _keyTweetTypeFilter = 'tweetTypeFilter';
 
   const PreferencesRepository._(this._instance);
 
@@ -83,11 +86,27 @@ class PreferencesRepository {
     }
   }
 
+  // ツイートタイプフィルターの保存・読み込み
+  Future<void> saveTweetTypeFilter(TweetTypeFilterState state) async {
+    await _instance.setString(_keyTweetTypeFilter, jsonEncode(state.toJson()));
+  }
+
+  Future<TweetTypeFilterState?> getTweetTypeFilter() async {
+    final filterJson = _instance.getString(_keyTweetTypeFilter);
+    if (filterJson == null) return null;
+    try {
+      return TweetTypeFilterState.fromJson(jsonDecode(filterJson));
+    } catch (e) {
+      return null;
+    }
+  }
+
   // 全フィルター設定をクリア
   void clearFilterSettings() {
     _instance.remove(_keyLastSearchQuery);
     _instance.remove(_keyLastSelectedTags);
     _instance.remove(_keyLastPeriodSince);
     _instance.remove(_keyLastPeriodUntil);
+    _instance.remove(_keyTweetTypeFilter);
   }
 }
