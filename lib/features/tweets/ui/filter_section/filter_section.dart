@@ -6,9 +6,11 @@ import '../../../../providers/tag_select_controller.dart';
 import '../../../../providers/tweet_controller.dart';
 import '../../../../providers/period_filter_provider.dart';
 import '../../../../providers/search_query_provider.dart';
+import '../../../../providers/tweet_type_filter_provider.dart';
 import '../../../../providers/repository_providers.dart';
 import 'period_filter_section.dart';
 import 'tag_filter_section.dart';
+import 'tweet_type_filter_section.dart';
 
 class FilterSection extends ConsumerWidget {
   const FilterSection({super.key});
@@ -21,12 +23,17 @@ class FilterSection extends ConsumerWidget {
     final tweetController = ref.read(tweetControllerProvider.notifier);
     final periodState = ref.watch(periodFilterProvider);
     final periodController = ref.read(periodFilterProvider.notifier);
+    final typeState = ref.watch(tweetTypeFilterProvider);
+    final typeController = ref.read(tweetTypeFilterProvider.notifier);
     final searchController = ref.read(searchQueryProvider.notifier);
     final theme = Theme.of(context);
     final hasActiveFilters =
         periodState.since != null ||
         periodState.until != null ||
-        tagState.selected.isNotEmpty;
+        tagState.selected.isNotEmpty ||
+        typeState.showReplies ||
+        typeState.showRetweets ||
+        typeState.showRegular;
 
     return Container(
       decoration: BoxDecoration(
@@ -68,6 +75,7 @@ class FilterSection extends ConsumerWidget {
                             periodController.setSince(null);
                             periodController.setUntil(null);
                             tagController.clearSelection();
+                            typeController.clearAll();
 
                             // Preferencesからも削除
                             ref
@@ -97,6 +105,8 @@ class FilterSection extends ConsumerWidget {
               PeriodFilterSection(),
               SizedBox(height: 16),
               TagFilterSection(),
+              SizedBox(height: 16),
+              TweetTypeFilterSection(),
             ],
           ),
         ],

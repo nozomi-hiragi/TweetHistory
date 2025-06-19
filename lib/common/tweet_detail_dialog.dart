@@ -87,6 +87,57 @@ class TweetDetailDialog extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
+              // Reply/Retweet indicator
+              if (tweet.isReply || tweet.isRetweet) ...[
+                Card(
+                  color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                  child: Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: Row(
+                      children: [
+                        if (tweet.isReply) ...[
+                          Icon(
+                            Icons.reply,
+                            size: 20,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            tweet.inReplyToScreenName != null
+                                ? '${l10n.replyTo} @${tweet.inReplyToScreenName}'
+                                : l10n.reply,
+                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              color: Theme.of(context).colorScheme.primary,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                        if (tweet.isReply && tweet.isRetweet) 
+                          const SizedBox(width: 16),
+                        if (tweet.isRetweet) ...[
+                          Icon(
+                            Icons.repeat,
+                            size: 20,
+                            color: Theme.of(context).colorScheme.tertiary,
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            tweet.retweetedUserScreenName != null
+                                ? '${l10n.retweetFrom} @${tweet.retweetedUserScreenName}'
+                                : l10n.retweet,
+                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              color: Theme.of(context).colorScheme.tertiary,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 16),
+              ],
+
               // Tweet text
               SelectableText(
                 tweet.text,

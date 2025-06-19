@@ -102,5 +102,10 @@
   "tagRenameError": "タグ名の変更に失敗しました",
   "tagDeleteError": "タグの削除に失敗しました",
   "editMode": "編集モード",
-  "exitEditMode": "編集モード終了"
+  "exitEditMode": "編集モード終了",
+  "reply": "返信",
+  "retweet": "リツイート",
+  "replyTo": "返信先:",
+  "retweetFrom": "リツイート元:",
+  "regularTweet": "通常ツイート"
 }
