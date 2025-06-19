@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import '../../providers/theme_mode_controller.dart';
 import '../../providers/user_id_controller.dart';
 import '../../providers/locale_controller.dart';
@@ -53,6 +54,36 @@ class SettingsScreen extends ConsumerWidget {
               showDialog(
                 context: context,
                 builder: (_) => const ImportExportDialog(),
+              );
+            },
+          ),
+          const Divider(),
+          FutureBuilder<PackageInfo>(
+            future: PackageInfo.fromPlatform(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                final packageInfo = snapshot.data!;
+                return ListTile(
+                  title: Text(l10n.version),
+                  subtitle: Text('${packageInfo.version} (${packageInfo.buildNumber})'),
+                  trailing: const Icon(Icons.info_outline),
+                );
+              }
+              return ListTile(
+                title: Text(l10n.version),
+                subtitle: Text(l10n.loading),
+                trailing: const Icon(Icons.info_outline),
+              );
+            },
+          ),
+          ListTile(
+            title: Text(l10n.license),
+            trailing: const Icon(Icons.description),
+            onTap: () {
+              showLicensePage(
+                context: context,
+                applicationName: 'TweetHistory',
+                applicationIcon: const Icon(Icons.history),
               );
             },
           ),

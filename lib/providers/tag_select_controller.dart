@@ -6,11 +6,29 @@ import 'repository_providers.dart';
 class TagSelectController extends Notifier<SelectedValues> {
   @override
   SelectedValues build() {
-    ref.read(tweetRepositoryProvider.future).then((repo) async {
-      final tags = await repo.loadTags();
-      state = state.copyWith(unselected: tags.map((tag) => tag.name).toList());
-    });
+    _loadTagsAndPreferences();
     return SelectedValues(selected: [], unselected: []);
+  }
+
+  void _loadTagsAndPreferences() async {
+    try {
+      final repo = await ref.read(tweetRepositoryProvider.future);
+      final tags = await repo.loadTags();
+      final allTags = tags.map((tag) => tag.name).toList();
+
+      // 保存済みの選択タグを読み込み
+      final pref = await ref.read(preferencesRepositoryProvider.future);
+      final lastSelectedTags = pref.lastSelectedTags;
+
+      final selected =
+          lastSelectedTags.where((tag) => allTags.contains(tag)).toList();
+      final unselected =
+          allTags.where((tag) => !selected.contains(tag)).toList();
+
+      state = SelectedValues(selected: selected, unselected: unselected);
+    } catch (e) {
+      // エラーが発生した場合は無視
+    }
   }
 
   void initialize(List<String> tags) =>
@@ -22,6 +40,7 @@ class TagSelectController extends Notifier<SelectedValues> {
       selected: [...state.selected, tag],
       unselected: state.unselected.where((t) => t != tag).toList(),
     );
+    _saveSelectedTags();
     return true;
   }
 
@@ -31,6 +50,7 @@ class TagSelectController extends Notifier<SelectedValues> {
       selected: state.selected.where((t) => t != tag).toList(),
       unselected: [...state.unselected, tag],
     );
+    _saveSelectedTags();
     return true;
   }
 
@@ -39,6 +59,16 @@ class TagSelectController extends Notifier<SelectedValues> {
       selected: [],
       unselected: [...state.selected, ...state.unselected]..sort(),
     );
+    _saveSelectedTags();
+  }
+
+  void _saveSelectedTags() async {
+    try {
+      final pref = await ref.read(preferencesRepositoryProvider.future);
+      pref.lastSelectedTags = state.selected;
+    } catch (e) {
+      // エラーが発生した場合は無視
+    }
   }
 
   Future<bool> addTag(String name) async {
@@ -52,6 +82,10 @@ class TagSelectController extends Notifier<SelectedValues> {
     } catch (e) {
       return false;
     }
+  }
+
+  void refresh() {
+    _loadTagsAndPreferences();
   }
 }
 

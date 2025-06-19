@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$SelectionState {
 
- bool get isSelectionMode; Set<String> get selectedIds;
+ SelectionMode get mode; Set<String> get selectedIds;
 /// Create a copy of SelectionState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -26,16 +26,16 @@ $SelectionStateCopyWith<SelectionState> get copyWith => _$SelectionStateCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SelectionState&&(identical(other.isSelectionMode, isSelectionMode) || other.isSelectionMode == isSelectionMode)&&const DeepCollectionEquality().equals(other.selectedIds, selectedIds));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SelectionState&&(identical(other.mode, mode) || other.mode == mode)&&const DeepCollectionEquality().equals(other.selectedIds, selectedIds));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,isSelectionMode,const DeepCollectionEquality().hash(selectedIds));
+int get hashCode => Object.hash(runtimeType,mode,const DeepCollectionEquality().hash(selectedIds));
 
 @override
 String toString() {
-  return 'SelectionState(isSelectionMode: $isSelectionMode, selectedIds: $selectedIds)';
+  return 'SelectionState(mode: $mode, selectedIds: $selectedIds)';
 }
 
 
@@ -46,7 +46,7 @@ abstract mixin class $SelectionStateCopyWith<$Res>  {
   factory $SelectionStateCopyWith(SelectionState value, $Res Function(SelectionState) _then) = _$SelectionStateCopyWithImpl;
 @useResult
 $Res call({
- bool isSelectionMode, Set<String> selectedIds
+ SelectionMode mode, Set<String> selectedIds
 });
 
 
@@ -63,10 +63,10 @@ class _$SelectionStateCopyWithImpl<$Res>
 
 /// Create a copy of SelectionState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? isSelectionMode = null,Object? selectedIds = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? mode = null,Object? selectedIds = null,}) {
   return _then(_self.copyWith(
-isSelectionMode: null == isSelectionMode ? _self.isSelectionMode : isSelectionMode // ignore: cast_nullable_to_non_nullable
-as bool,selectedIds: null == selectedIds ? _self.selectedIds : selectedIds // ignore: cast_nullable_to_non_nullable
+mode: null == mode ? _self.mode : mode // ignore: cast_nullable_to_non_nullable
+as SelectionMode,selectedIds: null == selectedIds ? _self.selectedIds : selectedIds // ignore: cast_nullable_to_non_nullable
 as Set<String>,
   ));
 }
@@ -77,11 +77,11 @@ as Set<String>,
 /// @nodoc
 
 
-class _SelectionState implements SelectionState {
-  const _SelectionState({this.isSelectionMode = false, final  Set<String> selectedIds = const <String>{}}): _selectedIds = selectedIds;
+class _SelectionState extends SelectionState {
+  const _SelectionState({this.mode = SelectionMode.normal, final  Set<String> selectedIds = const <String>{}}): _selectedIds = selectedIds,super._();
   
 
-@override@JsonKey() final  bool isSelectionMode;
+@override@JsonKey() final  SelectionMode mode;
  final  Set<String> _selectedIds;
 @override@JsonKey() Set<String> get selectedIds {
   if (_selectedIds is EqualUnmodifiableSetView) return _selectedIds;
@@ -100,16 +100,16 @@ _$SelectionStateCopyWith<_SelectionState> get copyWith => __$SelectionStateCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SelectionState&&(identical(other.isSelectionMode, isSelectionMode) || other.isSelectionMode == isSelectionMode)&&const DeepCollectionEquality().equals(other._selectedIds, _selectedIds));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SelectionState&&(identical(other.mode, mode) || other.mode == mode)&&const DeepCollectionEquality().equals(other._selectedIds, _selectedIds));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,isSelectionMode,const DeepCollectionEquality().hash(_selectedIds));
+int get hashCode => Object.hash(runtimeType,mode,const DeepCollectionEquality().hash(_selectedIds));
 
 @override
 String toString() {
-  return 'SelectionState(isSelectionMode: $isSelectionMode, selectedIds: $selectedIds)';
+  return 'SelectionState(mode: $mode, selectedIds: $selectedIds)';
 }
 
 
@@ -120,7 +120,7 @@ abstract mixin class _$SelectionStateCopyWith<$Res> implements $SelectionStateCo
   factory _$SelectionStateCopyWith(_SelectionState value, $Res Function(_SelectionState) _then) = __$SelectionStateCopyWithImpl;
 @override @useResult
 $Res call({
- bool isSelectionMode, Set<String> selectedIds
+ SelectionMode mode, Set<String> selectedIds
 });
 
 
@@ -137,10 +137,10 @@ class __$SelectionStateCopyWithImpl<$Res>
 
 /// Create a copy of SelectionState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? isSelectionMode = null,Object? selectedIds = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? mode = null,Object? selectedIds = null,}) {
   return _then(_SelectionState(
-isSelectionMode: null == isSelectionMode ? _self.isSelectionMode : isSelectionMode // ignore: cast_nullable_to_non_nullable
-as bool,selectedIds: null == selectedIds ? _self._selectedIds : selectedIds // ignore: cast_nullable_to_non_nullable
+mode: null == mode ? _self.mode : mode // ignore: cast_nullable_to_non_nullable
+as SelectionMode,selectedIds: null == selectedIds ? _self._selectedIds : selectedIds // ignore: cast_nullable_to_non_nullable
 as Set<String>,
   ));
 }

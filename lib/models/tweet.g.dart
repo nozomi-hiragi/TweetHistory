@@ -17,6 +17,13 @@ _Tweet _$TweetFromJson(Map<String, dynamic> json) => _Tweet(
       const [],
   favoriteCount: (json['favoriteCount'] as num?)?.toInt() ?? 0,
   retweetCount: (json['retweetCount'] as num?)?.toInt() ?? 0,
+  inReplyToStatusId: json['inReplyToStatusId'] as String?,
+  inReplyToUserId: json['inReplyToUserId'] as String?,
+  inReplyToScreenName: json['inReplyToScreenName'] as String?,
+  isRetweet: json['isRetweet'] as bool? ?? false,
+  retweetedStatusId: json['retweetedStatusId'] as String?,
+  retweetedUserScreenName: json['retweetedUserScreenName'] as String?,
+  isReply: json['isReply'] as bool? ?? false,
 );
 
 Map<String, dynamic> _$TweetToJson(_Tweet instance) => <String, dynamic>{
@@ -26,6 +33,13 @@ Map<String, dynamic> _$TweetToJson(_Tweet instance) => <String, dynamic>{
   'media': instance.media.map((e) => e.toJson()).toList(),
   'favoriteCount': instance.favoriteCount,
   'retweetCount': instance.retweetCount,
+  'inReplyToStatusId': instance.inReplyToStatusId,
+  'inReplyToUserId': instance.inReplyToUserId,
+  'inReplyToScreenName': instance.inReplyToScreenName,
+  'isRetweet': instance.isRetweet,
+  'retweetedStatusId': instance.retweetedStatusId,
+  'retweetedUserScreenName': instance.retweetedUserScreenName,
+  'isReply': instance.isReply,
 };
 
 _Media _$MediaFromJson(Map<String, dynamic> json) =>

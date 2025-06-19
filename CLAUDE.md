@@ -89,9 +89,111 @@ tweet_db (v2)
 - **Storage**: `idb_shim` (IndexedDB), `shared_preferences` (settings)
 - **Linting**: `custom_lint` + `riverpod_lint`
 
+## Version Management
+
+When updating the application version, the following files must be modified:
+
+1. **pubspec.yaml** (line 19): `version: X.X.X+1`
+2. **ios/Runner.xcodeproj/project.pbxproj**: All instances of `MARKETING_VERSION = X.X.X;`
+3. **windows/runner/Runner.rc** (line 72): `#define VERSION_AS_STRING "X.X.X"`
+
+**Example for version 0.2.1:**
+```yaml
+# pubspec.yaml
+version: 0.2.1+1
+```
+
+```objc
+// iOS project.pbxproj (3 locations)
+MARKETING_VERSION = 0.2.1;
+```
+
+```c
+// Windows Runner.rc
+#define VERSION_AS_STRING "0.2.1"
+```
+
+**Note:** Android, macOS, and web builds automatically use the version from `pubspec.yaml` via Flutter's build system.
+
+## Internationalization (i18n)
+
+This project supports multiple languages through Flutter's internationalization framework:
+
+### Language Support
+- **Japanese (ja)**: Primary language for UI and documentation
+- **English (en)**: Secondary language support
+
+### Localization Guidelines
+
+**IMPORTANT:** All user-visible text MUST be internationalized using the `AppLocalizations` system. Never use hardcoded strings in UI components.
+
+#### Adding New Text
+1. Add the key-value pair to both `lib/l10n/app_ja.arb` and `lib/l10n/app_en.arb`
+2. Use descriptive keys (e.g., `version`, `license`, `settings`)
+3. Include `@description` metadata in English .arb file for context
+
+#### Using Localized Text
+```dart
+// ❌ Wrong - hardcoded string
+Text('バージョン')
+
+// ✅ Correct - localized
+final l10n = AppLocalizations.of(context)!;
+Text(l10n.version)
+```
+
+#### Code Generation
+Run `flutter gen-l10n` or `flutter pub get` to regenerate localization files after adding new keys.
+
+### Localization Files
+- `lib/l10n/app_ja.arb`: Japanese translations
+- `lib/l10n/app_en.arb`: English translations with descriptions
+- Generated files are in `lib/l10n/` (auto-generated, do not edit)
+
 ## Development Notes
 
 - Always run `dart run build_runner build` after modifying Freezed models
 - Use `flutter run -d chrome` for web development
 - IndexedDB data persists between sessions in browser dev tools
 - The app handles Twitter archive JSON format with timezone conversion
+
+## Design Philosophy Notes
+
+### Tag Edit Mode Implementation (December 2024)
+
+**Claude's Initial Approach vs User's Preferred Implementation:**
+
+**Claude's Design:**
+- Complex TagChip with multiple UI modes (`_buildEditModeChip` vs `_buildNormalChip`)
+- Popup menus and bottom sheets for tag editing
+- Separate visual styling for edit mode
+- More elaborate interaction patterns
+
+**User's Preferred Design:**
+- Simple, unified TagChip using existing FilterChip component
+- Elegant reuse of existing `onSelected` and `onDeleted` callbacks
+- `onSelected` behavior changes contextually based on `isEditMode`
+- `onDeleted` only appears in edit mode
+- Clean, minimal code with maximum reuse
+
+**Key Insights:**
+1. **Simplicity over Complexity**: User prefers leveraging existing Flutter components rather than building custom UI
+2. **Behavioral Polymorphism**: Same UI element (FilterChip) behaves differently based on context rather than having separate implementations
+3. **Code Reuse**: Maximizing use of existing patterns and callbacks rather than introducing new interaction paradigms
+4. **UI Consistency**: Maintaining visual consistency by reusing the same component with different behaviors
+
+**Technical Implementation:**
+```dart
+// User's elegant approach:
+onSelected: (v) => isEditMode ? onRename?.call() : onSelected?.call(v),
+onDeleted: isEditMode ? onDelete : null,
+
+// vs Claude's complex approach with separate widgets and popup menus
+```
+
+**Backward Compatibility Notes:**
+- User removed the legacy `isSelectionMode` getter, simplifying the state model
+- Removed legacy `toggle()` method, keeping only `toggleEditMode()`
+- Cleaner state management without backward compatibility cruft
+
+This demonstrates the principle of "simple solutions are often better solutions" and the value of understanding existing Flutter patterns before building custom ones.

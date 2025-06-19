@@ -44,6 +44,20 @@ class TweetTile extends HookConsumerWidget {
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Reply/Retweet indicator
+            if (tweet.isReply || tweet.isRetweet)
+              ReIndicator(
+                iconData: tweet.isReply ? Icons.reply : Icons.repeat,
+                text:
+                    tweet.isReply
+                        ? tweet.inReplyToScreenName
+                        : tweet.retweetedUserScreenName,
+                color:
+                    tweet.isReply
+                        ? theme.colorScheme.primary
+                        : theme.colorScheme.tertiary,
+              ),
+
             // Tweet text
             Text(
               tweet.text,
@@ -147,7 +161,7 @@ class TweetTile extends HookConsumerWidget {
           ],
         ),
         trailing:
-            selectState.isSelectionMode
+            selectState.isEditMode
                 ? Checkbox(
                   value: isSelected,
                   onChanged: (value) {
@@ -160,7 +174,7 @@ class TweetTile extends HookConsumerWidget {
                 : null,
       ),
       onTap: () {
-        if (selectState.isSelectionMode) {
+        if (selectState.isEditMode) {
           selectController.toggleSelection(tweet.id);
         } else {
           showDialog(
@@ -191,6 +205,38 @@ class TweetTile extends HookConsumerWidget {
           fontSize: 11,
         ),
       ),
+    );
+  }
+}
+
+class ReIndicator extends StatelessWidget {
+  const ReIndicator({
+    super.key,
+    required this.iconData,
+    required this.text,
+    required this.color,
+  });
+
+  final IconData iconData;
+  final String? text;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Row(
+      children: [
+        Icon(iconData, size: 16, color: color),
+        const SizedBox(width: 4),
+        if (text != null)
+          Text(
+            '@$text',
+            style: theme.textTheme.labelSmall?.copyWith(
+              color: color,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+      ],
     );
   }
 }

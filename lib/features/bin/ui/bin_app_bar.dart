@@ -11,21 +11,22 @@ class BinAppBar extends ConsumerWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
-    final selectController = ref.read(tweetSelectControllerProvider.notifier);
+    final editController = ref.read(tweetSelectControllerProvider.notifier);
     final selectState = ref.watch(tweetSelectControllerProvider);
-    final isSelectionMode = selectState.isSelectionMode;
+    final isEditMode = selectState.isEditMode;
+    final hasSelectedTweets = isEditMode && selectState.selectedIds.isNotEmpty;
     return AppBar(
       backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       title:
-          isSelectionMode
+          hasSelectedTweets
               ? Text(l10n.selectedCount(selectState.selectedIds.length))
               : const MySearchBar(),
       actions: [
-        if (isSelectionMode)
+        if (hasSelectedTweets) ...[
           IconButton(
             icon: const Icon(Icons.delete_forever),
             onPressed: () async {
-              final res = await selectController.deleteTweets();
+              final res = await editController.deleteTweets();
               final message =
                   res ? l10n.tweetsDeletedSuccess : l10n.tweetsDeletedError;
               if (!context.mounted) return;
@@ -35,11 +36,10 @@ class BinAppBar extends ConsumerWidget implements PreferredSizeWidget {
             },
             tooltip: l10n.delete,
           ),
-        if (isSelectionMode)
           IconButton(
             icon: const Icon(Icons.restore_from_trash),
             onPressed: () async {
-              final res = await selectController.restoreTweets();
+              final res = await editController.restoreTweets();
               final message =
                   res ? l10n.tweetsRestoredSuccess : l10n.tweetsRestoredError;
               if (!context.mounted) return;
@@ -49,10 +49,11 @@ class BinAppBar extends ConsumerWidget implements PreferredSizeWidget {
             },
             tooltip: l10n.restoreFromBin,
           ),
+        ],
         IconButton(
-          icon: Icon(isSelectionMode ? Icons.close : Icons.select_all),
-          onPressed: () => selectController.toggle(),
-          tooltip: isSelectionMode ? l10n.cancel : l10n.select,
+          icon: Icon(isEditMode ? Icons.check : Icons.edit),
+          onPressed: () => editController.toggleEditMode(),
+          tooltip: isEditMode ? l10n.exitEditMode : l10n.editMode,
         ),
       ],
     );

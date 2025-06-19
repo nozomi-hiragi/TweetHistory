@@ -1,9 +1,5 @@
 {
   "@@locale": "en",
-  "appTitle": "Tweet History",
-  "@appTitle": {
-    "description": "The title of the application"
-  },
   "navTweets": "Tweets",
   "@navTweets": {
     "description": "Navigation label for tweets tab"
@@ -16,33 +12,9 @@
   "@navSettings": {
     "description": "Navigation label for settings tab"
   },
-  "tweetsScreenTitle": "Tweets",
-  "@tweetsScreenTitle": {
-    "description": "Title of the tweets screen"
-  },
-  "uploadTweets": "Upload Tweets",
-  "@uploadTweets": {
-    "description": "Button text for uploading tweets"
-  },
   "searchTweets": "Search Tweets",
   "@searchTweets": {
     "description": "Placeholder text for tweet search"
-  },
-  "sortNewest": "Newest First",
-  "@sortNewest": {
-    "description": "Sort option for newest tweets first"
-  },
-  "sortOldest": "Oldest First",
-  "@sortOldest": {
-    "description": "Sort option for oldest tweets first"
-  },
-  "selectAll": "Select All",
-  "@selectAll": {
-    "description": "Button text to select all tweets"
-  },
-  "deselectAll": "Deselect All",
-  "@deselectAll": {
-    "description": "Button text to deselect all tweets"
   },
   "selectedCount": "{count} selected",
   "@selectedCount": {
@@ -54,97 +26,13 @@
       }
     }
   },
-  "deleteSelected": "Delete Selected",
-  "@deleteSelected": {
-    "description": "Button text to delete selected tweets"
-  },
-  "addTagToSelected": "Add Tag to Selected",
-  "@addTagToSelected": {
-    "description": "Button text to add tag to selected tweets"
-  },
-  "removeTagFromSelected": "Remove Tag from Selected",
-  "@removeTagFromSelected": {
-    "description": "Button text to remove tag from selected tweets"
-  },
   "addTag": "Add Tag",
   "@addTag": {
     "description": "Button text to add a tag"
   },
-  "removeTag": "Remove Tag",
-  "@removeTag": {
-    "description": "Button text to remove a tag"
-  },
-  "moveToBin": "Move to Bin",
-  "@moveToBin": {
-    "description": "Action to move tweet to bin"
-  },
   "restoreFromBin": "Restore from Bin",
   "@restoreFromBin": {
     "description": "Action to restore tweet from bin"
-  },
-  "deletePermanently": "Delete Permanently",
-  "@deletePermanently": {
-    "description": "Action to delete tweet permanently"
-  },
-  "viewDetails": "View Details",
-  "@viewDetails": {
-    "description": "Action to view tweet details"
-  },
-  "copyText": "Copy Text",
-  "@copyText": {
-    "description": "Action to copy tweet text"
-  },
-  "copyUrl": "Copy URL",
-  "@copyUrl": {
-    "description": "Action to copy tweet URL"
-  },
-  "filterByTag": "Filter by Tag",
-  "@filterByTag": {
-    "description": "Filter option for tags"
-  },
-  "filterByPeriod": "Filter by Period",
-  "@filterByPeriod": {
-    "description": "Filter option for time period"
-  },
-  "allTags": "All Tags",
-  "@allTags": {
-    "description": "Option to show all tags"
-  },
-  "noTag": "No Tag",
-  "@noTag": {
-    "description": "Option for tweets without tags"
-  },
-  "customPeriod": "Custom Period",
-  "@customPeriod": {
-    "description": "Option for custom time period"
-  },
-  "last7Days": "Last 7 Days",
-  "@last7Days": {
-    "description": "Time period option"
-  },
-  "last30Days": "Last 30 Days",
-  "@last30Days": {
-    "description": "Time period option"
-  },
-  "last90Days": "Last 90 Days",
-  "@last90Days": {
-    "description": "Time period option"
-  },
-  "thisYear": "This Year",
-  "@thisYear": {
-    "description": "Time period option"
-  },
-  "lastYear": "Last Year",
-  "@lastYear": {
-    "description": "Time period option"
-  },
-  "from": "From",
-  "@from": {
-    "description": "Label for start date"
-  },
-  "to": "To",
-  "@to": {
-    "description": "Label for end date"
   },
   "apply": "Apply",
   "@apply": {
@@ -154,33 +42,9 @@
   "@clear": {
     "description": "Button to clear filter"
   },
-  "tagName": "Tag Name",
-  "@tagName": {
-    "description": "Label for tag name field"
-  },
-  "createTag": "Create Tag",
-  "@createTag": {
-    "description": "Button to create new tag"
-  },
-  "editTag": "Edit Tag",
-  "@editTag": {
-    "description": "Button to edit tag"
-  },
-  "deleteTag": "Delete Tag",
-  "@deleteTag": {
-    "description": "Button to delete tag"
-  },
-  "tagExists": "Tag already exists",
-  "@tagExists": {
-    "description": "Error message when tag already exists"
-  },
   "invalidTagName": "Invalid tag name",
   "@invalidTagName": {
     "description": "Error message for invalid tag name"
-  },
-  "systemTag": "System Tag",
-  "@systemTag": {
-    "description": "Label for system tags"
   },
   "settingsTitle": "Settings",
   "@settingsTitle": {
@@ -230,18 +94,6 @@
   "@exportData": {
     "description": "Button to export data"
   },
-  "clearAllData": "Clear All Data",
-  "@clearAllData": {
-    "description": "Button to clear all data"
-  },
-  "importFromFile": "Import from File",
-  "@importFromFile": {
-    "description": "Action to import from file"
-  },
-  "exportToFile": "Export to File",
-  "@exportToFile": {
-    "description": "Action to export to file"
-  },
   "importSuccess": "Import completed successfully",
   "@importSuccess": {
     "description": "Success message for import"
@@ -250,105 +102,9 @@
   "@exportSuccess": {
     "description": "Success message for export"
   },
-  "importError": "Import failed",
-  "@importError": {
-    "description": "Error message for import failure"
-  },
-  "exportError": "Export failed",
-  "@exportError": {
-    "description": "Error message for export failure"
-  },
-  "fileFormatError": "Invalid file format",
-  "@fileFormatError": {
-    "description": "Error message for invalid file format"
-  },
-  "noDataToExport": "No data to export",
-  "@noDataToExport": {
-    "description": "Message when no data available for export"
-  },
-  "confirmClearData": "Clear Data Confirmation",
-  "@confirmClearData": {
-    "description": "Title for clear data confirmation dialog"
-  },
-  "clearDataWarning": "All data will be deleted. This operation cannot be undone.",
-  "@clearDataWarning": {
-    "description": "Warning message for clear data operation"
-  },
-  "dataCleared": "Data has been cleared",
-  "@dataCleared": {
-    "description": "Success message after clearing data"
-  },
-  "uploadDialogTitle": "Upload Tweets",
-  "@uploadDialogTitle": {
-    "description": "Title of upload dialog"
-  },
-  "selectTweetsFile": "Select tweets.js file",
-  "@selectTweetsFile": {
-    "description": "Instruction to select tweets file"
-  },
-  "dragDropFile": "Drag & drop file here",
-  "@dragDropFile": {
-    "description": "Instruction for drag and drop"
-  },
-  "fileSelected": "File selected",
-  "@fileSelected": {
-    "description": "Message when file is selected"
-  },
-  "processing": "Processing...",
-  "@processing": {
-    "description": "Processing status message"
-  },
-  "uploadComplete": "Upload Complete",
-  "@uploadComplete": {
-    "description": "Upload completion message"
-  },
-  "uploadError": "Upload Error",
-  "@uploadError": {
-    "description": "Upload error message"
-  },
-  "invalidFileFormat": "Invalid file format",
-  "@invalidFileFormat": {
-    "description": "Error for invalid file format"
-  },
-  "tweetsLoaded": "{count} tweets loaded",
-  "@tweetsLoaded": {
-    "description": "Message showing number of tweets loaded",
-    "placeholders": {
-      "count": {
-        "type": "int",
-        "description": "Number of tweets loaded"
-      }
-    }
-  },
-  "duplicatesSkipped": "{count} duplicates skipped",
-  "@duplicatesSkipped": {
-    "description": "Message showing number of duplicates skipped",
-    "placeholders": {
-      "count": {
-        "type": "int",
-        "description": "Number of duplicates skipped"
-      }
-    }
-  },
-  "userIdDialogTitle": "Enter User ID",
-  "@userIdDialogTitle": {
-    "description": "Title of user ID input dialog"
-  },
-  "enterUserId": "Please enter your user ID",
-  "@enterUserId": {
-    "description": "Instruction to enter user ID"
-  },
   "userIdPlaceholder": "user_id",
   "@userIdPlaceholder": {
     "description": "Placeholder text for user ID field"
-  },
-  "userIdRequired": "User ID is required",
-  "@userIdRequired": {
-    "description": "Error message for missing user ID"
-  },
-  "invalidUserId": "Invalid user ID",
-  "@invalidUserId": {
-    "description": "Error message for invalid user ID"
   },
   "confirm": "Confirm",
   "@confirm": {
@@ -358,21 +114,9 @@
   "@cancel": {
     "description": "Cancel button text"
   },
-  "tagDialogTitle": "Select Tags",
-  "@tagDialogTitle": {
-    "description": "Title of tag selection dialog"
-  },
   "selectTags": "Select Tags",
   "@selectTags": {
     "description": "Instruction to select tags"
-  },
-  "availableTags": "Available Tags",
-  "@availableTags": {
-    "description": "Label for available tags section"
-  },
-  "selectedTags": "Selected Tags",
-  "@selectedTags": {
-    "description": "Label for selected tags section"
   },
   "addNewTag": "Add New Tag",
   "@addNewTag": {
@@ -385,38 +129,6 @@
   "save": "Save",
   "@save": {
     "description": "Save button text"
-  },
-  "binScreenTitle": "Bin",
-  "@binScreenTitle": {
-    "description": "Title of bin screen"
-  },
-  "emptyBin": "Bin is empty",
-  "@emptyBin": {
-    "description": "Message when bin is empty"
-  },
-  "binDescription": "Deleted tweets will appear here",
-  "@binDescription": {
-    "description": "Description of bin functionality"
-  },
-  "restoreAll": "Restore All",
-  "@restoreAll": {
-    "description": "Button to restore all items from bin"
-  },
-  "emptyBinPermanently": "Empty Bin",
-  "@emptyBinPermanently": {
-    "description": "Button to empty bin permanently"
-  },
-  "confirmEmptyBin": "Empty the bin?",
-  "@confirmEmptyBin": {
-    "description": "Confirmation message for emptying bin"
-  },
-  "emptyBinWarning": "This operation cannot be undone.",
-  "@emptyBinWarning": {
-    "description": "Warning message for emptying bin"
-  },
-  "binEmptied": "Bin has been emptied",
-  "@binEmptied": {
-    "description": "Success message after emptying bin"
   },
   "tweetDetails": "Tweet Details",
   "@tweetDetails": {
@@ -438,14 +150,6 @@
   "@favoriteCount": {
     "description": "Label for favorite count"
   },
-  "tags": "Tags",
-  "@tags": {
-    "description": "Label for tags"
-  },
-  "fullText": "Full Text",
-  "@fullText": {
-    "description": "Label for full tweet text"
-  },
   "close": "Close",
   "@close": {
     "description": "Close button text"
@@ -454,69 +158,13 @@
   "@error": {
     "description": "Generic error label"
   },
-  "unknownError": "An unknown error occurred",
-  "@unknownError": {
-    "description": "Unknown error message"
-  },
-  "networkError": "Network error",
-  "@networkError": {
-    "description": "Network error message"
-  },
-  "storageError": "Storage error",
-  "@storageError": {
-    "description": "Storage error message"
-  },
-  "permissionError": "Permission error",
-  "@permissionError": {
-    "description": "Permission error message"
-  },
-  "fileNotFound": "File not found",
-  "@fileNotFound": {
-    "description": "File not found error message"
-  },
-  "operationFailed": "Operation failed",
-  "@operationFailed": {
-    "description": "Operation failed error message"
-  },
-  "tryAgain": "Try Again",
-  "@tryAgain": {
-    "description": "Try again button text"
-  },
-  "ok": "OK",
-  "@ok": {
-    "description": "OK button text"
-  },
-  "yes": "Yes",
-  "@yes": {
-    "description": "Yes button text"
-  },
-  "no": "No",
-  "@no": {
-    "description": "No button text"
-  },
   "loading": "Loading...",
   "@loading": {
     "description": "Loading status message"
   },
-  "retry": "Retry",
-  "@retry": {
-    "description": "Retry button text"
-  },
   "done": "Done",
   "@done": {
     "description": "Done button text"
-  },
-  "back": "Back",
-  "@back": {
-    "description": "Back button text"
-  },
-  "next": "Next",
-  "@next": {
-    "description": "Next button text"
-  },
-  "previous": "Previous",
-  "@previous": {
-    "description": "Previous button text"
   },
   "search": "Search",
   "@search": {
@@ -526,14 +174,6 @@
   "@filter": {
     "description": "Filter button text"
   },
-  "sort": "Sort",
-  "@sort": {
-    "description": "Sort button text"
-  },
-  "edit": "Edit",
-  "@edit": {
-    "description": "Edit button text"
-  },
   "delete": "Delete",
   "@delete": {
     "description": "Delete button text"
@@ -542,46 +182,6 @@
   "@add": {
     "description": "Add button text"
   },
-  "remove": "Remove",
-  "@remove": {
-    "description": "Remove button text"
-  },
-  "select": "Select",
-  "@select": {
-    "description": "Select button text"
-  },
-  "name": "Name",
-  "@name": {
-    "description": "Name label"
-  },
-  "description": "Description",
-  "@description": {
-    "description": "Description label"
-  },
-  "date": "Date",
-  "@date": {
-    "description": "Date label"
-  },
-  "time": "Time",
-  "@time": {
-    "description": "Time label"
-  },
-  "count": "Count",
-  "@count": {
-    "description": "Count label"
-  },
-  "total": "Total",
-  "@total": {
-    "description": "Total label"
-  },
-  "none": "None",
-  "@none": {
-    "description": "None option text"
-  },
-  "all": "All",
-  "@all": {
-    "description": "All option text"
-  },
   "userIdSetting": "User ID setting",
   "@userIdSetting": {
     "description": "Alert dialog title"
@@ -589,10 +189,6 @@
   "userIdDescription": "Please enter your X (Twitter) user ID (without @):",
   "@userIdDescription": {
     "description": "Description shown in user ID input dialog"
-  },
-  "other": "Other",
-  "@other": {
-    "description": "Other option text"
   },
   "userIdExample": "Example: For https://x.com/username, enter \"username\"",
   "@userIdExample": {
@@ -742,30 +338,6 @@
   "@media": {
     "description": "Label for media section"
   },
-  "sortTooltip": "Sort order",
-  "@sortTooltip": {
-    "description": "Tooltip for sort button"
-  },
-  "deleteTooltip": "Delete",
-  "@deleteTooltip": {
-    "description": "Tooltip for delete button"
-  },
-  "selectModeTooltip": "Selection mode",
-  "@selectModeTooltip": {
-    "description": "Tooltip for selection mode button"
-  },
-  "cancelTooltip": "Cancel",
-  "@cancelTooltip": {
-    "description": "Tooltip for cancel button"
-  },
-  "fileNotSelected": "No file selected",
-  "@fileNotSelected": {
-    "description": "Error when no file is selected"
-  },
-  "nullData": "Data is null",
-  "@nullData": {
-    "description": "Error when data is null"
-  },
   "chooseAction": "Choose an action",
   "@chooseAction": {
     "description": "Instruction to choose an action"
@@ -787,10 +359,6 @@
   "uploadTweetsFile": "Upload tweets.js",
   "@uploadTweetsFile": {
     "description": "Title for tweets file upload"
-  },
-  "jsonDecodeError": "JSON decode error",
-  "@jsonDecodeError": {
-    "description": "Error when JSON cannot be decoded"
   },
   "sortNewestFirst": "Newest first",
   "@sortNewestFirst": {
@@ -819,5 +387,103 @@
   "deleteTweetWarning": "This tweet will be deleted.",
   "@deleteTweetWarning": {
     "description": "Warning message when deleting a tweet"
+  },
+  "version": "Version",
+  "@version": {
+    "description": "Label for version information"
+  },
+  "license": "License",
+  "@license": {
+    "description": "Label for license information"
+  },
+  "renameTag": "Rename Tag",
+  "@renameTag": {
+    "description": "Button text to rename a tag"
+  },
+  "renameTagTitle": "Rename Tag",
+  "@renameTagTitle": {
+    "description": "Title of rename tag dialog"
+  },
+  "newTagName": "New tag name",
+  "@newTagName": {
+    "description": "Label for new tag name input"
+  },
+  "confirmDeleteTag": "Delete this tag?",
+  "@confirmDeleteTag": {
+    "description": "Confirmation message for deleting a tag"
+  },
+  "deleteTagTitle": "Delete Tag Confirmation",
+  "@deleteTagTitle": {
+    "description": "Title of delete tag confirmation dialog"
+  },
+  "deleteTagWarning": "This tag \"{tagName}\" will be deleted.\nTweets will remain even after the tag is deleted.",
+  "@deleteTagWarning": {
+    "description": "Warning message when deleting a tag",
+    "placeholders": {
+      "tagName": {
+        "type": "String",
+        "description": "Name of the tag being deleted"
+      }
+    }
+  },
+  "cannotDeleteSystemTag": "System tags cannot be deleted",
+  "@cannotDeleteSystemTag": {
+    "description": "Error message when trying to delete system tags"
+  },
+  "tagRenamedSuccess": "Tag renamed to \"{newName}\"",
+  "@tagRenamedSuccess": {
+    "description": "Success message when tag is renamed",
+    "placeholders": {
+      "newName": {
+        "type": "String",
+        "description": "New name of the tag"
+      }
+    }
+  },
+  "tagDeletedSuccess": "Tag \"{tagName}\" deleted",
+  "@tagDeletedSuccess": {
+    "description": "Success message when tag is deleted",
+    "placeholders": {
+      "tagName": {
+        "type": "String",
+        "description": "Name of the deleted tag"
+      }
+    }
+  },
+  "tagRenameError": "Failed to rename tag",
+  "@tagRenameError": {
+    "description": "Error message when tag renaming fails"
+  },
+  "tagDeleteError": "Failed to delete tag",
+  "@tagDeleteError": {
+    "description": "Error message when tag deletion fails"
+  },
+  "editMode": "Edit Mode",
+  "@editMode": {
+    "description": "Label for edit mode"
+  },
+  "exitEditMode": "Exit Edit Mode",
+  "@exitEditMode": {
+    "description": "Button text to exit edit mode"
+  },
+  "reply": "Reply",
+  "@reply": {
+    "description": "Label for reply tweet type"
+  },
+  "retweet": "Retweet",
+  "@retweet": {
+    "description": "Label for retweet tweet type"
+  },
+  "replyTo": "Reply to:",
+  "@replyTo": {
+    "description": "Label prefix for reply target"
+  },
+  "retweetFrom": "Retweet from:",
+  "@retweetFrom": {
+    "description": "Label prefix for retweet source"
+  },
+  "regularTweet": "Regular Tweet",
+  "@regularTweet": {
+    "description": "Label for regular tweet type"
   }
 }
