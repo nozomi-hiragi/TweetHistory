@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:idb_shim/idb_client_memory.dart';
 
-import '../../lib/models/tag.dart';
-import '../../lib/repository/tweet_repository.dart';
+import 'package:tweethistory/models/tag.dart';
+import 'package:tweethistory/repository/tweet_repository.dart';
 
 void main() {
   group('Tag Operations Tests', () {
@@ -25,10 +25,10 @@ void main() {
 
         // Verify: Check the result and that the tag was renamed
         expect(result, isTrue);
-        
+
         final oldTag = await repository.loadTag(oldName);
         final newTag = await repository.loadTag(newName);
-        
+
         expect(oldTag, isNull);
         expect(newTag, isNotNull);
         expect(newTag!.name, equals(newName));
@@ -49,7 +49,7 @@ void main() {
 
         // Verify: Operation should fail
         expect(result, isFalse);
-        
+
         final originalTag = await repository.loadTag(oldName);
         expect(originalTag, isNotNull);
         expect(originalTag!.tweetIds, equals({'tweet1'}));
@@ -65,7 +65,7 @@ void main() {
 
         // Verify: Operation should fail
         expect(result, isFalse);
-        
+
         final tag = await repository.loadTag(tagNameBin);
         expect(tag, isNotNull);
         expect(tag!.name, equals(tagNameBin));
@@ -92,7 +92,7 @@ void main() {
 
         // Verify: Check the result and that the tag was deleted
         expect(result, isTrue);
-        
+
         final deletedTag = await repository.loadTag(tagName);
         expect(deletedTag, isNull);
       });
@@ -107,7 +107,7 @@ void main() {
 
         // Verify: Operation should fail
         expect(result, isFalse);
-        
+
         final tag = await repository.loadTag(tagNameBin);
         expect(tag, isNotNull);
       });
@@ -131,7 +131,7 @@ void main() {
 
         // Verify: Check the result and that the tag was deleted
         expect(result, isTrue);
-        
+
         final deletedTag = await repository.loadTag(tagName);
         expect(deletedTag, isNull);
       });
@@ -145,7 +145,7 @@ void main() {
           Tag(name: 'tag2', tweetIds: {'tweet3'}),
           Tag(name: 'tag3', tweetIds: <String>{}),
         ];
-        
+
         for (final tag in tags) {
           await repository.saveTag(tag);
         }
@@ -161,7 +161,7 @@ void main() {
         // Verify: Check final state
         final allTags = await repository.loadAllTags();
         final tagNames = allTags.map((tag) => tag.name).toSet();
-        
+
         expect(tagNames, contains('tag1-renamed'));
         expect(tagNames, isNot(contains('tag1')));
         expect(tagNames, isNot(contains('tag2')));
