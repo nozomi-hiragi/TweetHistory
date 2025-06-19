@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
-import 'package:web/web.dart' as web;
+import '../utils/url_opener.dart' as url_opener;
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../models/tweet.dart';
@@ -77,12 +77,13 @@ class TweetDetailDialog extends ConsumerWidget {
     }
   }
 
-  void _openTweetInBrowser(String? userId) {
+  Future<void> _openTweetInBrowser(String? userId) async {
     final url =
         userId?.isNotEmpty == true
             ? 'https://x.com/$userId/status/${tweet.id}'
             : 'https://x.com/i/status/${tweet.id}';
-    web.window.open(url, '_blank');
+    
+    await url_opener.openUrl(url);
   }
 
   Future<void> _showDeleteConfirmation(

@@ -1,0 +1,1 @@
+export 'url_launcher_desktop.dart' if (dart.library.html) 'url_launcher_web.dart';
