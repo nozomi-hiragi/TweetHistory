@@ -83,6 +83,10 @@ class TagSelectController extends Notifier<SelectedValues> {
       return false;
     }
   }
+
+  void refresh() {
+    _loadTagsAndPreferences();
+  }
 }
 
 final tagSelectControllerProvider =

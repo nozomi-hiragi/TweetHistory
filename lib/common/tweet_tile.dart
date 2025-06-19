@@ -147,7 +147,7 @@ class TweetTile extends HookConsumerWidget {
           ],
         ),
         trailing:
-            selectState.isSelectionMode
+            selectState.isEditMode
                 ? Checkbox(
                   value: isSelected,
                   onChanged: (value) {
@@ -160,7 +160,7 @@ class TweetTile extends HookConsumerWidget {
                 : null,
       ),
       onTap: () {
-        if (selectState.isSelectionMode) {
+        if (selectState.isEditMode) {
           selectController.toggleSelection(tweet.id);
         } else {
           showDialog(

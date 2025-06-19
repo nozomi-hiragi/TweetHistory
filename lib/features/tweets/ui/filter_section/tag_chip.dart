@@ -3,13 +3,19 @@ import 'package:flutter/material.dart';
 class TagChip extends StatelessWidget {
   final String tag;
   final bool isSelected;
-  final ValueChanged<bool> onSelected;
+  final ValueChanged<bool>? onSelected;
+  final bool isEditMode;
+  final VoidCallback? onRename;
+  final VoidCallback? onDelete;
 
   const TagChip({
     super.key,
     required this.tag,
     required this.isSelected,
     required this.onSelected,
+    this.isEditMode = false,
+    this.onRename,
+    this.onDelete,
   });
 
   @override
@@ -38,7 +44,8 @@ class TagChip extends StatelessWidget {
         width: isSelected ? 1.5 : 1,
       ),
       visualDensity: VisualDensity.compact,
-      onSelected: onSelected,
+      onSelected: (v) => isEditMode ? onRename?.call() : onSelected?.call(v),
+      onDeleted: isEditMode ? onDelete : null,
     );
   }
 }
