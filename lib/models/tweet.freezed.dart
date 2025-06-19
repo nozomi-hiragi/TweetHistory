@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Tweet {
 
- String get id; String get text; DateTime get createdAt; List<Media> get media; int get favoriteCount; int get retweetCount;
+ String get id; String get text; DateTime get createdAt; List<Media> get media; int get favoriteCount; int get retweetCount; String? get inReplyToStatusId; String? get inReplyToUserId; String? get inReplyToScreenName; bool get isRetweet; String? get retweetedStatusId; String? get retweetedUserScreenName; bool get isReply;
 /// Create a copy of Tweet
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -29,16 +29,16 @@ $TweetCopyWith<Tweet> get copyWith => _$TweetCopyWithImpl<Tweet>(this as Tweet, 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Tweet&&(identical(other.id, id) || other.id == id)&&(identical(other.text, text) || other.text == text)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&const DeepCollectionEquality().equals(other.media, media)&&(identical(other.favoriteCount, favoriteCount) || other.favoriteCount == favoriteCount)&&(identical(other.retweetCount, retweetCount) || other.retweetCount == retweetCount));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Tweet&&(identical(other.id, id) || other.id == id)&&(identical(other.text, text) || other.text == text)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&const DeepCollectionEquality().equals(other.media, media)&&(identical(other.favoriteCount, favoriteCount) || other.favoriteCount == favoriteCount)&&(identical(other.retweetCount, retweetCount) || other.retweetCount == retweetCount)&&(identical(other.inReplyToStatusId, inReplyToStatusId) || other.inReplyToStatusId == inReplyToStatusId)&&(identical(other.inReplyToUserId, inReplyToUserId) || other.inReplyToUserId == inReplyToUserId)&&(identical(other.inReplyToScreenName, inReplyToScreenName) || other.inReplyToScreenName == inReplyToScreenName)&&(identical(other.isRetweet, isRetweet) || other.isRetweet == isRetweet)&&(identical(other.retweetedStatusId, retweetedStatusId) || other.retweetedStatusId == retweetedStatusId)&&(identical(other.retweetedUserScreenName, retweetedUserScreenName) || other.retweetedUserScreenName == retweetedUserScreenName)&&(identical(other.isReply, isReply) || other.isReply == isReply));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,text,createdAt,const DeepCollectionEquality().hash(media),favoriteCount,retweetCount);
+int get hashCode => Object.hash(runtimeType,id,text,createdAt,const DeepCollectionEquality().hash(media),favoriteCount,retweetCount,inReplyToStatusId,inReplyToUserId,inReplyToScreenName,isRetweet,retweetedStatusId,retweetedUserScreenName,isReply);
 
 @override
 String toString() {
-  return 'Tweet(id: $id, text: $text, createdAt: $createdAt, media: $media, favoriteCount: $favoriteCount, retweetCount: $retweetCount)';
+  return 'Tweet(id: $id, text: $text, createdAt: $createdAt, media: $media, favoriteCount: $favoriteCount, retweetCount: $retweetCount, inReplyToStatusId: $inReplyToStatusId, inReplyToUserId: $inReplyToUserId, inReplyToScreenName: $inReplyToScreenName, isRetweet: $isRetweet, retweetedStatusId: $retweetedStatusId, retweetedUserScreenName: $retweetedUserScreenName, isReply: $isReply)';
 }
 
 
@@ -49,7 +49,7 @@ abstract mixin class $TweetCopyWith<$Res>  {
   factory $TweetCopyWith(Tweet value, $Res Function(Tweet) _then) = _$TweetCopyWithImpl;
 @useResult
 $Res call({
- String id, String text, DateTime createdAt, List<Media> media, int favoriteCount, int retweetCount
+ String id, String text, DateTime createdAt, List<Media> media, int favoriteCount, int retweetCount, String? inReplyToStatusId, String? inReplyToUserId, String? inReplyToScreenName, bool isRetweet, String? retweetedStatusId, String? retweetedUserScreenName, bool isReply
 });
 
 
@@ -66,7 +66,7 @@ class _$TweetCopyWithImpl<$Res>
 
 /// Create a copy of Tweet
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? text = null,Object? createdAt = null,Object? media = null,Object? favoriteCount = null,Object? retweetCount = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? text = null,Object? createdAt = null,Object? media = null,Object? favoriteCount = null,Object? retweetCount = null,Object? inReplyToStatusId = freezed,Object? inReplyToUserId = freezed,Object? inReplyToScreenName = freezed,Object? isRetweet = null,Object? retweetedStatusId = freezed,Object? retweetedUserScreenName = freezed,Object? isReply = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,text: null == text ? _self.text : text // ignore: cast_nullable_to_non_nullable
@@ -74,7 +74,14 @@ as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: 
 as DateTime,media: null == media ? _self.media : media // ignore: cast_nullable_to_non_nullable
 as List<Media>,favoriteCount: null == favoriteCount ? _self.favoriteCount : favoriteCount // ignore: cast_nullable_to_non_nullable
 as int,retweetCount: null == retweetCount ? _self.retweetCount : retweetCount // ignore: cast_nullable_to_non_nullable
-as int,
+as int,inReplyToStatusId: freezed == inReplyToStatusId ? _self.inReplyToStatusId : inReplyToStatusId // ignore: cast_nullable_to_non_nullable
+as String?,inReplyToUserId: freezed == inReplyToUserId ? _self.inReplyToUserId : inReplyToUserId // ignore: cast_nullable_to_non_nullable
+as String?,inReplyToScreenName: freezed == inReplyToScreenName ? _self.inReplyToScreenName : inReplyToScreenName // ignore: cast_nullable_to_non_nullable
+as String?,isRetweet: null == isRetweet ? _self.isRetweet : isRetweet // ignore: cast_nullable_to_non_nullable
+as bool,retweetedStatusId: freezed == retweetedStatusId ? _self.retweetedStatusId : retweetedStatusId // ignore: cast_nullable_to_non_nullable
+as String?,retweetedUserScreenName: freezed == retweetedUserScreenName ? _self.retweetedUserScreenName : retweetedUserScreenName // ignore: cast_nullable_to_non_nullable
+as String?,isReply: null == isReply ? _self.isReply : isReply // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 
@@ -85,7 +92,7 @@ as int,
 @JsonSerializable()
 
 class _Tweet implements Tweet {
-  const _Tweet({required this.id, required this.text, required this.createdAt, final  List<Media> media = const [], this.favoriteCount = 0, this.retweetCount = 0}): _media = media;
+  const _Tweet({required this.id, required this.text, required this.createdAt, final  List<Media> media = const [], this.favoriteCount = 0, this.retweetCount = 0, this.inReplyToStatusId, this.inReplyToUserId, this.inReplyToScreenName, this.isRetweet = false, this.retweetedStatusId, this.retweetedUserScreenName, this.isReply = false}): _media = media;
   factory _Tweet.fromJson(Map<String, dynamic> json) => _$TweetFromJson(json);
 
 @override final  String id;
@@ -100,6 +107,13 @@ class _Tweet implements Tweet {
 
 @override@JsonKey() final  int favoriteCount;
 @override@JsonKey() final  int retweetCount;
+@override final  String? inReplyToStatusId;
+@override final  String? inReplyToUserId;
+@override final  String? inReplyToScreenName;
+@override@JsonKey() final  bool isRetweet;
+@override final  String? retweetedStatusId;
+@override final  String? retweetedUserScreenName;
+@override@JsonKey() final  bool isReply;
 
 /// Create a copy of Tweet
 /// with the given fields replaced by the non-null parameter values.
@@ -114,16 +128,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Tweet&&(identical(other.id, id) || other.id == id)&&(identical(other.text, text) || other.text == text)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&const DeepCollectionEquality().equals(other._media, _media)&&(identical(other.favoriteCount, favoriteCount) || other.favoriteCount == favoriteCount)&&(identical(other.retweetCount, retweetCount) || other.retweetCount == retweetCount));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Tweet&&(identical(other.id, id) || other.id == id)&&(identical(other.text, text) || other.text == text)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&const DeepCollectionEquality().equals(other._media, _media)&&(identical(other.favoriteCount, favoriteCount) || other.favoriteCount == favoriteCount)&&(identical(other.retweetCount, retweetCount) || other.retweetCount == retweetCount)&&(identical(other.inReplyToStatusId, inReplyToStatusId) || other.inReplyToStatusId == inReplyToStatusId)&&(identical(other.inReplyToUserId, inReplyToUserId) || other.inReplyToUserId == inReplyToUserId)&&(identical(other.inReplyToScreenName, inReplyToScreenName) || other.inReplyToScreenName == inReplyToScreenName)&&(identical(other.isRetweet, isRetweet) || other.isRetweet == isRetweet)&&(identical(other.retweetedStatusId, retweetedStatusId) || other.retweetedStatusId == retweetedStatusId)&&(identical(other.retweetedUserScreenName, retweetedUserScreenName) || other.retweetedUserScreenName == retweetedUserScreenName)&&(identical(other.isReply, isReply) || other.isReply == isReply));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,text,createdAt,const DeepCollectionEquality().hash(_media),favoriteCount,retweetCount);
+int get hashCode => Object.hash(runtimeType,id,text,createdAt,const DeepCollectionEquality().hash(_media),favoriteCount,retweetCount,inReplyToStatusId,inReplyToUserId,inReplyToScreenName,isRetweet,retweetedStatusId,retweetedUserScreenName,isReply);
 
 @override
 String toString() {
-  return 'Tweet(id: $id, text: $text, createdAt: $createdAt, media: $media, favoriteCount: $favoriteCount, retweetCount: $retweetCount)';
+  return 'Tweet(id: $id, text: $text, createdAt: $createdAt, media: $media, favoriteCount: $favoriteCount, retweetCount: $retweetCount, inReplyToStatusId: $inReplyToStatusId, inReplyToUserId: $inReplyToUserId, inReplyToScreenName: $inReplyToScreenName, isRetweet: $isRetweet, retweetedStatusId: $retweetedStatusId, retweetedUserScreenName: $retweetedUserScreenName, isReply: $isReply)';
 }
 
 
@@ -134,7 +148,7 @@ abstract mixin class _$TweetCopyWith<$Res> implements $TweetCopyWith<$Res> {
   factory _$TweetCopyWith(_Tweet value, $Res Function(_Tweet) _then) = __$TweetCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String text, DateTime createdAt, List<Media> media, int favoriteCount, int retweetCount
+ String id, String text, DateTime createdAt, List<Media> media, int favoriteCount, int retweetCount, String? inReplyToStatusId, String? inReplyToUserId, String? inReplyToScreenName, bool isRetweet, String? retweetedStatusId, String? retweetedUserScreenName, bool isReply
 });
 
 
@@ -151,7 +165,7 @@ class __$TweetCopyWithImpl<$Res>
 
 /// Create a copy of Tweet
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? text = null,Object? createdAt = null,Object? media = null,Object? favoriteCount = null,Object? retweetCount = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? text = null,Object? createdAt = null,Object? media = null,Object? favoriteCount = null,Object? retweetCount = null,Object? inReplyToStatusId = freezed,Object? inReplyToUserId = freezed,Object? inReplyToScreenName = freezed,Object? isRetweet = null,Object? retweetedStatusId = freezed,Object? retweetedUserScreenName = freezed,Object? isReply = null,}) {
   return _then(_Tweet(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,text: null == text ? _self.text : text // ignore: cast_nullable_to_non_nullable
@@ -159,7 +173,14 @@ as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: 
 as DateTime,media: null == media ? _self._media : media // ignore: cast_nullable_to_non_nullable
 as List<Media>,favoriteCount: null == favoriteCount ? _self.favoriteCount : favoriteCount // ignore: cast_nullable_to_non_nullable
 as int,retweetCount: null == retweetCount ? _self.retweetCount : retweetCount // ignore: cast_nullable_to_non_nullable
-as int,
+as int,inReplyToStatusId: freezed == inReplyToStatusId ? _self.inReplyToStatusId : inReplyToStatusId // ignore: cast_nullable_to_non_nullable
+as String?,inReplyToUserId: freezed == inReplyToUserId ? _self.inReplyToUserId : inReplyToUserId // ignore: cast_nullable_to_non_nullable
+as String?,inReplyToScreenName: freezed == inReplyToScreenName ? _self.inReplyToScreenName : inReplyToScreenName // ignore: cast_nullable_to_non_nullable
+as String?,isRetweet: null == isRetweet ? _self.isRetweet : isRetweet // ignore: cast_nullable_to_non_nullable
+as bool,retweetedStatusId: freezed == retweetedStatusId ? _self.retweetedStatusId : retweetedStatusId // ignore: cast_nullable_to_non_nullable
+as String?,retweetedUserScreenName: freezed == retweetedUserScreenName ? _self.retweetedUserScreenName : retweetedUserScreenName // ignore: cast_nullable_to_non_nullable
+as String?,isReply: null == isReply ? _self.isReply : isReply // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 

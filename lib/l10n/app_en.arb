@@ -465,5 +465,21 @@
   "exitEditMode": "Exit Edit Mode",
   "@exitEditMode": {
     "description": "Button text to exit edit mode"
+  },
+  "reply": "Reply",
+  "@reply": {
+    "description": "Label for reply tweet type"
+  },
+  "retweet": "Retweet",
+  "@retweet": {
+    "description": "Label for retweet tweet type"
+  },
+  "replyTo": "Reply to:",
+  "@replyTo": {
+    "description": "Label prefix for reply target"
+  },
+  "retweetFrom": "Retweet from:",
+  "@retweetFrom": {
+    "description": "Label prefix for retweet source"
   }
 }
