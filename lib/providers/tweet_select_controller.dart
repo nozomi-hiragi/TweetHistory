@@ -18,6 +18,11 @@ class TweetSelectController extends Notifier<SelectionState> {
     state = SelectionState(mode: newMode);
   }
 
+  void endEditMode() {
+    if (state.mode == SelectionMode.normal) return;
+    state = SelectionState(mode: SelectionMode.normal);
+  }
+
   bool toggleSelection(String tweetId) {
     final selectedIds = Set<String>.from(state.selectedIds);
     final isSelected = selectedIds.contains(tweetId);
