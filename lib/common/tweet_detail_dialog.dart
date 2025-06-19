@@ -8,12 +8,74 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../models/tweet.dart';
 import '../providers/user_id_controller.dart';
 import '../providers/tweet_controller.dart';
+import '../providers/repository_providers.dart';
+import '../features/tweets/ui/app_bar/tag_select_dialog.dart';
 import 'dialogs/user_id_input_dialog.dart';
+import 'tag_state_chip.dart';
+import 'tweet_tile.dart';
 
 class TweetDetailDialog extends ConsumerWidget {
   const TweetDetailDialog({super.key, required this.tweet});
 
   final Tweet tweet;
+
+  Future<void> _showTagDialog(BuildContext context, WidgetRef ref) async {
+    final l10n = AppLocalizations.of(context)!;
+    try {
+      final repository = await ref.read(tweetRepositoryProvider.future);
+      final tags = await repository.loadTags();
+      final Map<String, bool?> tagStatus = {
+        for (final tag in tags) tag.name: tag.tweetIds.contains(tweet.id),
+      };
+
+      if (!context.mounted) return;
+      final result = await showDialog<Map<String, bool?>>(
+        context: context,
+        builder: (_) => TagSelectDialog(tagStatus: tagStatus),
+      );
+      if (result == null || result.isEmpty) return;
+
+      final failedTags = <String>[];
+      for (final entry in result.entries) {
+        if (entry.value == null) continue;
+
+        try {
+          final tag = await repository.loadTag(entry.key);
+          if (tag == null) continue;
+
+          if (entry.value == true) {
+            // Add tweet to tag
+            await repository.saveTag(
+              tag.copyWith(tweetIds: {...tag.tweetIds, tweet.id}),
+            );
+          } else {
+            // Remove tweet from tag
+            await repository.removeIdsFromTag(tag, {tweet.id});
+          }
+        } catch (e) {
+          failedTags.add(entry.key);
+        }
+      }
+      ref.read(tweetControllerProvider.notifier).refresh();
+
+      if (!context.mounted) return;
+      final message =
+          failedTags.isEmpty
+              ? l10n.tagApplySuccess
+              : l10n.tagApplyError(failedTags.join(', '));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(message), duration: const Duration(seconds: 3)),
+      );
+    } catch (e) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(l10n.error),
+          duration: const Duration(seconds: 2),
+        ),
+      );
+    }
+  }
 
   void _openTweetInBrowser(String? userId) {
     final url =
@@ -106,13 +168,15 @@ class TweetDetailDialog extends ConsumerWidget {
                             tweet.inReplyToScreenName != null
                                 ? '${l10n.replyTo} @${tweet.inReplyToScreenName}'
                                 : l10n.reply,
-                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            style: Theme.of(
+                              context,
+                            ).textTheme.bodyMedium?.copyWith(
                               color: Theme.of(context).colorScheme.primary,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
                         ],
-                        if (tweet.isReply && tweet.isRetweet) 
+                        if (tweet.isReply && tweet.isRetweet)
                           const SizedBox(width: 16),
                         if (tweet.isRetweet) ...[
                           Icon(
@@ -125,7 +189,9 @@ class TweetDetailDialog extends ConsumerWidget {
                             tweet.retweetedUserScreenName != null
                                 ? '${l10n.retweetFrom} @${tweet.retweetedUserScreenName}'
                                 : l10n.retweet,
-                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            style: Theme.of(
+                              context,
+                            ).textTheme.bodyMedium?.copyWith(
                               color: Theme.of(context).colorScheme.tertiary,
                               fontWeight: FontWeight.w500,
                             ),
@@ -185,6 +251,39 @@ class TweetDetailDialog extends ConsumerWidget {
                 ),
               ),
 
+              // Tags section
+              Consumer(
+                builder: (context, ref, child) {
+                  final tweetTagsAsync = ref.watch(tweetTagsProvider(tweet.id));
+                  return tweetTagsAsync.when(
+                    data: (tags) {
+                      if (tags.isEmpty) return const SizedBox.shrink();
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(height: 16),
+                          Text(
+                            l10n.tagsLabel,
+                            style: Theme.of(context).textTheme.titleSmall,
+                          ),
+                          const SizedBox(height: 8),
+                          Wrap(
+                            spacing: 6,
+                            runSpacing: 6,
+                            children:
+                                tags
+                                    .map((tag) => TagStateChip(tag: tag))
+                                    .toList(),
+                          ),
+                        ],
+                      );
+                    },
+                    loading: () => const SizedBox.shrink(),
+                    error: (_, __) => const SizedBox.shrink(),
+                  );
+                },
+              ),
+
               // Media section
               if (tweet.media.isNotEmpty) ...[
                 const SizedBox(height: 16),
@@ -205,6 +304,11 @@ class TweetDetailDialog extends ConsumerWidget {
           onPressed: () => UserIdInputDialog.show(context, allowEmpty: false),
           icon: const Icon(Icons.settings),
           label: Text(l10n.userIdSetting),
+        ),
+        TextButton.icon(
+          onPressed: () => _showTagDialog(context, ref),
+          icon: const Icon(Icons.local_offer),
+          label: Text(l10n.selectTags),
         ),
         TextButton.icon(
           onPressed: () => _showDeleteConfirmation(context, ref),
