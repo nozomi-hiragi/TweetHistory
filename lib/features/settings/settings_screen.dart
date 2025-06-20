@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+
+import '../../l10n/app_localizations.dart';
 import '../../providers/theme_mode_controller.dart';
 import '../../providers/user_id_controller.dart';
 import '../../providers/locale_controller.dart';
@@ -44,7 +45,9 @@ class SettingsScreen extends ConsumerWidget {
           ),
           ListTile(
             title: Text(l10n.userId),
-            subtitle: Text(userId?.isNotEmpty == true ? '@$userId' : l10n.notSet),
+            subtitle: Text(
+              userId?.isNotEmpty == true ? '@$userId' : l10n.notSet,
+            ),
             trailing: const Icon(Icons.edit),
             onTap: () => UserIdInputDialog.show(context, initialValue: userId),
           ),
@@ -65,7 +68,9 @@ class SettingsScreen extends ConsumerWidget {
                 final packageInfo = snapshot.data!;
                 return ListTile(
                   title: Text(l10n.version),
-                  subtitle: Text('${packageInfo.version} (${packageInfo.buildNumber})'),
+                  subtitle: Text(
+                    '${packageInfo.version} (${packageInfo.buildNumber})',
+                  ),
                   trailing: const Icon(Icons.info_outline),
                 );
               }
@@ -96,34 +101,39 @@ class SettingsScreen extends ConsumerWidget {
     final l10n = AppLocalizations.of(context)!;
     showDialog<SupportedLanguage>(
       context: context,
-      builder: (context) => AlertDialog(
-        title: Text(l10n.language),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: SupportedLanguage.values.map((language) {
-            return RadioListTile<SupportedLanguage>(
-              title: Text(language.displayName),
-              subtitle: language == SupportedLanguage.system 
-                  ? Text(l10n.languageSystem)
-                  : null,
-              value: language,
-              groupValue: ref.read(localeControllerProvider),
-              onChanged: (SupportedLanguage? value) {
-                if (value != null) {
-                  ref.read(localeControllerProvider.notifier).setLanguage(value);
-                  Navigator.of(context).pop();
-                }
-              },
-            );
-          }).toList(),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: Text(l10n.cancel),
+      builder:
+          (context) => AlertDialog(
+            title: Text(l10n.language),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children:
+                  SupportedLanguage.values.map((language) {
+                    return RadioListTile<SupportedLanguage>(
+                      title: Text(language.displayName),
+                      subtitle:
+                          language == SupportedLanguage.system
+                              ? Text(l10n.languageSystem)
+                              : null,
+                      value: language,
+                      groupValue: ref.read(localeControllerProvider),
+                      onChanged: (SupportedLanguage? value) {
+                        if (value != null) {
+                          ref
+                              .read(localeControllerProvider.notifier)
+                              .setLanguage(value);
+                          Navigator.of(context).pop();
+                        }
+                      },
+                    );
+                  }).toList(),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: Text(l10n.cancel),
+              ),
+            ],
           ),
-        ],
-      ),
     );
   }
 }
