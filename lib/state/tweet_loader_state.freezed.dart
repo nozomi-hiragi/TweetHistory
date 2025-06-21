@@ -1,4 +1,3 @@
-// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -10,145 +9,207 @@ part of 'tweet_loader_state.dart';
 // FreezedGenerator
 // **************************************************************************
 
-// dart format off
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
+
 /// @nodoc
 mixin _$TweetLoaderState {
+  double get progress => throw _privateConstructorUsedError;
+  List<Tweet> get tweets => throw _privateConstructorUsedError;
+  String? get error => throw _privateConstructorUsedError;
 
- double get progress; List<Tweet> get tweets; String? get error;
-/// Create a copy of TweetLoaderState
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$TweetLoaderStateCopyWith<TweetLoaderState> get copyWith => _$TweetLoaderStateCopyWithImpl<TweetLoaderState>(this as TweetLoaderState, _$identity);
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TweetLoaderState&&(identical(other.progress, progress) || other.progress == progress)&&const DeepCollectionEquality().equals(other.tweets, tweets)&&(identical(other.error, error) || other.error == error));
-}
-
-
-@override
-int get hashCode => Object.hash(runtimeType,progress,const DeepCollectionEquality().hash(tweets),error);
-
-@override
-String toString() {
-  return 'TweetLoaderState(progress: $progress, tweets: $tweets, error: $error)';
-}
-
-
+  /// Create a copy of TweetLoaderState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $TweetLoaderStateCopyWith<TweetLoaderState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract mixin class $TweetLoaderStateCopyWith<$Res>  {
-  factory $TweetLoaderStateCopyWith(TweetLoaderState value, $Res Function(TweetLoaderState) _then) = _$TweetLoaderStateCopyWithImpl;
-@useResult
-$Res call({
- double progress, List<Tweet> tweets, String? error
-});
-
-
-
-
+abstract class $TweetLoaderStateCopyWith<$Res> {
+  factory $TweetLoaderStateCopyWith(
+    TweetLoaderState value,
+    $Res Function(TweetLoaderState) then,
+  ) = _$TweetLoaderStateCopyWithImpl<$Res, TweetLoaderState>;
+  @useResult
+  $Res call({double progress, List<Tweet> tweets, String? error});
 }
+
 /// @nodoc
-class _$TweetLoaderStateCopyWithImpl<$Res>
+class _$TweetLoaderStateCopyWithImpl<$Res, $Val extends TweetLoaderState>
     implements $TweetLoaderStateCopyWith<$Res> {
-  _$TweetLoaderStateCopyWithImpl(this._self, this._then);
+  _$TweetLoaderStateCopyWithImpl(this._value, this._then);
 
-  final TweetLoaderState _self;
-  final $Res Function(TweetLoaderState) _then;
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
-/// Create a copy of TweetLoaderState
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? progress = null,Object? tweets = null,Object? error = freezed,}) {
-  return _then(_self.copyWith(
-progress: null == progress ? _self.progress : progress // ignore: cast_nullable_to_non_nullable
-as double,tweets: null == tweets ? _self.tweets : tweets // ignore: cast_nullable_to_non_nullable
-as List<Tweet>,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
-as String?,
-  ));
-}
-
-}
-
-
-/// @nodoc
-
-
-class _TweetLoaderState implements TweetLoaderState {
-  const _TweetLoaderState({this.progress = 0.0, final  List<Tweet> tweets = const [], this.error}): _tweets = tweets;
-  
-
-@override@JsonKey() final  double progress;
- final  List<Tweet> _tweets;
-@override@JsonKey() List<Tweet> get tweets {
-  if (_tweets is EqualUnmodifiableListView) return _tweets;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_tweets);
-}
-
-@override final  String? error;
-
-/// Create a copy of TweetLoaderState
-/// with the given fields replaced by the non-null parameter values.
-@override @JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-_$TweetLoaderStateCopyWith<_TweetLoaderState> get copyWith => __$TweetLoaderStateCopyWithImpl<_TweetLoaderState>(this, _$identity);
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TweetLoaderState&&(identical(other.progress, progress) || other.progress == progress)&&const DeepCollectionEquality().equals(other._tweets, _tweets)&&(identical(other.error, error) || other.error == error));
-}
-
-
-@override
-int get hashCode => Object.hash(runtimeType,progress,const DeepCollectionEquality().hash(_tweets),error);
-
-@override
-String toString() {
-  return 'TweetLoaderState(progress: $progress, tweets: $tweets, error: $error)';
-}
-
-
+  /// Create a copy of TweetLoaderState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? progress = null,
+    Object? tweets = null,
+    Object? error = freezed,
+  }) {
+    return _then(
+      _value.copyWith(
+            progress:
+                null == progress
+                    ? _value.progress
+                    : progress // ignore: cast_nullable_to_non_nullable
+                        as double,
+            tweets:
+                null == tweets
+                    ? _value.tweets
+                    : tweets // ignore: cast_nullable_to_non_nullable
+                        as List<Tweet>,
+            error:
+                freezed == error
+                    ? _value.error
+                    : error // ignore: cast_nullable_to_non_nullable
+                        as String?,
+          )
+          as $Val,
+    );
+  }
 }
 
 /// @nodoc
-abstract mixin class _$TweetLoaderStateCopyWith<$Res> implements $TweetLoaderStateCopyWith<$Res> {
-  factory _$TweetLoaderStateCopyWith(_TweetLoaderState value, $Res Function(_TweetLoaderState) _then) = __$TweetLoaderStateCopyWithImpl;
-@override @useResult
-$Res call({
- double progress, List<Tweet> tweets, String? error
-});
-
-
-
-
+abstract class _$$TweetLoaderStateImplCopyWith<$Res>
+    implements $TweetLoaderStateCopyWith<$Res> {
+  factory _$$TweetLoaderStateImplCopyWith(
+    _$TweetLoaderStateImpl value,
+    $Res Function(_$TweetLoaderStateImpl) then,
+  ) = __$$TweetLoaderStateImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({double progress, List<Tweet> tweets, String? error});
 }
+
 /// @nodoc
-class __$TweetLoaderStateCopyWithImpl<$Res>
-    implements _$TweetLoaderStateCopyWith<$Res> {
-  __$TweetLoaderStateCopyWithImpl(this._self, this._then);
+class __$$TweetLoaderStateImplCopyWithImpl<$Res>
+    extends _$TweetLoaderStateCopyWithImpl<$Res, _$TweetLoaderStateImpl>
+    implements _$$TweetLoaderStateImplCopyWith<$Res> {
+  __$$TweetLoaderStateImplCopyWithImpl(
+    _$TweetLoaderStateImpl _value,
+    $Res Function(_$TweetLoaderStateImpl) _then,
+  ) : super(_value, _then);
 
-  final _TweetLoaderState _self;
-  final $Res Function(_TweetLoaderState) _then;
-
-/// Create a copy of TweetLoaderState
-/// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? progress = null,Object? tweets = null,Object? error = freezed,}) {
-  return _then(_TweetLoaderState(
-progress: null == progress ? _self.progress : progress // ignore: cast_nullable_to_non_nullable
-as double,tweets: null == tweets ? _self._tweets : tweets // ignore: cast_nullable_to_non_nullable
-as List<Tweet>,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
-as String?,
-  ));
+  /// Create a copy of TweetLoaderState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? progress = null,
+    Object? tweets = null,
+    Object? error = freezed,
+  }) {
+    return _then(
+      _$TweetLoaderStateImpl(
+        progress:
+            null == progress
+                ? _value.progress
+                : progress // ignore: cast_nullable_to_non_nullable
+                    as double,
+        tweets:
+            null == tweets
+                ? _value._tweets
+                : tweets // ignore: cast_nullable_to_non_nullable
+                    as List<Tweet>,
+        error:
+            freezed == error
+                ? _value.error
+                : error // ignore: cast_nullable_to_non_nullable
+                    as String?,
+      ),
+    );
+  }
 }
 
+/// @nodoc
 
+class _$TweetLoaderStateImpl implements _TweetLoaderState {
+  const _$TweetLoaderStateImpl({
+    this.progress = 0.0,
+    final List<Tweet> tweets = const [],
+    this.error,
+  }) : _tweets = tweets;
+
+  @override
+  @JsonKey()
+  final double progress;
+  final List<Tweet> _tweets;
+  @override
+  @JsonKey()
+  List<Tweet> get tweets {
+    if (_tweets is EqualUnmodifiableListView) return _tweets;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_tweets);
+  }
+
+  @override
+  final String? error;
+
+  @override
+  String toString() {
+    return 'TweetLoaderState(progress: $progress, tweets: $tweets, error: $error)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$TweetLoaderStateImpl &&
+            (identical(other.progress, progress) ||
+                other.progress == progress) &&
+            const DeepCollectionEquality().equals(other._tweets, _tweets) &&
+            (identical(other.error, error) || other.error == error));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    runtimeType,
+    progress,
+    const DeepCollectionEquality().hash(_tweets),
+    error,
+  );
+
+  /// Create a copy of TweetLoaderState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$TweetLoaderStateImplCopyWith<_$TweetLoaderStateImpl> get copyWith =>
+      __$$TweetLoaderStateImplCopyWithImpl<_$TweetLoaderStateImpl>(
+        this,
+        _$identity,
+      );
 }
 
-// dart format on
+abstract class _TweetLoaderState implements TweetLoaderState {
+  const factory _TweetLoaderState({
+    final double progress,
+    final List<Tweet> tweets,
+    final String? error,
+  }) = _$TweetLoaderStateImpl;
+
+  @override
+  double get progress;
+  @override
+  List<Tweet> get tweets;
+  @override
+  String? get error;
+
+  /// Create a copy of TweetLoaderState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$TweetLoaderStateImplCopyWith<_$TweetLoaderStateImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}

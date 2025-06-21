@@ -1,5 +1,10 @@
 {
   "@@locale": "en",
+  
+  "cancel": "Cancel",
+  "@cancel": {
+    "description": "Cancel button text"
+  },
   "navTweets": "Tweets",
   "@navTweets": {
     "description": "Navigation label for tweets tab"
@@ -12,10 +17,6 @@
   "@navSettings": {
     "description": "Navigation label for settings tab"
   },
-  "searchTweets": "Search Tweets",
-  "@searchTweets": {
-    "description": "Placeholder text for tweet search"
-  },
   "selectedCount": "{count} selected",
   "@selectedCount": {
     "description": "Shows number of selected items",
@@ -26,13 +27,18 @@
       }
     }
   },
-  "addTag": "Add Tag",
-  "@addTag": {
-    "description": "Button text to add a tag"
+  "close": "Close",
+  "@close": {
+    "description": "Close button text"
   },
-  "restoreFromBin": "Restore from Bin",
-  "@restoreFromBin": {
-    "description": "Action to restore tweet from bin"
+  
+  "delete": "Delete",
+  "@delete": {
+    "description": "Delete button text"
+  },
+  "save": "Save",
+  "@save": {
+    "description": "Save button text"
   },
   "apply": "Apply",
   "@apply": {
@@ -42,93 +48,66 @@
   "@clear": {
     "description": "Button to clear filter"
   },
-  "invalidTagName": "Invalid tag name",
-  "@invalidTagName": {
-    "description": "Error message for invalid tag name"
+  "search": "Search",
+  "@search": {
+    "description": "Search button/field text"
   },
-  "settingsTitle": "Settings",
-  "@settingsTitle": {
-    "description": "Title of settings screen"
+  "filter": "Filter",
+  "@filter": {
+    "description": "Filter button text"
   },
-  "language": "Language",
-  "@language": {
-    "description": "Settings option for language"
-  },
-  "languageJapanese": "Japanese",
-  "@languageJapanese": {
-    "description": "Japanese language option"
-  },
-  "languageEnglish": "English",
-  "@languageEnglish": {
-    "description": "English language option"
-  },
-  "languageSystem": "System",
-  "@languageSystem": {
-    "description": "System language option"
-  },
-  "theme": "Theme",
-  "@theme": {
-    "description": "Settings option for theme"
-  },
-  "themeLight": "Light",
-  "@themeLight": {
-    "description": "Light theme option"
-  },
-  "themeDark": "Dark",
-  "@themeDark": {
-    "description": "Dark theme option"
-  },
-  "themeSystem": "System",
-  "@themeSystem": {
-    "description": "System theme option"
-  },
-  "importExport": "Import & Export",
-  "@importExport": {
-    "description": "Settings section for import/export"
-  },
-  "importData": "Import Data",
-  "@importData": {
-    "description": "Button to import data"
-  },
-  "exportData": "Export Data",
-  "@exportData": {
-    "description": "Button to export data"
-  },
-  "importSuccess": "Import completed successfully",
-  "@importSuccess": {
-    "description": "Success message for import"
-  },
-  "exportSuccess": "Export completed successfully",
-  "@exportSuccess": {
-    "description": "Success message for export"
-  },
-  "userIdPlaceholder": "user_id",
-  "@userIdPlaceholder": {
-    "description": "Placeholder text for user ID field"
+  "add": "Add",
+  "@add": {
+    "description": "Add button text"
   },
   "confirm": "Confirm",
   "@confirm": {
     "description": "Confirm button text"
   },
-  "cancel": "Cancel",
-  "@cancel": {
-    "description": "Cancel button text"
+  "done": "Done",
+  "@done": {
+    "description": "Done button text"
+  },
+  
+  "addTag": "Add Tag",
+  "@addTag": {
+    "description": "Button text to add a tag"
   },
   "selectTags": "Select Tags",
   "@selectTags": {
     "description": "Instruction to select tags"
   },
-  "addNewTag": "Add New Tag",
-  "@addNewTag": {
-    "description": "Button to add new tag"
-  },
   "tagNamePlaceholder": "Enter tag name",
   "@tagNamePlaceholder": {
     "description": "Placeholder for tag name input"
   },
-  "save": "Save",
-  "@save": {
-    "description": "Save button text"
+  "upload": "Upload",
+  "@upload": {
+    "description": "Upload button text"
+  },
+  "error": "Error",
+  "@error": {
+    "description": "Generic error label"
+  },
+  "loading": "Loading...",
+  "@loading": {
+    "description": "Loading status message"
+  },
+  "searchTweets": "Search Tweets",
+  "@searchTweets": {
+    "description": "Placeholder text for tweet search"
+  },
+  "restoreFromBin": "Restore from Bin",
+  "@restoreFromBin": {
+    "description": "Action to restore tweet from bin"
+  },
+  "invalidTagName": "Invalid tag name",
+  "@invalidTagName": {
+    "description": "Error message for invalid tag name"
+  },
+  "addNewTag": "Add New Tag",
+  "@addNewTag": {
+    "description": "Button to add new tag"
   },
   "tweetDetails": "Tweet Details",
   "@tweetDetails": {
@@ -150,163 +129,13 @@
   "@favoriteCount": {
     "description": "Label for favorite count"
   },
-  "close": "Close",
-  "@close": {
-    "description": "Close button text"
+  "sortNewestFirst": "Newest first",
+  "@sortNewestFirst": {
+    "description": "Sort option for newest first"
   },
-  "error": "Error",
-  "@error": {
-    "description": "Generic error label"
-  },
-  "loading": "Loading...",
-  "@loading": {
-    "description": "Loading status message"
-  },
-  "done": "Done",
-  "@done": {
-    "description": "Done button text"
-  },
-  "search": "Search",
-  "@search": {
-    "description": "Search button/field text"
-  },
-  "filter": "Filter",
-  "@filter": {
-    "description": "Filter button text"
-  },
-  "delete": "Delete",
-  "@delete": {
-    "description": "Delete button text"
-  },
-  "add": "Add",
-  "@add": {
-    "description": "Add button text"
-  },
-  "userIdSetting": "User ID setting",
-  "@userIdSetting": {
-    "description": "Alert dialog title"
-  },
-  "userIdDescription": "Please enter your X (Twitter) user ID (without @):",
-  "@userIdDescription": {
-    "description": "Description shown in user ID input dialog"
-  },
-  "userIdExample": "Example: For https://x.com/username, enter \"username\"",
-  "@userIdExample": {
-    "description": "Example text showing how to extract username from URL"
-  },
-  "userIdCleared": "User ID cleared",
-  "@userIdCleared": {
-    "description": "Success message when user ID is cleared"
-  },
-  "userIdSet": "User ID set",
-  "@userIdSet": {
-    "description": "Success message when user ID is set"
-  },
-  "tweetsDeletedSuccess": "Selected tweets deleted.",
-  "@tweetsDeletedSuccess": {
-    "description": "Success message when tweets are deleted"
-  },
-  "tweetsDeletedError": "Failed to delete tweets.",
-  "@tweetsDeletedError": {
-    "description": "Error message when tweet deletion fails"
-  },
-  "tweetsRestoredSuccess": "Selected tweets restored.",
-  "@tweetsRestoredSuccess": {
-    "description": "Success message when tweets are restored"
-  },
-  "tweetsRestoredError": "Failed to restore tweets.",
-  "@tweetsRestoredError": {
-    "description": "Error message when tweet restoration fails"
-  },
-  "notSet": "Not set",
-  "@notSet": {
-    "description": "Status text when a value is not set"
-  },
-  "period": "Period",
-  "@period": {
-    "description": "Label for period filter section"
-  },
-  "since": "Since: ",
-  "@since": {
-    "description": "Label prefix for start date"
-  },
-  "until": "Until: ",
-  "@until": {
-    "description": "Label prefix for end date"
-  },
-  "selectStartDate": "Select start date",
-  "@selectStartDate": {
-    "description": "Placeholder for start date selection"
-  },
-  "selectEndDate": "Select end date",
-  "@selectEndDate": {
-    "description": "Placeholder for end date selection"
-  },
-  "tagsLabel": "Tags",
-  "@tagsLabel": {
-    "description": "Label for tags filter section"
-  },
-  "countSelected": "{count} selected",
-  "@countSelected": {
-    "description": "Count of selected items",
-    "placeholders": {
-      "count": {
-        "type": "int",
-        "description": "Number of selected items"
-      }
-    }
-  },
-  "userId": "User ID",
-  "@userId": {
-    "description": "Label for user ID"
-  },
-  "preparingFile": "Preparing file...",
-  "@preparingFile": {
-    "description": "Status message while preparing file"
-  },
-  "percentComplete": "{percent}% complete",
-  "@percentComplete": {
-    "description": "Progress percentage",
-    "placeholders": {
-      "percent": {
-        "type": "int",
-        "description": "Completion percentage"
-      }
-    }
-  },
-  "loadingTweets": "Loading tweets...",
-  "@loadingTweets": {
-    "description": "Status message while loading tweets"
-  },
-  "loadingComplete": "Loading complete!",
-  "@loadingComplete": {
-    "description": "Message when loading is finished"
-  },
-  "selectFileToUpload": "Please select a file to upload.",
-  "@selectFileToUpload": {
-    "description": "Instruction to select file for upload"
-  },
-  "webBrowserWarning": "⚠ Warning: This app runs in a browser, so very large files (e.g. 100MB+) may not load properly.",
-  "@webBrowserWarning": {
-    "description": "Warning about file size limitations in browser"
-  },
-  "upload": "Upload",
-  "@upload": {
-    "description": "Upload button text"
-  },
-  "tagApplySuccess": "Tags applied successfully.",
-  "@tagApplySuccess": {
-    "description": "Success message when tags are applied"
-  },
-  "tagApplyError": "Failed to apply tags: {tags}",
-  "@tagApplyError": {
-    "description": "Error message when tag application fails",
-    "placeholders": {
-      "tags": {
-        "type": "String",
-        "description": "List of failed tags"
-      }
-    }
+  "sortOldestFirst": "Oldest first",
+  "@sortOldestFirst": {
+    "description": "Sort option for oldest first"
   },
   "applyTag": "Apply tags",
   "@applyTag": {
@@ -346,47 +175,46 @@
   "@dataCopiedToClipboard": {
     "description": "Message when data is copied to clipboard"
   },
-  "importFailed": "Import failed: {error}",
-  "@importFailed": {
-    "description": "Error message when import fails",
-    "placeholders": {
-      "error": {
-        "type": "String",
-        "description": "Error details"
-      }
-    }
-  },
   "uploadTweetsFile": "Upload tweets.js",
   "@uploadTweetsFile": {
     "description": "Title for tweets file upload"
   },
-  "sortNewestFirst": "Newest first",
-  "@sortNewestFirst": {
-    "description": "Sort option for newest first"
+  
+  "settingsTitle": "Settings",
+  "@settingsTitle": {
+    "description": "Title of settings screen"
   },
-  "sortOldestFirst": "Oldest first",
-  "@sortOldestFirst": {
-    "description": "Sort option for oldest first"
+  "language": "Language",
+  "@language": {
+    "description": "Settings option for language"
   },
-  "moveToBinSuccess": "Selected tweets moved to bin.",
-  "@moveToBinSuccess": {
-    "description": "Success message when tweets are moved to bin"
+  "languageJapanese": "Japanese",
+  "@languageJapanese": {
+    "description": "Japanese language option"
   },
-  "moveToBinError": "Failed to move to bin.",
-  "@moveToBinError": {
-    "description": "Error message when moving to bin fails"
+  "languageEnglish": "English",
+  "@languageEnglish": {
+    "description": "English language option"
   },
-  "confirmDeleteTweet": "Delete this tweet?",
-  "@confirmDeleteTweet": {
-    "description": "Confirmation message for deleting a tweet"
+  "languageSystem": "System",
+  "@languageSystem": {
+    "description": "System language option"
   },
-  "deleteThisTweet": "Delete this tweet",
-  "@deleteThisTweet": {
-    "description": "Button text to delete a tweet"
+  "theme": "Theme",
+  "@theme": {
+    "description": "Settings option for theme"
   },
-  "deleteTweetWarning": "This tweet will be deleted.",
-  "@deleteTweetWarning": {
-    "description": "Warning message when deleting a tweet"
+  "themeLight": "Light",
+  "@themeLight": {
+    "description": "Light theme option"
+  },
+  "themeDark": "Dark",
+  "@themeDark": {
+    "description": "Dark theme option"
+  },
+  "themeSystem": "System",
+  "@themeSystem": {
+    "description": "System theme option"
   },
   "version": "Version",
   "@version": {
@@ -395,6 +223,58 @@
   "license": "License",
   "@license": {
     "description": "Label for license information"
+  },
+  "userId": "User ID",
+  "@userId": {
+    "description": "Label for user ID"
+  },
+  "userIdPlaceholder": "user_id",
+  "@userIdPlaceholder": {
+    "description": "Placeholder text for user ID field"
+  },
+  "userIdSetting": "User ID setting",
+  "@userIdSetting": {
+    "description": "Alert dialog title"
+  },
+  "userIdDescription": "Please enter your X (Twitter) user ID (without @):",
+  "@userIdDescription": {
+    "description": "Description shown in user ID input dialog"
+  },
+  "userIdExample": "Example: For https://x.com/username, enter \"username\"",
+  "@userIdExample": {
+    "description": "Example text showing how to extract username from URL"
+  },
+  "userIdCleared": "User ID cleared",
+  "@userIdCleared": {
+    "description": "Success message when user ID is cleared"
+  },
+  "userIdSet": "User ID set",
+  "@userIdSet": {
+    "description": "Success message when user ID is set"
+  },
+  "notSet": "Not set",
+  "@notSet": {
+    "description": "Status text when a value is not set"
+  },
+  "importExport": "Import & Export",
+  "@importExport": {
+    "description": "Settings section for import/export"
+  },
+  "importData": "Import Data",
+  "@importData": {
+    "description": "Button to import data"
+  },
+  "exportData": "Export Data",
+  "@exportData": {
+    "description": "Button to export data"
+  },
+  "editMode": "Edit Mode",
+  "@editMode": {
+    "description": "Label for edit mode"
+  },
+  "exitEditMode": "Exit Edit Mode",
+  "@exitEditMode": {
+    "description": "Button text to exit edit mode"
   },
   "renameTag": "Rename Tag",
   "@renameTag": {
@@ -416,7 +296,7 @@
   "@deleteTagTitle": {
     "description": "Title of delete tag confirmation dialog"
   },
-  "deleteTagWarning": "This tag \"{tagName}\" will be deleted.\nTweets will remain even after the tag is deleted.",
+  "deleteTagWarning": "This tag \"{tagName}\" will be deleted.\\nTweets will remain even after the tag is deleted.",
   "@deleteTagWarning": {
     "description": "Warning message when deleting a tag",
     "placeholders": {
@@ -429,6 +309,319 @@
   "cannotDeleteSystemTag": "System tags cannot be deleted",
   "@cannotDeleteSystemTag": {
     "description": "Error message when trying to delete system tags"
+  },
+  "confirmDeleteTweet": "Delete this tweet?",
+  "@confirmDeleteTweet": {
+    "description": "Confirmation message for deleting a tweet"
+  },
+  "deleteThisTweet": "Delete this tweet",
+  "@deleteThisTweet": {
+    "description": "Button text to delete a tweet"
+  },
+  "deleteTweetWarning": "This tweet will be deleted.",
+  "@deleteTweetWarning": {
+    "description": "Warning message when deleting a tweet"
+  },
+  "period": "Period",
+  "@period": {
+    "description": "Label for period filter section"
+  },
+  "since": "Since: ",
+  "@since": {
+    "description": "Label prefix for start date"
+  },
+  "until": "Until: ",
+  "@until": {
+    "description": "Label prefix for end date"
+  },
+  "periodStart": "start",
+  "@periodStart": {
+    "description": "Label for period start when date is null"
+  },
+  "periodEnd": "end",
+  "@periodEnd": {
+    "description": "Label for period end when date is null"
+  },
+  "selectStartDate": "Select start date",
+  "@selectStartDate": {
+    "description": "Placeholder for start date selection"
+  },
+  "selectEndDate": "Select end date",
+  "@selectEndDate": {
+    "description": "Placeholder for end date selection"
+  },
+  "tagsLabel": "Tags",
+  "@tagsLabel": {
+    "description": "Label for tags filter section"
+  },
+  "preparingFile": "Preparing file...",
+  "@preparingFile": {
+    "description": "Status message while preparing file"
+  },
+  "percentComplete": "{percent}% complete",
+  "@percentComplete": {
+    "description": "Progress percentage",
+    "placeholders": {
+      "percent": {
+        "type": "int",
+        "description": "Completion percentage"
+      }
+    }
+  },
+  "loadingTweets": "Loading tweets...",
+  "@loadingTweets": {
+    "description": "Status message while loading tweets"
+  },
+  "loadingComplete": "Loading complete!",
+  "@loadingComplete": {
+    "description": "Message when loading is finished"
+  },
+  "selectFileToUpload": "Please select a file to upload.",
+  "@selectFileToUpload": {
+    "description": "Instruction to select file for upload"
+  },
+  "webBrowserWarning": "⚠ Warning: This app runs in a browser, so very large files (e.g. 100MB+) may not load properly.",
+  "@webBrowserWarning": {
+    "description": "Warning about file size limitations in browser"
+  },
+  "reply": "Reply",
+  "@reply": {
+    "description": "Label for reply tweet type"
+  },
+  "retweet": "Retweet",
+  "@retweet": {
+    "description": "Label for retweet tweet type"
+  },
+  "replyTo": "Reply to:",
+  "@replyTo": {
+    "description": "Label prefix for reply target"
+  },
+  "retweetFrom": "Retweet from:",
+  "@retweetFrom": {
+    "description": "Label prefix for retweet source"
+  },
+  "regularTweet": "Regular Tweet",
+  "@regularTweet": {
+    "description": "Label for regular tweet type"
+  },
+  "tweetTypeRegular": "Regular",
+  "@tweetTypeRegular": {
+    "description": "Tweet type filter label for regular tweets"
+  },
+  "tweetTypeReply": "Reply",
+  "@tweetTypeReply": {
+    "description": "Tweet type filter label for replies"
+  },
+  "tweetTypeRetweet": "Retweet",
+  "@tweetTypeRetweet": {
+    "description": "Tweet type filter label for retweets"
+  },
+  "appliedFilters": "Applied Filters:",
+  "@appliedFilters": {
+    "description": "Label for showing current filters"
+  },
+  "noFilters": "No filters",
+  "@noFilters": {
+    "description": "Text when no filters are applied"
+  },
+  "filterSearch": "Search: \"{query}\"",
+  "@filterSearch": {
+    "description": "Filter description for search query",
+    "placeholders": {
+      "query": {
+        "type": "String",
+        "description": "Search query text"
+      }
+    }
+  },
+  "filterTags": "Tags: {tags}",
+  "@filterTags": {
+    "description": "Filter description for selected tags",
+    "placeholders": {
+      "tags": {
+        "type": "String",
+        "description": "Comma-separated list of tags"
+      }
+    }
+  },
+  "filterPeriod": "Period: {since} 〜 {until}",
+  "@filterPeriod": {
+    "description": "Filter description for date period",
+    "placeholders": {
+      "since": {
+        "type": "String",
+        "description": "Start date"
+      },
+      "until": {
+        "type": "String",
+        "description": "End date"
+      }
+    }
+  },
+  "filterTypes": "Types: {types}",
+  "@filterTypes": {
+    "description": "Filter description for tweet types",
+    "placeholders": {
+      "types": {
+        "type": "String",
+        "description": "Comma-separated list of tweet types"
+      }
+    }
+  },
+  
+  "llmRating": "LLM Rating",
+  "@llmRating": {
+    "description": "Label for LLM rating feature"
+  },
+  "llmRatingStart": "Start LLM Rating",
+  "@llmRatingStart": {
+    "description": "Title for LLM rating confirmation dialog"
+  },
+  "llmRatingInProgress": "LLM Rating in Progress",
+  "@llmRatingInProgress": {
+    "description": "Title for LLM rating progress dialog"
+  },
+  "llmInitializing": "Initializing",
+  "@llmInitializing": {
+    "description": "Title when LLM is initializing"
+  },
+  "llmWaiting": "Waiting for LLM...",
+  "@llmWaiting": {
+    "description": "Status message while waiting for LLM initialization"
+  },
+  "llmRatingComplete": "LLM rating completed",
+  "@llmRatingComplete": {
+    "description": "Success message when LLM rating is complete"
+  },
+  "llmRatingError": "Error occurred: {error}",
+  "@llmRatingError": {
+    "description": "Error message when LLM rating fails",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "description": "Error details"
+      }
+    }
+  },
+  "noTweetsToRate": "No tweets to rate",
+  "@noTweetsToRate": {
+    "description": "Message when no tweets are available for rating"
+  },
+  "ratingTagHighRisk": "Delete Recommended (High Risk)",
+  "@ratingTagHighRisk": {
+    "description": "Tag name for high risk tweets"
+  },
+  "ratingTagMediumRisk": "Delete Recommended (Medium Risk)",
+  "@ratingTagMediumRisk": {
+    "description": "Tag name for medium risk tweets"
+  },
+  "ratingTagLowRisk": "Delete Recommended (Low Risk)",
+  "@ratingTagLowRisk": {
+    "description": "Tag name for low risk tweets"
+  },
+  "ratingTagKeep": "Keep Recommended",
+  "@ratingTagKeep": {
+    "description": "Tag name for tweets recommended to keep"
+  },
+  "remainingTimeMinutes": "About {minutes}m {seconds}s remaining",
+  "@remainingTimeMinutes": {
+    "description": "Remaining time display with minutes and seconds",
+    "placeholders": {
+      "minutes": {
+        "type": "int",
+        "description": "Minutes remaining"
+      },
+      "seconds": {
+        "type": "int",
+        "description": "Seconds remaining"
+      }
+    }
+  },
+  "remainingTimeSeconds": "About {seconds}s remaining",
+  "@remainingTimeSeconds": {
+    "description": "Remaining time display with seconds only",
+    "placeholders": {
+      "seconds": {
+        "type": "int",
+        "description": "Seconds remaining"
+      }
+    }
+  },
+  "tweetsWillBeRated": "{count} tweets will be rated by LLM.",
+  "@tweetsWillBeRated": {
+    "description": "Message showing number of tweets to be rated",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "description": "Number of tweets"
+      }
+    }
+  },
+  "processingWillTakeTime": "Processing will take time. Continue?",
+  "@processingWillTakeTime": {
+    "description": "Warning message about processing time"
+  },
+  "start": "Start",
+  "@start": {
+    "description": "Start button text"
+  },
+  
+  "tweetsDeletedError": "Failed to delete tweets.",
+  "@tweetsDeletedError": {
+    "description": "Error message when tweet deletion fails"
+  },
+  "tweetsRestoredError": "Failed to restore tweets.",
+  "@tweetsRestoredError": {
+    "description": "Error message when tweet restoration fails"
+  },
+  "moveToBinError": "Failed to move to bin.",
+  "@moveToBinError": {
+    "description": "Error message when moving to bin fails"
+  },
+  "tagApplyError": "Failed to apply tags: {tags}",
+  "@tagApplyError": {
+    "description": "Error message when tag application fails",
+    "placeholders": {
+      "tags": {
+        "type": "String",
+        "description": "List of failed tags"
+      }
+    }
+  },
+  "tagRenameError": "Failed to rename tag",
+  "@tagRenameError": {
+    "description": "Error message when tag renaming fails"
+  },
+  "tagDeleteError": "Failed to delete tag",
+  "@tagDeleteError": {
+    "description": "Error message when tag deletion fails"
+  },
+  "importFailed": "Import failed: {error}",
+  "@importFailed": {
+    "description": "Error message when import fails",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "description": "Error details"
+      }
+    }
+  },
+  
+  "tweetsDeletedSuccess": "Selected tweets deleted.",
+  "@tweetsDeletedSuccess": {
+    "description": "Success message when tweets are deleted"
+  },
+  "tweetsRestoredSuccess": "Selected tweets restored.",
+  "@tweetsRestoredSuccess": {
+    "description": "Success message when tweets are restored"
+  },
+  "moveToBinSuccess": "Selected tweets moved to bin.",
+  "@moveToBinSuccess": {
+    "description": "Success message when tweets are moved to bin"
+  },
+  "tagApplySuccess": "Tags applied successfully.",
+  "@tagApplySuccess": {
+    "description": "Success message when tags are applied"
   },
   "tagRenamedSuccess": "Tag renamed to \"{newName}\"",
   "@tagRenamedSuccess": {
@@ -450,40 +643,12 @@
       }
     }
   },
-  "tagRenameError": "Failed to rename tag",
-  "@tagRenameError": {
-    "description": "Error message when tag renaming fails"
+  "importSuccess": "Import completed successfully",
+  "@importSuccess": {
+    "description": "Success message for import"
   },
-  "tagDeleteError": "Failed to delete tag",
-  "@tagDeleteError": {
-    "description": "Error message when tag deletion fails"
-  },
-  "editMode": "Edit Mode",
-  "@editMode": {
-    "description": "Label for edit mode"
-  },
-  "exitEditMode": "Exit Edit Mode",
-  "@exitEditMode": {
-    "description": "Button text to exit edit mode"
-  },
-  "reply": "Reply",
-  "@reply": {
-    "description": "Label for reply tweet type"
-  },
-  "retweet": "Retweet",
-  "@retweet": {
-    "description": "Label for retweet tweet type"
-  },
-  "replyTo": "Reply to:",
-  "@replyTo": {
-    "description": "Label prefix for reply target"
-  },
-  "retweetFrom": "Retweet from:",
-  "@retweetFrom": {
-    "description": "Label prefix for retweet source"
-  },
-  "regularTweet": "Regular Tweet",
-  "@regularTweet": {
-    "description": "Label for regular tweet type"
+  "exportSuccess": "Export completed successfully",
+  "@exportSuccess": {
+    "description": "Success message for export"
   }
 }

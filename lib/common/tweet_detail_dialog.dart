@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 import '../utils/url_opener.dart' as url_opener;
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../l10n/app_localizations.dart';
 import '../models/tweet.dart';
 import '../providers/user_id_controller.dart';
 import '../providers/tweet_controller.dart';
@@ -82,7 +82,7 @@ class TweetDetailDialog extends ConsumerWidget {
         userId?.isNotEmpty == true
             ? 'https://x.com/$userId/status/${tweet.id}'
             : 'https://x.com/i/status/${tweet.id}';
-    
+
     await url_opener.openUrl(url);
   }
 

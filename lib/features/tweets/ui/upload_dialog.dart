@@ -1,8 +1,9 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:result_dart/result_dart.dart';
+
+import '../../../l10n/app_localizations.dart';
 
 Future<Result<Uint8List>> _pickJsFile() async {
   final result = await FilePicker.platform.pickFiles(

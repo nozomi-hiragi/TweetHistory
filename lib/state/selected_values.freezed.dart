@@ -1,4 +1,3 @@
-// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -10,148 +9,188 @@ part of 'selected_values.dart';
 // FreezedGenerator
 // **************************************************************************
 
-// dart format off
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
+
 /// @nodoc
 mixin _$SelectedValues {
+  List<String> get selected => throw _privateConstructorUsedError;
+  List<String> get unselected => throw _privateConstructorUsedError;
 
- List<String> get selected; List<String> get unselected;
-/// Create a copy of SelectedValues
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$SelectedValuesCopyWith<SelectedValues> get copyWith => _$SelectedValuesCopyWithImpl<SelectedValues>(this as SelectedValues, _$identity);
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SelectedValues&&const DeepCollectionEquality().equals(other.selected, selected)&&const DeepCollectionEquality().equals(other.unselected, unselected));
-}
-
-
-@override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(selected),const DeepCollectionEquality().hash(unselected));
-
-@override
-String toString() {
-  return 'SelectedValues(selected: $selected, unselected: $unselected)';
-}
-
-
+  /// Create a copy of SelectedValues
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $SelectedValuesCopyWith<SelectedValues> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract mixin class $SelectedValuesCopyWith<$Res>  {
-  factory $SelectedValuesCopyWith(SelectedValues value, $Res Function(SelectedValues) _then) = _$SelectedValuesCopyWithImpl;
-@useResult
-$Res call({
- List<String> selected, List<String> unselected
-});
-
-
-
-
+abstract class $SelectedValuesCopyWith<$Res> {
+  factory $SelectedValuesCopyWith(
+    SelectedValues value,
+    $Res Function(SelectedValues) then,
+  ) = _$SelectedValuesCopyWithImpl<$Res, SelectedValues>;
+  @useResult
+  $Res call({List<String> selected, List<String> unselected});
 }
+
 /// @nodoc
-class _$SelectedValuesCopyWithImpl<$Res>
+class _$SelectedValuesCopyWithImpl<$Res, $Val extends SelectedValues>
     implements $SelectedValuesCopyWith<$Res> {
-  _$SelectedValuesCopyWithImpl(this._self, this._then);
+  _$SelectedValuesCopyWithImpl(this._value, this._then);
 
-  final SelectedValues _self;
-  final $Res Function(SelectedValues) _then;
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
-/// Create a copy of SelectedValues
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? selected = null,Object? unselected = null,}) {
-  return _then(_self.copyWith(
-selected: null == selected ? _self.selected : selected // ignore: cast_nullable_to_non_nullable
-as List<String>,unselected: null == unselected ? _self.unselected : unselected // ignore: cast_nullable_to_non_nullable
-as List<String>,
-  ));
-}
-
-}
-
-
-/// @nodoc
-
-
-class _SelectedValues implements SelectedValues {
-  const _SelectedValues({final  List<String> selected = const [], final  List<String> unselected = const []}): _selected = selected,_unselected = unselected;
-  
-
- final  List<String> _selected;
-@override@JsonKey() List<String> get selected {
-  if (_selected is EqualUnmodifiableListView) return _selected;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_selected);
-}
-
- final  List<String> _unselected;
-@override@JsonKey() List<String> get unselected {
-  if (_unselected is EqualUnmodifiableListView) return _unselected;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_unselected);
-}
-
-
-/// Create a copy of SelectedValues
-/// with the given fields replaced by the non-null parameter values.
-@override @JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-_$SelectedValuesCopyWith<_SelectedValues> get copyWith => __$SelectedValuesCopyWithImpl<_SelectedValues>(this, _$identity);
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SelectedValues&&const DeepCollectionEquality().equals(other._selected, _selected)&&const DeepCollectionEquality().equals(other._unselected, _unselected));
-}
-
-
-@override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_selected),const DeepCollectionEquality().hash(_unselected));
-
-@override
-String toString() {
-  return 'SelectedValues(selected: $selected, unselected: $unselected)';
-}
-
-
+  /// Create a copy of SelectedValues
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? selected = null, Object? unselected = null}) {
+    return _then(
+      _value.copyWith(
+            selected:
+                null == selected
+                    ? _value.selected
+                    : selected // ignore: cast_nullable_to_non_nullable
+                        as List<String>,
+            unselected:
+                null == unselected
+                    ? _value.unselected
+                    : unselected // ignore: cast_nullable_to_non_nullable
+                        as List<String>,
+          )
+          as $Val,
+    );
+  }
 }
 
 /// @nodoc
-abstract mixin class _$SelectedValuesCopyWith<$Res> implements $SelectedValuesCopyWith<$Res> {
-  factory _$SelectedValuesCopyWith(_SelectedValues value, $Res Function(_SelectedValues) _then) = __$SelectedValuesCopyWithImpl;
-@override @useResult
-$Res call({
- List<String> selected, List<String> unselected
-});
-
-
-
-
+abstract class _$$SelectedValuesImplCopyWith<$Res>
+    implements $SelectedValuesCopyWith<$Res> {
+  factory _$$SelectedValuesImplCopyWith(
+    _$SelectedValuesImpl value,
+    $Res Function(_$SelectedValuesImpl) then,
+  ) = __$$SelectedValuesImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({List<String> selected, List<String> unselected});
 }
+
 /// @nodoc
-class __$SelectedValuesCopyWithImpl<$Res>
-    implements _$SelectedValuesCopyWith<$Res> {
-  __$SelectedValuesCopyWithImpl(this._self, this._then);
+class __$$SelectedValuesImplCopyWithImpl<$Res>
+    extends _$SelectedValuesCopyWithImpl<$Res, _$SelectedValuesImpl>
+    implements _$$SelectedValuesImplCopyWith<$Res> {
+  __$$SelectedValuesImplCopyWithImpl(
+    _$SelectedValuesImpl _value,
+    $Res Function(_$SelectedValuesImpl) _then,
+  ) : super(_value, _then);
 
-  final _SelectedValues _self;
-  final $Res Function(_SelectedValues) _then;
-
-/// Create a copy of SelectedValues
-/// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? selected = null,Object? unselected = null,}) {
-  return _then(_SelectedValues(
-selected: null == selected ? _self._selected : selected // ignore: cast_nullable_to_non_nullable
-as List<String>,unselected: null == unselected ? _self._unselected : unselected // ignore: cast_nullable_to_non_nullable
-as List<String>,
-  ));
+  /// Create a copy of SelectedValues
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? selected = null, Object? unselected = null}) {
+    return _then(
+      _$SelectedValuesImpl(
+        selected:
+            null == selected
+                ? _value._selected
+                : selected // ignore: cast_nullable_to_non_nullable
+                    as List<String>,
+        unselected:
+            null == unselected
+                ? _value._unselected
+                : unselected // ignore: cast_nullable_to_non_nullable
+                    as List<String>,
+      ),
+    );
+  }
 }
 
+/// @nodoc
 
+class _$SelectedValuesImpl implements _SelectedValues {
+  const _$SelectedValuesImpl({
+    final List<String> selected = const [],
+    final List<String> unselected = const [],
+  }) : _selected = selected,
+       _unselected = unselected;
+
+  final List<String> _selected;
+  @override
+  @JsonKey()
+  List<String> get selected {
+    if (_selected is EqualUnmodifiableListView) return _selected;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_selected);
+  }
+
+  final List<String> _unselected;
+  @override
+  @JsonKey()
+  List<String> get unselected {
+    if (_unselected is EqualUnmodifiableListView) return _unselected;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_unselected);
+  }
+
+  @override
+  String toString() {
+    return 'SelectedValues(selected: $selected, unselected: $unselected)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SelectedValuesImpl &&
+            const DeepCollectionEquality().equals(other._selected, _selected) &&
+            const DeepCollectionEquality().equals(
+              other._unselected,
+              _unselected,
+            ));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    runtimeType,
+    const DeepCollectionEquality().hash(_selected),
+    const DeepCollectionEquality().hash(_unselected),
+  );
+
+  /// Create a copy of SelectedValues
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SelectedValuesImplCopyWith<_$SelectedValuesImpl> get copyWith =>
+      __$$SelectedValuesImplCopyWithImpl<_$SelectedValuesImpl>(
+        this,
+        _$identity,
+      );
 }
 
-// dart format on
+abstract class _SelectedValues implements SelectedValues {
+  const factory _SelectedValues({
+    final List<String> selected,
+    final List<String> unselected,
+  }) = _$SelectedValuesImpl;
+
+  @override
+  List<String> get selected;
+  @override
+  List<String> get unselected;
+
+  /// Create a copy of SelectedValues
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$SelectedValuesImplCopyWith<_$SelectedValuesImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}

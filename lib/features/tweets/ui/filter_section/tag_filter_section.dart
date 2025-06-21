@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../../l10n/app_localizations.dart';
 import '../../../../providers/tag_select_controller.dart';
 import '../../../../providers/tweet_controller.dart';
 import '../../../../providers/tweet_select_controller.dart';
 import '../../../../providers/repository_providers.dart';
+import '../../../../providers/tag_count_provider.dart';
 import '../../../../state/selected_values.dart';
 import '../../../../common/dialogs/add_tag_dialog.dart';
 import '../../../../common/dialogs/rename_tag_dialog.dart';
@@ -24,6 +25,7 @@ class TagFilterSection extends ConsumerWidget {
     final tagController = ref.read(tagSelectControllerProvider.notifier);
     final tweetController = ref.read(tweetControllerProvider.notifier);
     final selectionState = ref.watch(tweetSelectControllerProvider);
+    final tagCountAsync = ref.watch(tagCountProvider);
     final theme = Theme.of(context);
 
     return Column(
@@ -48,7 +50,7 @@ class TagFilterSection extends ConsumerWidget {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Text(
-                  l10n.countSelected(tagState.selected.length),
+                  l10n.selectedCount(tagState.selected.length),
                   style: theme.textTheme.labelSmall?.copyWith(
                     color: theme.colorScheme.onPrimaryContainer,
                   ),
@@ -68,6 +70,7 @@ class TagFilterSection extends ConsumerWidget {
                 tag: tag,
                 isSelected: isSelected,
                 isEditMode: selectionState.isEditMode,
+                count: tagCountAsync.valueOrNull?[tag],
                 onSelected:
                     selectionState.isEditMode
                         ? null

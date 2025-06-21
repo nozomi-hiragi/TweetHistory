@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../../../l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../../providers/tag_select_controller.dart';
@@ -43,7 +43,6 @@ class FilterSection extends ConsumerWidget {
           color: theme.colorScheme.outline.withValues(alpha: 0.2),
         ),
       ),
-      margin: const EdgeInsets.symmetric(horizontal: 16.0),
       padding: const EdgeInsets.all(16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

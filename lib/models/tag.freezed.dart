@@ -1,4 +1,3 @@
-// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -10,148 +9,178 @@ part of 'tag.dart';
 // FreezedGenerator
 // **************************************************************************
 
-// dart format off
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
+
+Tag _$TagFromJson(Map<String, dynamic> json) {
+  return _Tag.fromJson(json);
+}
 
 /// @nodoc
 mixin _$Tag {
-
- String get name; Set<String> get tweetIds;
-/// Create a copy of Tag
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$TagCopyWith<Tag> get copyWith => _$TagCopyWithImpl<Tag>(this as Tag, _$identity);
+  String get name => throw _privateConstructorUsedError;
+  Set<String> get tweetIds => throw _privateConstructorUsedError;
 
   /// Serializes this Tag to a JSON map.
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Tag&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.tweetIds, tweetIds));
-}
-
-@JsonKey(includeFromJson: false, includeToJson: false)
-@override
-int get hashCode => Object.hash(runtimeType,name,const DeepCollectionEquality().hash(tweetIds));
-
-@override
-String toString() {
-  return 'Tag(name: $name, tweetIds: $tweetIds)';
-}
-
-
+  /// Create a copy of Tag
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $TagCopyWith<Tag> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract mixin class $TagCopyWith<$Res>  {
-  factory $TagCopyWith(Tag value, $Res Function(Tag) _then) = _$TagCopyWithImpl;
-@useResult
-$Res call({
- String name, Set<String> tweetIds
-});
-
-
-
-
+abstract class $TagCopyWith<$Res> {
+  factory $TagCopyWith(Tag value, $Res Function(Tag) then) =
+      _$TagCopyWithImpl<$Res, Tag>;
+  @useResult
+  $Res call({String name, Set<String> tweetIds});
 }
+
 /// @nodoc
-class _$TagCopyWithImpl<$Res>
-    implements $TagCopyWith<$Res> {
-  _$TagCopyWithImpl(this._self, this._then);
+class _$TagCopyWithImpl<$Res, $Val extends Tag> implements $TagCopyWith<$Res> {
+  _$TagCopyWithImpl(this._value, this._then);
 
-  final Tag _self;
-  final $Res Function(Tag) _then;
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
-/// Create a copy of Tag
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? tweetIds = null,}) {
-  return _then(_self.copyWith(
-name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,tweetIds: null == tweetIds ? _self.tweetIds : tweetIds // ignore: cast_nullable_to_non_nullable
-as Set<String>,
-  ));
+  /// Create a copy of Tag
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? name = null, Object? tweetIds = null}) {
+    return _then(
+      _value.copyWith(
+            name:
+                null == name
+                    ? _value.name
+                    : name // ignore: cast_nullable_to_non_nullable
+                        as String,
+            tweetIds:
+                null == tweetIds
+                    ? _value.tweetIds
+                    : tweetIds // ignore: cast_nullable_to_non_nullable
+                        as Set<String>,
+          )
+          as $Val,
+    );
+  }
 }
 
+/// @nodoc
+abstract class _$$TagImplCopyWith<$Res> implements $TagCopyWith<$Res> {
+  factory _$$TagImplCopyWith(_$TagImpl value, $Res Function(_$TagImpl) then) =
+      __$$TagImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String name, Set<String> tweetIds});
 }
 
+/// @nodoc
+class __$$TagImplCopyWithImpl<$Res> extends _$TagCopyWithImpl<$Res, _$TagImpl>
+    implements _$$TagImplCopyWith<$Res> {
+  __$$TagImplCopyWithImpl(_$TagImpl _value, $Res Function(_$TagImpl) _then)
+    : super(_value, _then);
+
+  /// Create a copy of Tag
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? name = null, Object? tweetIds = null}) {
+    return _then(
+      _$TagImpl(
+        name:
+            null == name
+                ? _value.name
+                : name // ignore: cast_nullable_to_non_nullable
+                    as String,
+        tweetIds:
+            null == tweetIds
+                ? _value._tweetIds
+                : tweetIds // ignore: cast_nullable_to_non_nullable
+                    as Set<String>,
+      ),
+    );
+  }
+}
 
 /// @nodoc
 @JsonSerializable()
+class _$TagImpl implements _Tag {
+  const _$TagImpl({required this.name, final Set<String> tweetIds = const {}})
+    : _tweetIds = tweetIds;
 
-class _Tag implements Tag {
-  const _Tag({required this.name, final  Set<String> tweetIds = const {}}): _tweetIds = tweetIds;
-  factory _Tag.fromJson(Map<String, dynamic> json) => _$TagFromJson(json);
+  factory _$TagImpl.fromJson(Map<String, dynamic> json) =>
+      _$$TagImplFromJson(json);
 
-@override final  String name;
- final  Set<String> _tweetIds;
-@override@JsonKey() Set<String> get tweetIds {
-  if (_tweetIds is EqualUnmodifiableSetView) return _tweetIds;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableSetView(_tweetIds);
+  @override
+  final String name;
+  final Set<String> _tweetIds;
+  @override
+  @JsonKey()
+  Set<String> get tweetIds {
+    if (_tweetIds is EqualUnmodifiableSetView) return _tweetIds;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableSetView(_tweetIds);
+  }
+
+  @override
+  String toString() {
+    return 'Tag(name: $name, tweetIds: $tweetIds)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$TagImpl &&
+            (identical(other.name, name) || other.name == name) &&
+            const DeepCollectionEquality().equals(other._tweetIds, _tweetIds));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+    runtimeType,
+    name,
+    const DeepCollectionEquality().hash(_tweetIds),
+  );
+
+  /// Create a copy of Tag
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$TagImplCopyWith<_$TagImpl> get copyWith =>
+      __$$TagImplCopyWithImpl<_$TagImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$TagImplToJson(this);
+  }
 }
 
+abstract class _Tag implements Tag {
+  const factory _Tag({required final String name, final Set<String> tweetIds}) =
+      _$TagImpl;
 
-/// Create a copy of Tag
-/// with the given fields replaced by the non-null parameter values.
-@override @JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-_$TagCopyWith<_Tag> get copyWith => __$TagCopyWithImpl<_Tag>(this, _$identity);
+  factory _Tag.fromJson(Map<String, dynamic> json) = _$TagImpl.fromJson;
 
-@override
-Map<String, dynamic> toJson() {
-  return _$TagToJson(this, );
+  @override
+  String get name;
+  @override
+  Set<String> get tweetIds;
+
+  /// Create a copy of Tag
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$TagImplCopyWith<_$TagImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Tag&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other._tweetIds, _tweetIds));
-}
-
-@JsonKey(includeFromJson: false, includeToJson: false)
-@override
-int get hashCode => Object.hash(runtimeType,name,const DeepCollectionEquality().hash(_tweetIds));
-
-@override
-String toString() {
-  return 'Tag(name: $name, tweetIds: $tweetIds)';
-}
-
-
-}
-
-/// @nodoc
-abstract mixin class _$TagCopyWith<$Res> implements $TagCopyWith<$Res> {
-  factory _$TagCopyWith(_Tag value, $Res Function(_Tag) _then) = __$TagCopyWithImpl;
-@override @useResult
-$Res call({
- String name, Set<String> tweetIds
-});
-
-
-
-
-}
-/// @nodoc
-class __$TagCopyWithImpl<$Res>
-    implements _$TagCopyWith<$Res> {
-  __$TagCopyWithImpl(this._self, this._then);
-
-  final _Tag _self;
-  final $Res Function(_Tag) _then;
-
-/// Create a copy of Tag
-/// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? tweetIds = null,}) {
-  return _then(_Tag(
-name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,tweetIds: null == tweetIds ? _self._tweetIds : tweetIds // ignore: cast_nullable_to_non_nullable
-as Set<String>,
-  ));
-}
-
-
-}
-
-// dart format on

@@ -1,8 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../l10n/app_localizations.dart';
 import '../providers/search_query_provider.dart';
 import '../providers/sort_order_provider.dart';
 import '../providers/tweet_controller.dart';
@@ -16,6 +18,7 @@ class MySearchBar extends HookConsumerWidget {
     final order = ref.watch(sortOrderProvider);
     final searchQuery = ref.watch(searchQueryProvider);
     final controller = useTextEditingController(text: searchQuery);
+    Timer? debounce;
 
     // プロバイダーの状態変更をコントローラーに反映
     useEffect(() {
@@ -32,7 +35,12 @@ class MySearchBar extends HookConsumerWidget {
           Expanded(
             child: TextField(
               controller: controller,
-              onChanged: ref.read(searchQueryProvider.notifier).set,
+              onChanged: (value) {
+                if (debounce?.isActive ?? false) debounce?.cancel();
+                debounce = Timer(Duration(milliseconds: 500), () {
+                  ref.read(searchQueryProvider.notifier).set(value);
+                });
+              },
               decoration: InputDecoration(
                 hintText: l10n.search,
                 prefixIcon: Icon(Icons.search),

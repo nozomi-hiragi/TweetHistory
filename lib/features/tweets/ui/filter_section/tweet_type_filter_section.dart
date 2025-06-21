@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../../l10n/app_localizations.dart';
 import '../../../../providers/tweet_type_filter_provider.dart';
 import '../../../../providers/tweet_controller.dart';
 
@@ -41,9 +41,10 @@ class TweetTypeFilterSection extends ConsumerWidget {
               avatar: Icon(
                 Icons.reply,
                 size: 16,
-                color: typeState.showReplies 
-                    ? theme.colorScheme.onPrimary 
-                    : theme.colorScheme.primary,
+                color:
+                    typeState.showReplies
+                        ? theme.colorScheme.onPrimary
+                        : theme.colorScheme.primary,
               ),
             ),
             FilterChip(
@@ -56,9 +57,10 @@ class TweetTypeFilterSection extends ConsumerWidget {
               avatar: Icon(
                 Icons.repeat,
                 size: 16,
-                color: typeState.showRetweets 
-                    ? theme.colorScheme.onPrimary 
-                    : theme.colorScheme.tertiary,
+                color:
+                    typeState.showRetweets
+                        ? theme.colorScheme.onPrimary
+                        : theme.colorScheme.tertiary,
               ),
             ),
             FilterChip(
@@ -71,9 +73,10 @@ class TweetTypeFilterSection extends ConsumerWidget {
               avatar: Icon(
                 Icons.chat_bubble_outline,
                 size: 16,
-                color: typeState.showRegular 
-                    ? theme.colorScheme.onPrimary 
-                    : theme.colorScheme.onSurfaceVariant,
+                color:
+                    typeState.showRegular
+                        ? theme.colorScheme.onPrimary
+                        : theme.colorScheme.onSurfaceVariant,
               ),
             ),
           ],

@@ -12,6 +12,10 @@ import 'tweet_type_filter_provider.dart';
 class TweetController extends Notifier<TweetState> {
   @override
   TweetState build() {
+    ref.listen(tagSelectControllerProvider, (_, __) {
+      refresh();
+    });
+
     refresh();
     return TweetState(tweets: []);
   }
