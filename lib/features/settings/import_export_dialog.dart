@@ -39,6 +39,25 @@ class ImportExportDialog extends ConsumerWidget {
       final bytes = result.files.single.bytes;
       if (bytes == null) return;
 
+      // Show loading dialog
+      if (context.mounted) {
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder:
+              (context) => AlertDialog(
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const CircularProgressIndicator(),
+                    const SizedBox(height: 16),
+                    Text(l10n.loading),
+                  ],
+                ),
+              ),
+        );
+      }
+
       final jsonStr = utf8.decode(bytes);
       final data = jsonDecode(jsonStr) as Map<String, dynamic>;
       final repo = await ref.read(dataTransferControllerProvider.future);
@@ -46,14 +65,16 @@ class ImportExportDialog extends ConsumerWidget {
       ref.read(tweetControllerProvider.notifier).refresh();
 
       if (context.mounted) {
-        Navigator.of(context).pop();
+        Navigator.of(context).pop(); // Close loading dialog
+        Navigator.of(context).pop(); // Close import dialog
         ScaffoldMessenger.of(
           context,
         ).showSnackBar(SnackBar(content: Text(l10n.importSuccess)));
       }
     } catch (e) {
       if (context.mounted) {
-        Navigator.of(context).pop();
+        Navigator.of(context).pop(); // Close loading dialog
+        Navigator.of(context).pop(); // Close import dialog
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(l10n.importFailed(e.toString())),
