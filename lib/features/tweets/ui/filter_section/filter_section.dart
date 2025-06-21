@@ -43,7 +43,6 @@ class FilterSection extends ConsumerWidget {
           color: theme.colorScheme.outline.withValues(alpha: 0.2),
         ),
       ),
-      margin: const EdgeInsets.symmetric(horizontal: 16.0),
       padding: const EdgeInsets.all(16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
