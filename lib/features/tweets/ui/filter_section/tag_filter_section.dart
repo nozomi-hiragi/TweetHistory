@@ -6,6 +6,7 @@ import '../../../../providers/tag_select_controller.dart';
 import '../../../../providers/tweet_controller.dart';
 import '../../../../providers/tweet_select_controller.dart';
 import '../../../../providers/repository_providers.dart';
+import '../../../../providers/tag_count_provider.dart';
 import '../../../../state/selected_values.dart';
 import '../../../../common/dialogs/add_tag_dialog.dart';
 import '../../../../common/dialogs/rename_tag_dialog.dart';
@@ -24,6 +25,7 @@ class TagFilterSection extends ConsumerWidget {
     final tagController = ref.read(tagSelectControllerProvider.notifier);
     final tweetController = ref.read(tweetControllerProvider.notifier);
     final selectionState = ref.watch(tweetSelectControllerProvider);
+    final tagCountAsync = ref.watch(tagCountProvider);
     final theme = Theme.of(context);
 
     return Column(
@@ -68,6 +70,7 @@ class TagFilterSection extends ConsumerWidget {
                 tag: tag,
                 isSelected: isSelected,
                 isEditMode: selectionState.isEditMode,
+                count: tagCountAsync.valueOrNull?[tag],
                 onSelected:
                     selectionState.isEditMode
                         ? null
