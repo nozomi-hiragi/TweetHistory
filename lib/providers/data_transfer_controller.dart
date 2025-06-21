@@ -23,7 +23,7 @@ class DataTransferController {
     final [
       tweets as List<Tweet>,
       tags as List<Tag>,
-      deleted as List<Set<String>>,
+      deleted as Set<String>,
     ] = await Future.wait([
       tweetRepository.loadAllTweets(),
       tweetRepository.loadAllTags(),
