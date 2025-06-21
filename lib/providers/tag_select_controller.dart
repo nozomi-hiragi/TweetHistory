@@ -10,7 +10,7 @@ class TagSelectController extends Notifier<SelectedValues> {
     return SelectedValues(selected: [], unselected: []);
   }
 
-  void _loadTagsAndPreferences() async {
+  Future<void> _loadTagsAndPreferences() async {
     try {
       final repo = await ref.read(tweetRepositoryProvider.future);
       final tags = await repo.loadTags();
@@ -84,8 +84,8 @@ class TagSelectController extends Notifier<SelectedValues> {
     }
   }
 
-  void refresh() {
-    _loadTagsAndPreferences();
+  Future<void> refresh() async {
+    await _loadTagsAndPreferences();
   }
 }
 
