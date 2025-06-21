@@ -32,6 +32,7 @@ dependencies:
   url_launcher: ^6.2.5
   langchain_ollama: ^0.3.3
   langchain: ^0.7.8
+  flutter_svg: ^2.0.10+1
 
 dev_dependencies:
   flutter_test:
@@ -47,3 +48,6 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   generate: true # 国際化対応
+  
+  assets:
+    - assets/icons/

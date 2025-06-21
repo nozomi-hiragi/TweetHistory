@@ -41,6 +41,7 @@ UI Widget → ref.watch(provider) → Controller → Repository → Storage Laye
 - **State Management**: `hooks_riverpod` + `flutter_hooks`
 - **Code Generation**: `freezed` + `json_serializable` + `build_runner`
 - **Storage**: `idb_shim` (IndexedDB), `shared_preferences`
+- **LLM Integration**: `langchain` + `langchain_ollama` for AI-powered tweet rating
 - **Testing**: `ProviderContainer` overrides, `idbFactoryMemory`
 
 ## Version Management
@@ -84,81 +85,51 @@ Text(l10n.version)
 
 Files: `lib/l10n/app_ja.arb` (primary), `lib/l10n/app_en.arb`
 
+Generate localization: `flutter gen-l10n`
+
+## LLM Tweet Rating System
+
+### Overview
+AI-powered tweet evaluation system using Ollama LLM for content risk assessment and automatic tagging.
+
+**Platform Support**: Desktop-only feature (hidden on web builds via `!kIsWeb` condition).
+
+### Key Components
+- **Rating Function**: `lib/utils/llm_rating.dart` - Core LLM interaction
+- **Dialogs**: `lib/common/dialogs/llm_rating_*.dart` - User interface components
+- **Integration**: App bar button triggers evaluation of filtered tweets
+
+### Implementation Features
+- **Initialization Optimization**: Dummy request ("1+1=") prevents first-request delays
+- **Progress Tracking**: Real-time progress with moving average time estimation
+- **Filter Awareness**: Evaluates only currently visible/filtered tweets
+- **Multilingual Support**: Tag names and UI adapt to language settings
+- **Risk Categories**: Automatic tagging based on 0-10 risk scores:
+  - 8-10: High Risk (Delete Recommended)
+  - 5-7: Medium Risk (Delete Recommended)
+  - 3-4: Low Risk (Delete Recommended)
+  - 0-2: Keep Recommended
+
+### Architecture Patterns
+- **Dialog Separation**: Confirmation and progress dialogs in separate files
+- **StatefulWidget → HookWidget**: Consistent with codebase patterns
+- **Parameterized Localization**: Tag names passed from l10n context to avoid async access issues
+
 ## Development Notes
 - Run `dart run build_runner build` after Freezed model changes
 - IndexedDB data persists in browser dev tools
+- Use `flutter gen-l10n` after ARB file changes
 
-## Design Philosophy Notes
+## Design Philosophy
 
-### Tag Edit Mode Implementation (December 2024)
+**Core Principles:**
+1. **Simplicity over Complexity**: Prefer existing Flutter components over custom implementations
+2. **Component Extraction**: Create reusable widgets in separate files rather than private methods
+3. **Behavioral Polymorphism**: Same UI elements behave differently based on context
+4. **Essential Error Handling**: Focus on critical cases, avoid verbose try-catch blocks
 
-**Claude's Initial Approach vs User's Preferred Implementation:**
-
-**Claude's Design:**
-- Complex TagChip with multiple UI modes (`_buildEditModeChip` vs `_buildNormalChip`)
-- Popup menus and bottom sheets for tag editing
-- Separate visual styling for edit mode
-- More elaborate interaction patterns
-
-**User's Preferred Design:**
-- Simple, unified TagChip using existing FilterChip component
-- Elegant reuse of existing `onSelected` and `onDeleted` callbacks
-- `onSelected` behavior changes contextually based on `isEditMode`
-- `onDeleted` only appears in edit mode
-- Clean, minimal code with maximum reuse
-
-**Key Insights:**
-1. **Simplicity over Complexity**: User prefers leveraging existing Flutter components rather than building custom UI
-2. **Behavioral Polymorphism**: Same UI element (FilterChip) behaves differently based on context rather than having separate implementations
-3. **Code Reuse**: Maximizing use of existing patterns and callbacks rather than introducing new interaction paradigms
-4. **UI Consistency**: Maintaining visual consistency by reusing the same component with different behaviors
-
-**Technical Implementation:**
-```dart
-// User's elegant approach:
-onSelected: (v) => isEditMode ? onRename?.call() : onSelected?.call(v),
-onDeleted: isEditMode ? onDelete : null,
-
-// vs Claude's complex approach with separate widgets and popup menus
-```
-
-**Backward Compatibility Notes:**
-- User removed the legacy `isSelectionMode` getter, simplifying the state model
-- Removed legacy `toggle()` method, keeping only `toggleEditMode()`
-- Cleaner state management without backward compatibility cruft
-
-This demonstrates the principle of "simple solutions are often better solutions" and the value of understanding existing Flutter patterns before building custom ones.
-
-### Tweet Detail Tag Integration Implementation (January 2025)
-
-**Claude's Initial Approach vs User's Preferred Implementation:**
-
-**Claude's Design:**
-- Complex helper function `_getTagStatusForTweet()` separated from usage
-- Inline `_buildTagChip()` method within dialog class
-- Verbose try-catch blocks with detailed error handling
-- Multiple levels of nesting and function separation
-
-**User's Preferred Design:**
-- Direct tag status logic inline where needed
-- Extracted `TagStateChip` as standalone reusable widget
-- Streamlined error handling focused on essential cases
-- Cleaner separation: UI components as separate files, logic inline
-
-**Key Insights:**
-1. **Component Extraction over Method Inlining**: User prefers creating reusable widgets in separate files rather than private methods within classes
-2. **Logic Positioning**: Simple logic should be inline where used, complex reusable UI should be extracted
-3. **Code Organization**: Separate files for reusable components vs helper methods within classes
-4. **Error Handling**: Focus on essential error cases rather than comprehensive try-catch blocks
-
-**Technical Implementation:**
-```dart
-// User's approach: Reusable component
-// lib/common/tag_state_chip.dart
-class TagStateChip extends StatelessWidget { ... }
-
-// Claude's approach: Private method
-Widget _buildTagChip(BuildContext context, String tag) { ... }
-```
-
-This demonstrates preference for widget extraction over method extraction, and inline logic over helper functions when the logic is straightforward.
+**Key Patterns:**
+- Reuse existing callbacks (`onSelected`, `onDeleted`) with contextual behavior
+- Extract reusable UI components (e.g., `TagStateChip`) to separate files
+- Keep simple logic inline, extract complex reusable UI
+- Maintain visual consistency while varying behavior

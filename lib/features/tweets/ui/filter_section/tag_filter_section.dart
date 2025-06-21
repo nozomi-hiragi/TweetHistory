@@ -48,7 +48,7 @@ class TagFilterSection extends ConsumerWidget {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Text(
-                  l10n.countSelected(tagState.selected.length),
+                  l10n.selectedCount(tagState.selected.length),
                   style: theme.textTheme.labelSmall?.copyWith(
                     color: theme.colorScheme.onPrimaryContainer,
                   ),

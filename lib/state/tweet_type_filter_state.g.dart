@@ -6,16 +6,16 @@ part of 'tweet_type_filter_state.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_TweetTypeFilterState _$TweetTypeFilterStateFromJson(
+_$TweetTypeFilterStateImpl _$$TweetTypeFilterStateImplFromJson(
   Map<String, dynamic> json,
-) => _TweetTypeFilterState(
+) => _$TweetTypeFilterStateImpl(
   showReplies: json['showReplies'] as bool? ?? false,
   showRetweets: json['showRetweets'] as bool? ?? false,
   showRegular: json['showRegular'] as bool? ?? false,
 );
 
-Map<String, dynamic> _$TweetTypeFilterStateToJson(
-  _TweetTypeFilterState instance,
+Map<String, dynamic> _$$TweetTypeFilterStateImplToJson(
+  _$TweetTypeFilterStateImpl instance,
 ) => <String, dynamic>{
   'showReplies': instance.showReplies,
   'showRetweets': instance.showRetweets,

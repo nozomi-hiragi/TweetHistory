@@ -1,0 +1,24 @@
+<svg width="140" height="140" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+  <path
+    d="
+      M70,15
+      Q63,45 30,70
+      Q63,95 70,125
+      Q77,95 110,70
+      Q77,45 70,15
+      Z
+    "
+    fill="currentColor"
+  />
+  <path
+    d="
+      M105,90
+      Q101,104 90,110
+      Q101,116 105,130
+      Q109,116 120,110
+      Q109,104 105,90
+      Z
+    "
+    fill="currentColor"
+  />
+</svg>

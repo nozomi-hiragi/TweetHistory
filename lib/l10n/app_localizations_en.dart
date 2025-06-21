@@ -9,6 +9,9 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get cancel => 'Cancel';
+
+  @override
   String get navTweets => 'Tweets';
 
   @override
@@ -18,18 +21,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get navSettings => 'Settings';
 
   @override
-  String get searchTweets => 'Search Tweets';
-
-  @override
   String selectedCount(int count) {
     return '$count selected';
   }
 
   @override
-  String get addTag => 'Add Tag';
+  String get close => 'Close';
 
   @override
-  String get restoreFromBin => 'Restore from Bin';
+  String get delete => 'Delete';
+
+  @override
+  String get save => 'Save';
 
   @override
   String get apply => 'Apply';
@@ -38,7 +41,99 @@ class AppLocalizationsEn extends AppLocalizations {
   String get clear => 'Clear';
 
   @override
+  String get search => 'Search';
+
+  @override
+  String get filter => 'Filter';
+
+  @override
+  String get add => 'Add';
+
+  @override
+  String get confirm => 'Confirm';
+
+  @override
+  String get done => 'Done';
+
+  @override
+  String get addTag => 'Add Tag';
+
+  @override
+  String get selectTags => 'Select Tags';
+
+  @override
+  String get tagNamePlaceholder => 'Enter tag name';
+
+  @override
+  String get upload => 'Upload';
+
+  @override
+  String get error => 'Error';
+
+  @override
+  String get loading => 'Loading...';
+
+  @override
+  String get searchTweets => 'Search Tweets';
+
+  @override
+  String get restoreFromBin => 'Restore from Bin';
+
+  @override
   String get invalidTagName => 'Invalid tag name';
+
+  @override
+  String get addNewTag => 'Add New Tag';
+
+  @override
+  String get tweetDetails => 'Tweet Details';
+
+  @override
+  String get tweetId => 'Tweet ID';
+
+  @override
+  String get postedAt => 'Posted At';
+
+  @override
+  String get retweetCount => 'Retweets';
+
+  @override
+  String get favoriteCount => 'Likes';
+
+  @override
+  String get sortNewestFirst => 'Newest first';
+
+  @override
+  String get sortOldestFirst => 'Oldest first';
+
+  @override
+  String get applyTag => 'Apply tags';
+
+  @override
+  String copiedToClipboard(String item) {
+    return 'Copied $item to clipboard';
+  }
+
+  @override
+  String get mediaUrlCopied => 'Media URL copied to clipboard';
+
+  @override
+  String get type => 'Type';
+
+  @override
+  String get openInBrowser => 'Open in browser';
+
+  @override
+  String get media => 'Media';
+
+  @override
+  String get chooseAction => 'Choose an action';
+
+  @override
+  String get dataCopiedToClipboard => 'Data copied to clipboard';
+
+  @override
+  String get uploadTweetsFile => 'Upload tweets.js';
 
   @override
   String get settingsTitle => 'Settings';
@@ -68,79 +163,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get themeSystem => 'System';
 
   @override
-  String get importExport => 'Import & Export';
+  String get version => 'Version';
 
   @override
-  String get importData => 'Import Data';
+  String get license => 'License';
 
   @override
-  String get exportData => 'Export Data';
-
-  @override
-  String get importSuccess => 'Import completed successfully';
-
-  @override
-  String get exportSuccess => 'Export completed successfully';
+  String get userId => 'User ID';
 
   @override
   String get userIdPlaceholder => 'user_id';
-
-  @override
-  String get confirm => 'Confirm';
-
-  @override
-  String get cancel => 'Cancel';
-
-  @override
-  String get selectTags => 'Select Tags';
-
-  @override
-  String get addNewTag => 'Add New Tag';
-
-  @override
-  String get tagNamePlaceholder => 'Enter tag name';
-
-  @override
-  String get save => 'Save';
-
-  @override
-  String get tweetDetails => 'Tweet Details';
-
-  @override
-  String get tweetId => 'Tweet ID';
-
-  @override
-  String get postedAt => 'Posted At';
-
-  @override
-  String get retweetCount => 'Retweets';
-
-  @override
-  String get favoriteCount => 'Likes';
-
-  @override
-  String get close => 'Close';
-
-  @override
-  String get error => 'Error';
-
-  @override
-  String get loading => 'Loading...';
-
-  @override
-  String get done => 'Done';
-
-  @override
-  String get search => 'Search';
-
-  @override
-  String get filter => 'Filter';
-
-  @override
-  String get delete => 'Delete';
-
-  @override
-  String get add => 'Add';
 
   @override
   String get userIdSetting => 'User ID setting';
@@ -160,19 +192,54 @@ class AppLocalizationsEn extends AppLocalizations {
   String get userIdSet => 'User ID set';
 
   @override
-  String get tweetsDeletedSuccess => 'Selected tweets deleted.';
-
-  @override
-  String get tweetsDeletedError => 'Failed to delete tweets.';
-
-  @override
-  String get tweetsRestoredSuccess => 'Selected tweets restored.';
-
-  @override
-  String get tweetsRestoredError => 'Failed to restore tweets.';
-
-  @override
   String get notSet => 'Not set';
+
+  @override
+  String get importExport => 'Import & Export';
+
+  @override
+  String get importData => 'Import Data';
+
+  @override
+  String get exportData => 'Export Data';
+
+  @override
+  String get editMode => 'Edit Mode';
+
+  @override
+  String get exitEditMode => 'Exit Edit Mode';
+
+  @override
+  String get renameTag => 'Rename Tag';
+
+  @override
+  String get renameTagTitle => 'Rename Tag';
+
+  @override
+  String get newTagName => 'New tag name';
+
+  @override
+  String get confirmDeleteTag => 'Delete this tag?';
+
+  @override
+  String get deleteTagTitle => 'Delete Tag Confirmation';
+
+  @override
+  String deleteTagWarning(String tagName) {
+    return 'This tag \"$tagName\" will be deleted.\\nTweets will remain even after the tag is deleted.';
+  }
+
+  @override
+  String get cannotDeleteSystemTag => 'System tags cannot be deleted';
+
+  @override
+  String get confirmDeleteTweet => 'Delete this tweet?';
+
+  @override
+  String get deleteThisTweet => 'Delete this tweet';
+
+  @override
+  String get deleteTweetWarning => 'This tweet will be deleted.';
 
   @override
   String get period => 'Period';
@@ -184,6 +251,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get until => 'Until: ';
 
   @override
+  String get periodStart => 'start';
+
+  @override
+  String get periodEnd => 'end';
+
+  @override
   String get selectStartDate => 'Select start date';
 
   @override
@@ -191,14 +264,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get tagsLabel => 'Tags';
-
-  @override
-  String countSelected(int count) {
-    return '$count selected';
-  }
-
-  @override
-  String get userId => 'User ID';
 
   @override
   String get preparingFile => 'Preparing file...';
@@ -222,123 +287,6 @@ class AppLocalizationsEn extends AppLocalizations {
       '⚠ Warning: This app runs in a browser, so very large files (e.g. 100MB+) may not load properly.';
 
   @override
-  String get upload => 'Upload';
-
-  @override
-  String get tagApplySuccess => 'Tags applied successfully.';
-
-  @override
-  String tagApplyError(String tags) {
-    return 'Failed to apply tags: $tags';
-  }
-
-  @override
-  String get applyTag => 'Apply tags';
-
-  @override
-  String copiedToClipboard(String item) {
-    return 'Copied $item to clipboard';
-  }
-
-  @override
-  String get mediaUrlCopied => 'Media URL copied to clipboard';
-
-  @override
-  String get type => 'Type';
-
-  @override
-  String get openInBrowser => 'Open in browser';
-
-  @override
-  String get media => 'Media';
-
-  @override
-  String get chooseAction => 'Choose an action';
-
-  @override
-  String get dataCopiedToClipboard => 'Data copied to clipboard';
-
-  @override
-  String importFailed(String error) {
-    return 'Import failed: $error';
-  }
-
-  @override
-  String get uploadTweetsFile => 'Upload tweets.js';
-
-  @override
-  String get sortNewestFirst => 'Newest first';
-
-  @override
-  String get sortOldestFirst => 'Oldest first';
-
-  @override
-  String get moveToBinSuccess => 'Selected tweets moved to bin.';
-
-  @override
-  String get moveToBinError => 'Failed to move to bin.';
-
-  @override
-  String get confirmDeleteTweet => 'Delete this tweet?';
-
-  @override
-  String get deleteThisTweet => 'Delete this tweet';
-
-  @override
-  String get deleteTweetWarning => 'This tweet will be deleted.';
-
-  @override
-  String get version => 'Version';
-
-  @override
-  String get license => 'License';
-
-  @override
-  String get renameTag => 'Rename Tag';
-
-  @override
-  String get renameTagTitle => 'Rename Tag';
-
-  @override
-  String get newTagName => 'New tag name';
-
-  @override
-  String get confirmDeleteTag => 'Delete this tag?';
-
-  @override
-  String get deleteTagTitle => 'Delete Tag Confirmation';
-
-  @override
-  String deleteTagWarning(String tagName) {
-    return 'This tag \"$tagName\" will be deleted.\nTweets will remain even after the tag is deleted.';
-  }
-
-  @override
-  String get cannotDeleteSystemTag => 'System tags cannot be deleted';
-
-  @override
-  String tagRenamedSuccess(String newName) {
-    return 'Tag renamed to \"$newName\"';
-  }
-
-  @override
-  String tagDeletedSuccess(String tagName) {
-    return 'Tag \"$tagName\" deleted';
-  }
-
-  @override
-  String get tagRenameError => 'Failed to rename tag';
-
-  @override
-  String get tagDeleteError => 'Failed to delete tag';
-
-  @override
-  String get editMode => 'Edit Mode';
-
-  @override
-  String get exitEditMode => 'Exit Edit Mode';
-
-  @override
   String get reply => 'Reply';
 
   @override
@@ -352,4 +300,151 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get regularTweet => 'Regular Tweet';
+
+  @override
+  String get tweetTypeRegular => 'Regular';
+
+  @override
+  String get tweetTypeReply => 'Reply';
+
+  @override
+  String get tweetTypeRetweet => 'Retweet';
+
+  @override
+  String get appliedFilters => 'Applied Filters:';
+
+  @override
+  String get noFilters => 'No filters';
+
+  @override
+  String filterSearch(String query) {
+    return 'Search: \"$query\"';
+  }
+
+  @override
+  String filterTags(String tags) {
+    return 'Tags: $tags';
+  }
+
+  @override
+  String filterPeriod(String since, String until) {
+    return 'Period: $since 〜 $until';
+  }
+
+  @override
+  String filterTypes(String types) {
+    return 'Types: $types';
+  }
+
+  @override
+  String get llmRating => 'LLM Rating';
+
+  @override
+  String get llmRatingStart => 'Start LLM Rating';
+
+  @override
+  String get llmRatingInProgress => 'LLM Rating in Progress';
+
+  @override
+  String get llmInitializing => 'Initializing';
+
+  @override
+  String get llmWaiting => 'Waiting for LLM...';
+
+  @override
+  String get llmRatingComplete => 'LLM rating completed';
+
+  @override
+  String llmRatingError(String error) {
+    return 'Error occurred: $error';
+  }
+
+  @override
+  String get noTweetsToRate => 'No tweets to rate';
+
+  @override
+  String get ratingTagHighRisk => 'Delete Recommended (High Risk)';
+
+  @override
+  String get ratingTagMediumRisk => 'Delete Recommended (Medium Risk)';
+
+  @override
+  String get ratingTagLowRisk => 'Delete Recommended (Low Risk)';
+
+  @override
+  String get ratingTagKeep => 'Keep Recommended';
+
+  @override
+  String remainingTimeMinutes(int minutes, int seconds) {
+    return 'About ${minutes}m ${seconds}s remaining';
+  }
+
+  @override
+  String remainingTimeSeconds(int seconds) {
+    return 'About ${seconds}s remaining';
+  }
+
+  @override
+  String tweetsWillBeRated(int count) {
+    return '$count tweets will be rated by LLM.';
+  }
+
+  @override
+  String get processingWillTakeTime => 'Processing will take time. Continue?';
+
+  @override
+  String get start => 'Start';
+
+  @override
+  String get tweetsDeletedError => 'Failed to delete tweets.';
+
+  @override
+  String get tweetsRestoredError => 'Failed to restore tweets.';
+
+  @override
+  String get moveToBinError => 'Failed to move to bin.';
+
+  @override
+  String tagApplyError(String tags) {
+    return 'Failed to apply tags: $tags';
+  }
+
+  @override
+  String get tagRenameError => 'Failed to rename tag';
+
+  @override
+  String get tagDeleteError => 'Failed to delete tag';
+
+  @override
+  String importFailed(String error) {
+    return 'Import failed: $error';
+  }
+
+  @override
+  String get tweetsDeletedSuccess => 'Selected tweets deleted.';
+
+  @override
+  String get tweetsRestoredSuccess => 'Selected tweets restored.';
+
+  @override
+  String get moveToBinSuccess => 'Selected tweets moved to bin.';
+
+  @override
+  String get tagApplySuccess => 'Tags applied successfully.';
+
+  @override
+  String tagRenamedSuccess(String newName) {
+    return 'Tag renamed to \"$newName\"';
+  }
+
+  @override
+  String tagDeletedSuccess(String tagName) {
+    return 'Tag \"$tagName\" deleted';
+  }
+
+  @override
+  String get importSuccess => 'Import completed successfully';
+
+  @override
+  String get exportSuccess => 'Export completed successfully';
 }
