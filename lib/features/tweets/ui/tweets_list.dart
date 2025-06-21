@@ -7,6 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../providers/tweet_controller.dart';
 import '../../../providers/search_query_provider.dart';
 import '../../../common/tweet_tile.dart';
+import '../../../utils/search_utils.dart';
 
 const pageNum = 20;
 
@@ -18,11 +19,12 @@ class TweetsList extends HookConsumerWidget {
     final showItemNum = useState(pageNum);
     final tweetState = ref.watch(tweetControllerProvider);
     final query = ref.watch(searchQueryProvider);
-    final tweets = query.isEmpty
-        ? tweetState.tweets
-        : tweetState.tweets
-              .where((t) => t.text.toLowerCase().contains(query.toLowerCase()))
-              .toList();
+    final tweets =
+        query.isEmpty
+            ? tweetState.tweets
+            : tweetState.tweets
+                .where((t) => QueryParser.parse(query).match(t.text))
+                .toList();
 
     final controller = useScrollController();
 
